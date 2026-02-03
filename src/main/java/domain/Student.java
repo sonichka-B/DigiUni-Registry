@@ -28,8 +28,20 @@ public class Student extends Person{
     public int getCourse() {
         return course;
     }
+    public void setCourse(int course) {
+        if(course < 1 || course > 6) {
+            throw new IllegalArgumentException("Course must be between 1 and 6");
+        }
+        this.course = course;
+    }
     public int getGroup() {
         return group;
+    }
+    public void setGroup(int group) {
+        if(group<1 || group>6) {
+            throw new IllegalArgumentException("Group must be between 1 and 6");
+        }
+        this.group = group;
     }
     public int getYearOfAdmission() {
         return yearOfAdmission;
@@ -39,6 +51,12 @@ public class Student extends Person{
     }
     public String getStatus() {
         return status;
+    }
+    public void setStatus(String status) {
+        if(!status.equals("навчається") && !status.equals("академвідпустка") && !status.equals("відрахований")) {
+            throw new IllegalArgumentException("Status must be 'навчається', 'академвідпустка' or 'відрахований'");
+        }
+        this.status = status;
     }
 
     @Override
