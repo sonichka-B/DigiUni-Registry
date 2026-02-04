@@ -21,6 +21,6 @@ public class Main {
         StudentMenu studentMenu = new StudentMenu();
         TeacherMenu teacherMenu = new TeacherMenu();
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu);
-        mainMenu.showMainMenu();
+        mainMenu.showMenu();
     }
 }
