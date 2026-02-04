@@ -19,7 +19,7 @@ public class TeacherMenu extends BaseMenu {
         System.out.println("4. Видалити викладача з кафедри");
         System.out.println("0. Повернутися назад");
     }
-
+//доробити
     @Override
     protected int getMaxOption() {
         return 4;

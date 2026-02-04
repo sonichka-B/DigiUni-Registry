@@ -7,6 +7,7 @@ import service.StudentService;
 import service.TeacherService;
 
 public class Main {
+    //доробити
     public static void main(String[] args) {
         StudentService studentService = new StudentService();
         studentService.addStudent(new Student("1", "John", "Doe", "M", "2000-01-01",

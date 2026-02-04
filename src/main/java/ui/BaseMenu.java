@@ -1,5 +1,5 @@
 package ui;
-
+//готовий
 public abstract class BaseMenu {
     protected Validation validation=new Validation();
     protected abstract void printTitle();
