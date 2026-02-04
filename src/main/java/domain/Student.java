@@ -1,8 +1,6 @@
 package domain;
 
 public class Student extends Person{
-//     ідентифікатор студента/залікова, курс (1-6), група, рік вступу,
-//     форма навчання (бюджет/контракт), статус (навчається/академвідпустка/відрахований).
     private final String id;
     private int course;
     private int group;
@@ -10,7 +8,7 @@ public class Student extends Person{
     private final String formOfEducation;
     private String status;
 
-    public Student(String id, String firstName, String lastName, String middleName,
+    public Student(String id, String firstName, String middleName, String lastName,
                    String dateOfBirth, String email, String phoneNumber,
                    int course, int group, int yearOfAdmission,
                    String formOfEducation, String status) {

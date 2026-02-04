@@ -9,7 +9,7 @@ public class Person {
     private final String email;
     private final String phoneNumber;
 
-    public Person(String id, String firstName, String lastName, String middleName,
+    public Person(String id, String firstName, String middleName, String lastName,
                   String dateOfBirth, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
@@ -43,7 +43,7 @@ public class Person {
     }
     @Override
     public String toString() {
-        return String.format("Person(id=%s, firstName=%s, lastName=%s, middleName=%s, dateOfBirth=%s, email=%s, phoneNumber=%s)",
-                id, firstName, lastName, middleName, dateOfBirth, email, phoneNumber);
+        return String.format("Person(id=%s, firstName=%s, middleName=%s, lastName=%s, dateOfBirth=%s, email=%s, phoneNumber=%s)",
+                id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
     }
 }

@@ -8,11 +8,11 @@ public class Teacher extends Person{
     private final String dateOfEmployment;
     private final String rate;
 
-    public Teacher(String id, String firstName, String lastName, String middleName,
+    public Teacher(String id, String firstName, String middleName, String lastName,
                    String dateOfBirth, String email, String phoneNumber,
                    String position, String academicDegree, String academicTitle,
                    String dateOfEmployment, String rate) {
-        super(id, firstName, lastName, middleName, dateOfBirth, email, phoneNumber);
+        super(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
         this.position = position;
         this.academicDegree = academicDegree;
         this.academicTitle = academicTitle;
