@@ -27,4 +27,8 @@ public class FacultyService {
             System.out.println(faculty);
         }
     }
+
+    public Faculty findFacultyByName(String name) {
+        return facultyRepository.findByName(name);
+    }
 }
