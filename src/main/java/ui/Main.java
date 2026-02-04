@@ -1,6 +1,7 @@
 package ui;
 
 import domain.Student;
+import service.FacultyService;
 import service.StudentService;
 import service.TeacherService;
 
@@ -17,6 +18,12 @@ public class Main {
                 "email3", "33", "доцент", "кандидат наук", "доцент", "2010-09-01", "1.0"));
         teacherService.addTeacher(new domain.Teacher("2", "Bob", "Johnson", "D", "1975-07-20",
                 "email4", "44", "професор", "доктор наук", "професор", "2005-02-15", "1.0"));
+
+
+        FacultyService facultyService = new FacultyService();
+        facultyService.addFaculty(new domain.Faculty("101","Engineering", "ENG", "Dr. White", "123-456-7890"));
+        facultyService.addFaculty(new domain.Faculty("102","Science", "SCI", "Dr. Green", "098-765-4321"));
+
 
         StudentMenu studentMenu = new StudentMenu();
         TeacherMenu teacherMenu = new TeacherMenu();

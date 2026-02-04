@@ -3,9 +3,9 @@ package repository;
 import domain.Student;
 
 public class StudentRepository {
+    private Student [] students;
     private int count;
     private final int capacity = 5;
-    private Student [] students;
 
     public StudentRepository() {
         this.students = new Student[capacity];
