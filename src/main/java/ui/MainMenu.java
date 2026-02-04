@@ -1,5 +1,5 @@
 package ui;
-
+//меню факультет кафедри доробити
 public class MainMenu extends BaseMenu{
     private StudentMenu studentMenu;
     private TeacherMenu teacherMenu;

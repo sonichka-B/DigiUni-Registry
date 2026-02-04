@@ -94,6 +94,7 @@ public class StudentMenu extends BaseMenu{
                 break;
         }
     }
+    //доробити
         private void deleteChooseDepartmentStudent() {
             System.out.println("--- ОБЕРІТЬ КАФЕДРУ З ЯКОЇ БАЖАЄТЕ ВИДАЛИТИ ---");
             //ТОЙ САМИЙ СПИСОК КАФЕДР

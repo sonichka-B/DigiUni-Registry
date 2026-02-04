@@ -1,5 +1,6 @@
 package ui;
 public class Main {
+    //доробити
     public static void main(String[] args) {
         StudentMenu studentMenu = new StudentMenu();
         TeacherMenu teacherMenu = new TeacherMenu();
