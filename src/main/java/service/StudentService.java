@@ -23,26 +23,26 @@ public class StudentService {
     }
 
     public void deleteStudent(String firstName, String middleName, String lastName) {
-        studentRepository.deleteByFullName(firstName, middleName, lastName);
-    }
+    studentRepository.deleteByFullName(firstName, middleName, lastName);
+}
 
-    public void showAllStudents() {
-        Student[] students = studentRepository.findAll();
-        for (Student student : students) {
-            System.out.println(student);
-        }
+public void showAllStudents() {
+    Student[] students = studentRepository.findAll();
+    for (Student student : students) {
+        System.out.println(student);
     }
+}
 
-    public Student findStudentByFullName(String firstName, String middleName, String lastName) {
-        return studentRepository.findByFullName(firstName, middleName, lastName);
-    }
+public Student findStudentByFullName(String firstName, String middleName, String lastName) {
+    return studentRepository.findByFullName(firstName, middleName, lastName);
+}
 
-    public Student findStudentByCourse(int course) {
-        return studentRepository.findByCourse(course);
-    }
-    public Student findStudentByGroup(int group) {
-        return studentRepository.findByGroup(group);
-    }
+public Student findStudentByCourse(int course) {
+    return studentRepository.findByCourse(course);
+}
+public Student findStudentByGroup(int group) {
+    return studentRepository.findByGroup(group);
+}
 
 
 }

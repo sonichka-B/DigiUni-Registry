@@ -1,6 +1,15 @@
 package ui;
 
+import service.StudentService;
 public class StudentMenu extends BaseMenu{
+    private StudentService studentService;
+    private SearchPerson searchStudent;
+
+
+    public StudentMenu(StudentService studentService, SearchPerson searchStudent) {
+        this.studentService = studentService;
+        this.searchStudent=searchStudent;
+    }
     @Override
     protected void printTitle() {
         System.out.println("--- Студенти ---");
@@ -28,7 +37,7 @@ public class StudentMenu extends BaseMenu{
     protected void handleChoice(int choice) {
     switch (choice) {
         case 1:
-            showSearchStudentMenu();
+            searchStudent.showStudentSearchMenu();
             break;
         case 2:
             validation.waitZeroToExit();
@@ -52,7 +61,7 @@ public class StudentMenu extends BaseMenu{
     validation.waitZeroToExit();
     }
 
-    private void showSearchStudentMenu() {
+   /* private void showSearchStudentMenu() {
         System.out.println("--- ОБЕРІТЬ ТИП ПОШУКУ ---");
         System.out.println("1. За прізвищем");
         System.out.println("2. За курсом");
@@ -61,6 +70,7 @@ public class StudentMenu extends BaseMenu{
         int choice = validation.readInt("Тип пошуку: " ,0,3);
         switch (choice) {
             case 1:
+                searchStudent.sear
                 break;
             case 2:
                 break;
@@ -73,7 +83,8 @@ public class StudentMenu extends BaseMenu{
                 validation.waitZeroToExit();
                 break;
         }
-    }
+
+    }*/
     private void AddchooseDepartmentStudent() {
         System.out.println("--- ОБЕРІТЬ КАФЕДРУ ДО ЯКОЇ БАЖАЄТЕ ДОДАТИ ---");
         //тут має бути список кафедр або щось таке цикл

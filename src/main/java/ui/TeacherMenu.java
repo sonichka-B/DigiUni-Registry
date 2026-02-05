@@ -1,9 +1,19 @@
 package ui;
 
+import service.StudentService;
+import service.TeacherService;
+
 import java.awt.*;
 
 public class TeacherMenu extends BaseMenu {
+    private TeacherService teacherService;
+    private SearchPerson searchTeacher;
 
+
+    public TeacherMenu(TeacherService teacherService, SearchPerson searchTeacher) {
+        this.teacherService = teacherService;
+        this.searchTeacher=searchTeacher;
+    }
     @Override
     protected void printTitle() {
         System.out.println("--- Викладачі ---");
@@ -30,6 +40,7 @@ public class TeacherMenu extends BaseMenu {
         switch (choice) {
             case 1:
                 //Пошук викладача за ПІБ
+                searchTeacher.searchTeacherByName();
                 break;
             case 2:
                 //AddchooseDepartmentTeacher();

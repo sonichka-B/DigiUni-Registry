@@ -32,8 +32,13 @@ public class Main {
         departmentService.addDepartment(new domain.Department("202", "Biology", facultyService.findFacultyByName("Science"),
                 teacherService.findTeacherByFullName("Bob", "Johnson", "D"), "Building B"));
 
-        StudentMenu studentMenu = new StudentMenu();
-        TeacherMenu teacherMenu = new TeacherMenu();
+        SearchPerson searchPerson = new SearchPerson(studentService, teacherService);
+
+// 2. Тепер передаємо сервіси та пошук у меню
+        StudentMenu studentMenu = new StudentMenu(studentService, searchPerson);
+        TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchPerson);
+
+// 3. Головне меню залишається як було, але приймає вже готові меню
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu);
         mainMenu.showMenu();
     }
