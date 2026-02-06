@@ -20,12 +20,13 @@ public class DepartmentMenu extends BaseMenu {
         System.out.println("1. Показати всі кафедри");
         System.out.println("2. Додати кафедру");
         System.out.println("3. Видалити кафедру");
+        System.out.println("4. Редагувати інформацію про кафедру");
         System.out.println("0. Назад");
     }
 
     @Override
     protected int getMaxOption() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -58,6 +59,15 @@ public class DepartmentMenu extends BaseMenu {
                 String nameDel = validation.readString("Введіть назву для видалення: ");
                 departmentService.deleteDepartment(nameDel);
                 System.out.println(" Команду видалення виконано.");
+                validation.waitZeroToExit();
+                break;
+            case 4:
+                System.out.println("--- Редагування інформації про кафедру ---");
+               /* String deptId = validation.readString("Введіть ID кафедри для редагування: ");
+                Department dept = departmentService.findDepartmentById(deptId);
+                if (dept != null) {
+                    String newName = validation.readString("Нова назва кафедри (залиште порожнім, щоб не змінювати): ");
+                    String newLocation = validation.readString("Нове розташування кафедри (залиште порожнім, щоб не змін*/
                 validation.waitZeroToExit();
                 break;
         }
