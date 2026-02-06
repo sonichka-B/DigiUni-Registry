@@ -1,5 +1,6 @@
 package service;
 
+import domain.Student;
 import domain.Teacher;
 import repository.TeacherRepository;
 
@@ -27,4 +28,5 @@ public class TeacherService {
     public Teacher findTeacherByFullName(String firstName, String middleName, String lastName) {
         return teacherRepository.findByFullName(firstName, middleName, lastName);
     }
+
 }

@@ -32,7 +32,21 @@ public void showAllStudents() {
         System.out.println(student);
     }
 }
-
+    public void showStudentsByCourse(int course) {
+        System.out.println("--- Звіт: Студенти " + course + " курсу ---");
+        boolean found = false;
+        Student[] allStudents = studentRepository.findAll();
+        for (int i = 0; i < allStudents.length; i++) {
+            Student s= allStudents[i];
+            if (s != null && s.getCourse() == course) {
+                System.out.println(s);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("На цьому курсі студентів немає");
+        }
+    }
 public Student findStudentByFullName(String firstName, String middleName, String lastName) {
     return studentRepository.findByFullName(firstName, middleName, lastName);
 }

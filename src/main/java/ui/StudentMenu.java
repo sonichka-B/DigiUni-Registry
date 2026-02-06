@@ -1,15 +1,20 @@
 package ui;
 
+import domain.Student;
+import repository.StudentRepository;
 import service.StudentService;
-public class StudentMenu extends BaseMenu{
+public class StudentMenu extends BaseMenu {
     private StudentService studentService;
     private SearchPerson searchStudent;
+    //  private StudentRepository studentRepository;
 
 
-    public StudentMenu(StudentService studentService, SearchPerson searchStudent) {
+    public StudentMenu(StudentService studentService, SearchPerson searchStudent/*, StudentRepository studentRepository*/) {
         this.studentService = studentService;
-        this.searchStudent=searchStudent;
+        this.searchStudent = searchStudent;
+        // this.studentRepository = studentRepository;
     }
+
     @Override
     protected void printTitle() {
         System.out.println("--- Студенти ---");
@@ -21,7 +26,7 @@ public class StudentMenu extends BaseMenu{
         System.out.println("2. Вивести всіх студентів певного курсу");
         //Сонічка
         System.out.println("3. Додати студента");
-        System.out.println("4. Редагувати інформацію про студента");
+        System.out.println("4. Вивести всіх студентів");
         System.out.println("5. Видалити студента");
         System.out.println("6. Перевести в іншу групу студента");
         System.out.println("7. Перевести на наступний курс");
@@ -35,96 +40,66 @@ public class StudentMenu extends BaseMenu{
 
     @Override
     protected void handleChoice(int choice) {
-    switch (choice) {
-        case 1:
-            searchStudent.showStudentSearchMenu();
-            break;
-        case 2:
-            validation.waitZeroToExit();
-            break;
-        case 3:
-            AddchooseDepartmentStudent();
-            break;
-        case 4:
-            validation.waitZeroToExit();
-            break;
-        case 5:
-            deleteChooseDepartmentStudent();
-            break;
-        case 6:
-            validation.waitZeroToExit();
-            break;
-        case 7:
-            validation.waitZeroToExit();
-            break;
-        }
-    validation.waitZeroToExit();
-    }
-
-   /* private void showSearchStudentMenu() {
-        System.out.println("--- ОБЕРІТЬ ТИП ПОШУКУ ---");
-        System.out.println("1. За прізвищем");
-        System.out.println("2. За курсом");
-        System.out.println("3. За групою");
-        System.out.println("0. Повернутися назад");
-        int choice = validation.readInt("Тип пошуку: " ,0,3);
         switch (choice) {
             case 1:
-                searchStudent.sear
+                searchStudent.showStudentSearchMenu();
                 break;
             case 2:
+                int course = validation.readInt("Введіть курс : ", 1, 6);
+                studentService.showStudentsByCourse(course);
                 break;
             case 3:
+                showAddStudent();
                 break;
-            case 0:
-                return;
-            default:
-                System.out.println("Введіть коректне число від 0 до 3");
-                validation.waitZeroToExit();
+            case 4:
+                studentService.showAllStudents();
                 break;
-        }
+            case 5:
+                deleteStudent();
+                break;
+            case 6:
 
-    }*/
-    private void AddchooseDepartmentStudent() {
-        System.out.println("--- ОБЕРІТЬ КАФЕДРУ ДО ЯКОЇ БАЖАЄТЕ ДОДАТИ ---");
-        //тут має бути список кафедр або щось таке цикл
-        System.out.println("0. Повернутися назад");
-        int choice = validation.readInt("Оберіть кафедру: ", 0, 3);
-        switch (choice) {
-            case 1:
                 break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 0:
-                return;
-            default:
-                System.out.println("Введіть коректне число від !!!!!!!! до !!!!!!!!");
-                validation.waitZeroToExit();
+            case 7:
+
                 break;
         }
+        validation.waitZeroToExit();
     }
-    //доробити
-        private void deleteChooseDepartmentStudent() {
-            System.out.println("--- ОБЕРІТЬ КАФЕДРУ З ЯКОЇ БАЖАЄТЕ ВИДАЛИТИ ---");
-            //ТОЙ САМИЙ СПИСОК КАФЕДР
-            System.out.println("0. Повернутися назад");
-            int choice = validation.readInt("Оберіть кафедру: ", 0, 3);
-            switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Введіть коректне число від !!!!!!!! до !!!!!!!!");
-                    validation.waitZeroToExit();
-                    break;
-            }
+
+    private void showAddStudent() {
+        System.out.println("--- ДОДАТИ СТУДЕНТА ---");
+        String id = validation.readString("Введіть ID студента: ");
+        String lastName = validation.readString("Введіть Прізвище: ");
+        String firstName = validation.readString("Введіть Ім'я: ");
+        String middleName = validation.readString("Введіть По-батькові: ");
+        int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
+        int group = validation.readInt("Введіть групу (1-6): ", 1, 6);
+        int yearOfAdmission = validation.readInt("Введіть рік вступу (2000-2024): ", 2000, 2024);
+        //НЕМАЄ ЗАХИСТУ ВІД ДУРНЯ!!!!!!!!"№;%:?:%;№""№;%
+        String formOfEducation = validation.readString("Введіть форму навчання (денна/заочна): ");
+        String status = validation.readString("Введіть статус (навчається/академвідпустка/відрахований): ");
+        String dateOfBirth = "-";
+        String email = "-";
+        String phoneNumber = "-";
+        try {
+            Student newStudent = new Student(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber, course, group, yearOfAdmission, formOfEducation, status);
+            studentService.addStudent(newStudent);
+            System.out.println("Студента додано");
+
+        } catch (Exception e) {
+            System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
+
+    private void deleteStudent() {
+        System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
+        String lastName = validation.readString("Введіть прізвище студента: ");
+        String firstName = validation.readString("Введіть ім'я студента: ");
+        String middleName = validation.readString("Введіть по-батькові студента: ");
+        studentService.deleteStudent(firstName, middleName, lastName);
+        System.out.println("Команду виконано");
+    }
+
+}
 

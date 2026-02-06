@@ -15,25 +15,28 @@ public class SearchPerson {
         }
 //для студентіков (за ПІБ, курсом, групою)
         public void showStudentSearchMenu() {
-            System.out.println("--- ПОШУК СТУДЕНТА ---");
-            System.out.println("1. За ПІБ");
-            System.out.println("2. За курсом");
-            System.out.println("3. За групою");
-            System.out.println("0. Назад");
+            while (true) {
+                System.out.println("--- ПОШУК СТУДЕНТА ---");
+                System.out.println("1. За ПІБ");
+                System.out.println("2. За курсом");
+                System.out.println("3. За групою");
+                System.out.println("0. Назад");
 
-            int choice = validation.readInt("Оберіть опцію", 0, 3);
-            switch (choice) {
-                case 1:
-                    searchStudentByName();
-                    break;
-                case 2:
-                    searchStudentByCourse();
-                    break;
-                case 3:
-                    searchStudentByGroup();
-                    break;
-                case 0:
-                    return;
+                int choice = validation.readInt("Оберіть опцію", 0, 3);
+                switch (choice) {
+                    case 1:
+                        searchStudentByName();
+                        break;
+                    case 2:
+                        searchStudentByCourse();
+                        break;
+                    case 3:
+                        searchStudentByGroup();
+                        break;
+                    case 0:
+                        return;
+                }
+                validation.waitZeroToExit();
             }
         }
         private void searchStudentByName() {
@@ -41,10 +44,10 @@ public class SearchPerson {
             String fullName = validation.readString("(через пробіл)");
             String[] parts = fullName.trim().split("\\s+");
             if (parts.length < 3) {
-                System.out.println("Потрібно ввести прізвище, ім'я та по батькові(в такій послідовності)");
+                System.out.println("Помилка вводу");
                 return;
             }
-            Student found = studentService.findStudentByFullName(parts[1], parts[2], parts[0]);
+            Student found = studentService.findStudentByFullName(parts[0], parts[1], parts[2]);
             printResult(found);
         }
         private void searchStudentByCourse() {
@@ -73,15 +76,15 @@ public class SearchPerson {
         public void searchTeacherByName() {
             System.out.println("--- ПОШУК ВИКЛАДАЧА ---");
             System.out.println("Введіть повне ПІБ викладача (через пробіл):");
-            String fullName = validation.readString("-> ");
+            String fullName = validation.readString("(через пробіл)");
 
             // [0]прізвище, [1]імя, [2]по батькові
             String[] parts = fullName.trim().split("\\s+");
             if (parts.length < 3) {
-                System.out.println("Введіть прізвище, ім'я та по батькові(в такій послідовності).");
+                System.out.println("Помилка вводу");
                 return;
             }
-            Teacher found = teacherService.findTeacherByFullName(parts[1], parts[2], parts[0]);
+            Teacher found = teacherService.findTeacherByFullName(parts[0], parts[1], parts[2]);
             if (found== null) {
                 System.out.println("Викладача не знайдено");
             } else {

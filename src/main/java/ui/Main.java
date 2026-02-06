@@ -10,7 +10,7 @@ public class Main {
     //доробити
     public static void main(String[] args) {
         StudentService studentService = new StudentService();
-        studentService.addStudent(new Student("1", "John", "Doe", "M", "2000-01-01",
+        studentService.addStudent(new Student("1", "ПР", "Ш", "M", "2000-01-01",
                 "email1", "11", 1, 1, 2018, "бюджет", "навчається"));
         studentService.addStudent(new Student("2", "Jane", "Smith", "A", "1999-05-15",
                 "email2", "22", 2, 2, 2017, "контракт", "навчається"));
@@ -33,13 +33,13 @@ public class Main {
                 teacherService.findTeacherByFullName("Bob", "Johnson", "D"), "Building B"));
 
         SearchPerson searchPerson = new SearchPerson(studentService, teacherService);
-
-// 2. Тепер передаємо сервіси та пошук у меню
+FacultyMenu facultyMenu = new FacultyMenu(facultyService);
+        DepartmentMenu departmentMenu = new DepartmentMenu(departmentService);
         StudentMenu studentMenu = new StudentMenu(studentService, searchPerson);
         TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchPerson);
 
-// 3. Головне меню залишається як було, але приймає вже готові меню
-        MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu);
+
+        MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu);
         mainMenu.showMenu();
     }
 }

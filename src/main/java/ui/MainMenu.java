@@ -1,11 +1,18 @@
 package ui;
+
+import domain.Faculty;
+
 //меню факультет кафедри доробити
 public class MainMenu extends BaseMenu{
     private StudentMenu studentMenu;
     private TeacherMenu teacherMenu;
-    public MainMenu(StudentMenu studentMenu, TeacherMenu teacherMenu) {
+    private DepartmentMenu departmentMenu;
+    private FacultyMenu facultyMenu;
+    public MainMenu(StudentMenu studentMenu, TeacherMenu teacherMenu, DepartmentMenu departmentMenu, FacultyMenu facultyMenu) {
         this.teacherMenu = teacherMenu;
         this.studentMenu = studentMenu;
+        this.departmentMenu = departmentMenu;
+        this.facultyMenu = facultyMenu;
     }
 
     @Override
@@ -37,12 +44,10 @@ public class MainMenu extends BaseMenu{
                 validation.waitZeroToExit();
                 break;
             case 2:
-                System.out.println("МММММЕЕЕННННЮЮЮ ФАКУУУУЛЬЬЬЬТЕТТТІВ");
-                validation.waitZeroToExit();
+                facultyMenu.showMenu();
                 break;
             case 3:
-                System.out.println("МММММЕЕЕННННЮЮЮ КАфедри");
-                validation.waitZeroToExit();
+                departmentMenu.showMenu();
                 break;
             case 4:
                 studentMenu.showMenu();
