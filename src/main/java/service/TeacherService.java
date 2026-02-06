@@ -5,7 +5,7 @@ import domain.Teacher;
 import repository.TeacherRepository;
 
 public class TeacherService {
-    private final TeacherRepository teacherRepository = new TeacherRepository();
+    private static final TeacherRepository teacherRepository = new TeacherRepository();
 
     public void addTeacher(Teacher teacher) {
         if(teacher == null) {
@@ -25,8 +25,8 @@ public class TeacherService {
             System.out.println(teacher);
         }
     }
-    public Teacher findTeacherByFullName(String firstName, String middleName, String lastName) {
-        return teacherRepository.findByFullName(firstName, middleName, lastName);
+    public static Teacher findTeacherByFullName(String firstName, String middleName, String lastName) {
+       return teacherRepository.findByFullName(firstName, middleName, lastName);
     }
 
 }

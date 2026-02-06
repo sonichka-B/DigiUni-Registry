@@ -54,10 +54,17 @@ public class Teacher extends Person{
     }
 
 
+    public String getFullName() {
+        return getFirstName() + " " + getMiddleName() + " " + getLastName();
+    }
+
     @Override
     public String toString() {
-        return "Teacher{" +
-                "position='" + position + '\'' +
+        return "Teacher{" + "id='" + getId() + '\'' +
+                ", fullName='" + getFullName() + '\'' +", dateOfBirth='" + getDateOfBirth() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", position='" + position + '\'' +
                 ", academicDegree='" + academicDegree + '\'' +
                 ", academicTitle='" + academicTitle + '\'' +
                 ", dateOfEmployment='" + dateOfEmployment + '\'' +

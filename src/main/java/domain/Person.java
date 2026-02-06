@@ -13,8 +13,8 @@ public class Person {
                   String dateOfBirth, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
-        this.lastName = lastName;
         this.middleName = middleName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.phoneNumber = phoneNumber;

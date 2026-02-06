@@ -51,10 +51,10 @@ public Student findStudentByFullName(String firstName, String middleName, String
     return studentRepository.findByFullName(firstName, middleName, lastName);
 }
 
-public Student findStudentByCourse(int course) {
+    public Student findStudentByCourse(int course) {
     return studentRepository.findByCourse(course);
 }
-public Student findStudentByGroup(int group) {
+    public Student findStudentByGroup(int group) {
     return studentRepository.findByGroup(group);
 }
 

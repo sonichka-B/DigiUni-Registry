@@ -23,8 +23,8 @@ public class StudentRepository {
     public Student findByFullName(String firstName, String middleName, String lastName){
         for (int i = 0; i < count; i++) {
             if (students[i].getFirstName().equals(firstName) &&
-                students[i].getLastName().equals(lastName) &&
-                students[i].getMiddleName().equals(middleName)) {
+                students[i].getMiddleName().equals(middleName) &&
+                students[i].getLastName().equals(lastName)) {
                 return students[i];
             }
         }
@@ -58,8 +58,8 @@ public class StudentRepository {
     public void deleteByFullName(String firstName, String middleName, String lastName){
         for (int i = 0; i < count; i++) {
             if (students[i].getFirstName().equals(firstName) &&
-                students[i].getLastName().equals(lastName) &&
-                students[i].getMiddleName().equals(middleName)) {
+                students[i].getMiddleName().equals(middleName) &&
+                students[i].getLastName().equals(lastName)) {
                 // Shift elements to the left to fill the gap
                 for (int j = i; j < count - 1; j++) {
                     students[j] = students[j + 1];

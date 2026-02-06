@@ -25,10 +25,11 @@ public class FacultyRepository {
         System.arraycopy(faculties, 0, result, 0, count);
         return result;
     }
+
     public Faculty findByName(String name) {
         for (int i = 0; i < count; i++) {
             if (faculties[i].getName().equals(name)) {
-                return null;
+                return faculties[i];
             }
         }
         return null;

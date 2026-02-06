@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Faculty;
 import domain.Student;
 import service.DepartmentService;
 import service.FacultyService;
@@ -12,22 +13,24 @@ public class Main {
         StudentService studentService = new StudentService();
         studentService.addStudent(new Student("1", "ПР", "Ш", "M", "2000-01-01",
                 "email1", "11", 1, 1, 2018, "бюджет", "навчається"));
-        studentService.addStudent(new Student("2", "Jane", "Smith", "A", "1999-05-15",
-                "email2", "22", 2, 2, 2017, "контракт", "навчається"));
+        studentService.addStudent(new Student("2", "Ran", "Ben", "N", "2001-02-02",
+                "email2", "22", 2, 2, 2019, "контракт", "навчається"));
 
         TeacherService teacherService = new TeacherService();
         teacherService.addTeacher(new domain.Teacher("1", "Alice", "Brown", "C", "1980-03-10",
                 "email3", "33", "доцент", "кандидат наук", "доцент", "2010-09-01", "1.0"));
         teacherService.addTeacher(new domain.Teacher("2", "Bob", "Johnson", "D", "1975-07-20",
                 "email4", "44", "професор", "доктор наук", "професор", "2005-02-15", "1.0"));
-
+        teacherService.addTeacher(new domain.Teacher("3", "Charlie", "Smith", "E", "1985-11-30",
+                "email5", "55", "старший викладач", "кандидат наук", "старший викладач", "2012-05-20", "0.8"));
 
         FacultyService facultyService = new FacultyService();
         facultyService.addFaculty(new domain.Faculty("101","Engineering", "ENG", "Dr. White", "123-456-7890"));
         facultyService.addFaculty(new domain.Faculty("102","Science", "SCI", "Dr. Green", "098-765-4321"));
+        facultyService.addFaculty(new domain.Faculty("103","Arts", "ART", "Dr. Black", "555-555-5555"));
 
         DepartmentService departmentService = new DepartmentService();
-        departmentService.addDepartment(new domain.Department("201", "Computer Science", facultyService.findFacultyByName ("Engineering"),
+        departmentService.addDepartment(new domain.Department("201", "Computer Science", facultyService.findFacultyByName("Engineering"),
                 teacherService.findTeacherByFullName("Alice", "Brown", "C"), "Building A"));
         departmentService.addDepartment(new domain.Department("202", "Biology", facultyService.findFacultyByName("Science"),
                 teacherService.findTeacherByFullName("Bob", "Johnson", "D"), "Building B"));
