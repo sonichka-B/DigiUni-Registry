@@ -28,14 +28,15 @@ public class StudentMenu extends BaseMenu {
         System.out.println("3. Додати студента");
         System.out.println("4. Вивести всіх студентів");
         System.out.println("5. Видалити студента");
-        System.out.println("6. Перевести в іншу групу студента");
-        System.out.println("7. Перевести на наступний курс");
+        System.out.println("6. Редагувати інформацію про студента");
+        System.out.println("7. Перевести в іншу групу студента(ще не працює)");
+        System.out.println("8. Перевести на наступний курс(ще не працює)");
         System.out.println("0. Повернутися назад");
     }
 
     @Override
     protected int getMaxOption() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -58,10 +59,12 @@ public class StudentMenu extends BaseMenu {
                 deleteStudent();
                 break;
             case 6:
-
+//редагувати інформацію про студента
                 break;
             case 7:
 
+                break;
+            case 8:
                 break;
         }
         validation.waitZeroToExit();
@@ -75,10 +78,31 @@ public class StudentMenu extends BaseMenu {
         String middleName = validation.readString("Введіть По-батькові: ");
         int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
         int group = validation.readInt("Введіть групу (1-6): ", 1, 6);
-        int yearOfAdmission = validation.readInt("Введіть рік вступу (2000-2024): ", 2000, 2024);
-        //НЕМАЄ ЗАХИСТУ ВІД ДУРНЯ!!!!!!!!"№;%:?:%;№""№;%
-        String formOfEducation = validation.readString("Введіть форму навчання (денна/заочна): ");
-        String status = validation.readString("Введіть статус (навчається/академвідпустка/відрахований): ");
+        int yearOfAdmission = validation.readInt("Введіть рік вступу : ", 2015, 2025);
+        //є захист від дурня
+        System.out.println("Оберіть форму навчання:");
+        System.out.println("1-бюджет");
+        System.out.println("2-контракт");
+        int formChoice = validation.readInt("Ваш вибір: ", 1, 2);
+        String formOfEducation = "";
+        if (formChoice == 1) {
+            formOfEducation = "бюджет";
+        } else {
+            formOfEducation = "контракт";
+        }
+        System.out.println("Оберіть статус студента:");
+        System.out.println("1-навчається");
+        System.out.println("2-академвідпустка");
+        System.out.println("3-відрахований");
+        int statusChoice = validation.readInt("Ваш вибір: ", 1, 3);
+        String status = "";
+        if (statusChoice == 1) {
+            status = "навчається";
+        } else if (statusChoice == 2) {
+            status = "академвідпустка";
+        } else {
+            status = "відрахований";
+        }
         String dateOfBirth = "-";
         String email = "-";
         String phoneNumber = "-";
@@ -91,14 +115,14 @@ public class StudentMenu extends BaseMenu {
             System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
-
+//неправильний порядок 1по-батькові, 2імя, 3прізвище
     private void deleteStudent() {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
         String lastName = validation.readString("Введіть прізвище студента: ");
         String firstName = validation.readString("Введіть ім'я студента: ");
         String middleName = validation.readString("Введіть по-батькові студента: ");
         studentService.deleteStudent(firstName, middleName, lastName);
-        System.out.println("Команду виконано");
+        System.out.println("Команду виконано (студента видалено, якщо він існував)");
     }
 
 }
