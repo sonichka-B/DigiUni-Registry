@@ -53,4 +53,13 @@ public class TeacherRepository {
         System.arraycopy(teachers, 0, result, 0, count);
         return result;
     }
+
+    public Teacher findById(String id) {
+        for (int i = 0; i < count; i++) {
+            if (teachers[i].getId().equals(id)) {
+                return teachers[i];
+            }
+        }
+        return null;
+    }
 }

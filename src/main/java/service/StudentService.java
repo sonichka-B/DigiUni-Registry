@@ -58,5 +58,19 @@ public Student findStudentByFullName(String firstName, String middleName, String
     return studentRepository.findByGroup(group);
 }
 
+    public Student findStudentById(String id) {
+        return studentRepository.findById(id);
+    }
 
+//    edit only course, group and status, for more just add new parameters and set them in method
+    public boolean editStudent(String id, int course, int group, int yearOfAdmission, String status) {
+        Student student = studentRepository.findById(id);
+        if (student!= null) {
+            student.setCourse(course);
+            student.setGroup(group);
+            student.setStatus(status);
+            return true;
+        }
+        return false;
+    }
 }

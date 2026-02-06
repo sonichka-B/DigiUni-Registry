@@ -49,6 +49,15 @@ public class StudentRepository {
         return null;
     }
 
+    public Student findById(String id){
+        for (int i = 0; i < count; i++) {
+            if (students[i].getId().equals(id)) {
+                return students[i];
+            }
+        }
+        return null;
+    }
+
     public Student[] findAll(){
         Student[] result = new Student[count];
         System.arraycopy(students, 0, result, 0, count);

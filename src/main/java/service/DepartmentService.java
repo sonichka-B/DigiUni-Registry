@@ -27,4 +27,17 @@ public class DepartmentService {
     public void deleteDepartment(String name){
         departmentRepository.deleteByName(name);
     }
+
+    public Department findDepartmentById(String id){
+        return departmentRepository.findById(id);
+    }
+
+    public boolean editDepartment(String id, String newLocation){
+        Department department = departmentRepository.findById(id);
+        if (department != null) {
+            department.setLocation(newLocation);
+            return true;
+        }
+        return false;
+    }
 }

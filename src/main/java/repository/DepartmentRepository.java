@@ -50,4 +50,13 @@ public class DepartmentRepository {
             }
         }
     }
+
+    public Department findById(String id){
+        for (int i = 0; i < count; i++) {
+            if (departments[i].getId().equals(id)) {
+                return departments[i];
+            }
+        }
+        return null;
+    }
 }

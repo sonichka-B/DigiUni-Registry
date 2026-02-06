@@ -5,7 +5,7 @@ public class Department {
     private final String name;
     private final Faculty faculty;
     private final Teacher head;
-    private final String location;
+    private  String location;
 
     public Department(String id, String name, Faculty faculty, Teacher head, String location) {
         this.id = id;
@@ -33,6 +33,10 @@ public class Department {
 
     public String getLocation() {
         return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override

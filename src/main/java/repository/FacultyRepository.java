@@ -48,4 +48,12 @@ public class FacultyRepository {
         }
     }
 
+    public Faculty findById(String id) {
+        for (int i = 0; i < count; i++) {
+            if (faculties[i].getId().equals(id)) {
+                return faculties[i];
+            }
+        }
+        return null;
+    }
 }

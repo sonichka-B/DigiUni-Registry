@@ -29,4 +29,18 @@ public class TeacherService {
        return teacherRepository.findByFullName(firstName, middleName, lastName);
     }
 
+    public static Teacher findTeacherById(String id) {
+       return teacherRepository.findById(id);
+    }
+
+    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle) {
+        Teacher teacher = teacherRepository.findById(id);
+        if (teacher != null) {
+            teacher.setPosition(position);
+            teacher.setAcademicDegree(academicDegree);
+            teacher.setAcademicTitle(academicTitle);
+            return true;
+        }
+        return false;
+    }
 }

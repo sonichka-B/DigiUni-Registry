@@ -34,4 +34,20 @@ public class FacultyService {
        }
         return facultyRepository.findByName(name);
     }
+
+    public static Faculty findFacultyById(String id) {
+        if(id == null) {
+            throw new IllegalArgumentException("ID cannot be null");
+        }
+        return facultyRepository.findById(id);
+    }
+
+    public boolean editFaculty(String id, String newDean) {
+        Faculty faculty = facultyRepository.findById(id);
+        if (faculty != null) {
+            faculty.setDean(newDean);
+            return true;
+        }
+        return false;
+    }
 }
