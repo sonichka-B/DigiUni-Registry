@@ -44,31 +44,31 @@ public class DepartmentMenu extends BaseMenu {
                 break;
             case 2:
                 System.out.println("--- Додавання кафедри ---");
-                String id = validation.readString("ID кафедри: ");
-                String name = validation.readString("Назва кафедри: ");
-                String facultyName = validation.readString("Факультет: ");
+                String id = validation.readNotEmptyString("ID кафедри: ");
+                String name = validation.readNotEmptyString("Назва кафедри: ");
+                String facultyName = validation.readNotEmptyString("Факультет: ");
                 Faculty faculty = FacultyService.findFacultyByName(facultyName);
                 while(true){
                     if (faculty == null) {
                         System.out.println(" Помилка: Факультет з такою назвою не знайдено!");
-                        facultyName = validation.readString("Факультет: ");
+                        facultyName = validation.readNotEmptyString("Факультет: ");
                         faculty = FacultyService.findFacultyByName(facultyName);
                     }
                     if (faculty != null) {
                         break;
                 }
                 }
-                String headFirstName = validation.readString("Ім'я завідувача кафедри: ");
-                String headMiddleName = validation.readString("По батькові завідувача: ");
-                String headLastName = validation.readString("Прізвище завідувача: ");
+                String headFirstName = validation.readNotEmptyString("Ім'я завідувача кафедри: ");
+                String headMiddleName = validation.readNotEmptyString("По батькові завідувача: ");
+                String headLastName = validation.readNotEmptyString("Прізвище завідувача: ");
                 Teacher head = TeacherService.findTeacherByFullName(headFirstName, headMiddleName, headLastName);
 
                 while (true){
                     if (head == null) {
                         System.out.println(" Помилка: Викладач з таким ім'ям не знайдено!");
-                        headFirstName = validation.readString("Ім'я завідувача кафедри: ");
-                        headMiddleName = validation.readString("По батькові завідувача: ");
-                        headLastName = validation.readString("Прізвище завідувача: ");
+                        headFirstName = validation.readNotEmptyString("Ім'я завідувача кафедри: ");
+                        headMiddleName = validation.readNotEmptyString("По батькові завідувача: ");
+                        headLastName = validation.readNotEmptyString("Прізвище завідувача: ");
                         head = TeacherService.findTeacherByFullName(headFirstName, headMiddleName, headLastName);
                     }
                     if (head != null) {
@@ -76,7 +76,7 @@ public class DepartmentMenu extends BaseMenu {
                     }
                 }
 
-                String location = validation.readString("Розташування кафедри: ");
+                String location = validation.readNotEmptyString("Розташування кафедри: ");
                 try {
                     departmentService.addDepartment(new Department(id, name, faculty, head, location));
                     System.out.println(" Кафедру успішно додано.");
@@ -88,18 +88,21 @@ public class DepartmentMenu extends BaseMenu {
             case 3:
                 //змінити щоб писалося якщо немає такої кафедри.Потрібно замінити void на boolean в serviсе
                 System.out.println("--- Видалення кафедри ---");
-                String nameDel = validation.readString("Введіть назву для видалення: ");
+                String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
                 departmentService.deleteDepartment(nameDel);
                 System.out.println(" Команду видалення виконано.");
                 validation.waitZeroToExit();
                 break;
             case 4:
                 System.out.println("--- Редагування інформації про кафедру ---");
-               /* String deptId = validation.readString("Введіть ID кафедри для редагування: ");
-                Department dept = departmentService.findDepartmentById(deptId);
-                if (dept != null) {
-                    String newName = validation.readString("Нова назва кафедри (залиште порожнім, щоб не змінювати): ");
-                    String newLocation = validation.readString("Нове розташування кафедри (залиште порожнім, щоб не змін*/
+                String idDepartment = validation.readNotEmptyString("Введіть ID кафедри для редагування: ");
+                String newLocation = validation.readNotEmptyString("Введіть нове розташування кафедри: ");
+                boolean success = departmentService.editDepartment(idDepartment, newLocation);
+                if (success) {
+                    System.out.println(" Інформацію про кафедру успішно оновлено.");
+                } else {
+                    System.out.println(" Помилка: Кафедру з таким ID не знайдено.");
+                }
                 validation.waitZeroToExit();
                 break;
         }

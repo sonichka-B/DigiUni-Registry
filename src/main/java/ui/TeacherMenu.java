@@ -49,7 +49,7 @@ public class TeacherMenu extends BaseMenu {
                 addTeacher();
                 break;
             case 3:
-               //редагувати інформацію про викладача
+                editTeacher();
                 break;
             case 4:
                 teacherService.showAllTeachers();
@@ -60,12 +60,73 @@ public class TeacherMenu extends BaseMenu {
         }
         validation.waitZeroToExit();
     }
+    private void editTeacher() {
+        System.out.println("--- Редагування інформації про викладача ---");
+        String idTeacher = validation.readNotEmptyString("Введіть ID викладача для редагування: ");
+        System.out.println("Оберіть нову посаду:");
+        System.out.println("1-лаборант");
+        System.out.println("2-асистент");
+        System.out.println("3-викладач");
+        System.out.println("4-старший викладач");
+        System.out.println("5-доцент");
+        System.out.println("6-професор");
+        System.out.println("7-декан");
+        int positionChoice = validation.readInt("Ваш вибір: ", 1, 7);
+        String position = "";
+        if (positionChoice == 1) {
+            position = "лаборант";
+        } else if (positionChoice == 2) {
+            position = "асистент";
+        } else if (positionChoice == 3) {
+            position = "викладач";
+        } else if (positionChoice == 4) {
+            position = "старший викладач";
+        } else if (positionChoice == 5) {
+            position = "доцент";
+        } else if (positionChoice == 6) {
+            position = "професор";
+        } else if (positionChoice == 7) {
+            position = "декан";
+        }
+        System.out.println("Оберіть новий науковий ступінь:");
+        System.out.println("1-кандидат наук");
+        System.out.println("2-доктор наук");
+        System.out.println("3-доктор філософії");
+        int degreeChoice = validation.readInt("Ваш вибір: ", 1, 3);
+        String degree = "";
+        if (degreeChoice == 1) {
+            degree = "кандидат наук";
+        } else if (degreeChoice == 2) {
+            degree = "доктор наук";
+        } else if (degreeChoice == 3) {
+            degree = "доктор філософії";
+        }
+        System.out.println("Оберіть нове звання:");
+        System.out.println("1-доцент");
+        System.out.println("2-професор");
+        System.out.println("3-старший дослідник");
+        int titleChoice = validation.readInt("Ваш вибір: ", 1, 3);
+        String title = "";
+        if (titleChoice == 1) {
+            title = "доцент";
+        } else if (titleChoice == 2) {
+            title = "професор";
+        } else if (titleChoice == 3) {
+            title = "старший дослідник";
+        }
+        boolean success = teacherService.editTeacher(idTeacher, position, degree, title);
+        if (success) {
+            System.out.println(" Інформацію про студента успішно оновлено.");
+        } else {
+            System.out.println(" Помилка: Студента з таким ID не знайдено.");
+        }
+    }
     private void addTeacher() {
-        System.out.println("--- ДОДАТИ СТУДЕНТА ---");
-        String id = validation.readString("ID викладача: ");
-        String lastName = validation.readString("Прізвище: ");
-        String firstName = validation.readString("Ім'я: ");
-        String middleName = validation.readString("По-батькові: ");
+        System.out.println("--- ДОДАТИ ВИКЛАДАЧА ---");
+        String id = validation.readNotEmptyString("ID викладача: ");
+        String lastName = validation.readNotEmptyString("Прізвище: ");
+        String firstName = validation.readNotEmptyString("Ім'я: ");
+        String middleName = validation.readNotEmptyString("По-батькові: ");
         String dateOfBirth = "-";
         String email = "-";
         String phoneNumber = "-";
@@ -94,7 +155,7 @@ public class TeacherMenu extends BaseMenu {
         } else if (positionChoice == 7) {
             position = "декан";
         }
-        System.out.println("Оберіть посаду:");
+        System.out.println("Оберіть науковий ступінь:");
         System.out.println("1-кандидат наук");
         System.out.println("2-доктор наук");
         System.out.println("3-доктор філософії");
@@ -120,9 +181,9 @@ public class TeacherMenu extends BaseMenu {
         } else if (titleChoice == 3) {
             title = "старший дослідник";
         }
-        String dateOfEmployment = validation.readString("Дата прийняття на роботу: ");
+        String dateOfEmployment = validation.readNotEmptyString("Дата прийняття на роботу: ");
         //Сонічка я не дуже розумію що таке rate тому залишила як є
-        String rate = validation.readString("Ставка: ");
+        String rate = validation.readNotEmptyString("Ставка: ");
         try {
             Teacher newTeacher = new Teacher(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber, position, degree, title, dateOfEmployment, rate);
             teacherService.addTeacher(newTeacher);
@@ -135,9 +196,9 @@ public class TeacherMenu extends BaseMenu {
 
     private void deleteTeacher() {
         System.out.println("--- ВИДАЛЕННЯ ВИКЛАДАЧА ---");
-        String lastName = validation.readString("Введіть прізвище викладача: ");
-        String firstName = validation.readString("Введіть ім'я викладача: ");
-        String middleName = validation.readString("Введіть по-батькові викладача: ");
+        String lastName = validation.readNotEmptyString("Введіть прізвище викладача: ");
+        String firstName = validation.readNotEmptyString("Введіть ім'я викладача: ");
+        String middleName = validation.readNotEmptyString("Введіть по-батькові викладача: ");
             teacherService.deleteTeacher(firstName, middleName, lastName);
         System.out.println("Команду виконано (викладача видалено, якщо він існував)");
     }

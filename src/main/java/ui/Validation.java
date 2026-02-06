@@ -25,7 +25,7 @@ public class Validation {
         }
     }
 
-    public String readString(String message) {
+    private String readString(String message) {
         System.out.println(message);
         try {
             return reader.readLine();
@@ -38,6 +38,15 @@ public class Validation {
         int input = -1;
         while (input != 0) {
             input = readInt("Введіть 0, щоб повернутися назад" ,0,0);
+        }
+    }
+    public String readNotEmptyString(String message) {
+        while (true) {
+            String input = readString(message);
+            if (input != null && !input.trim().isEmpty()) {
+                return input.trim();
+            }
+            System.out.println("це поле не може бути порожнім");
         }
     }
 }

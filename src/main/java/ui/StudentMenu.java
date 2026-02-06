@@ -59,7 +59,7 @@ public class StudentMenu extends BaseMenu {
                 deleteStudent();
                 break;
             case 6:
-//редагувати інформацію про студента
+                editStudent();
                 break;
             case 7:
 
@@ -69,13 +69,37 @@ public class StudentMenu extends BaseMenu {
         }
         validation.waitZeroToExit();
     }
-
+private void editStudent() {
+        System.out.println("--- Редагування інформації про студента ---");
+    String idStudent = validation.readNotEmptyString("Введіть ID студента для редагування: ");
+    int newCourse = validation.readInt("Введіть новий курс студента: " , 1, 6);
+    int newGroup = validation.readInt("Введіть нову групу студента: ", 1, 6);
+    System.out.println("Оберіть новий статус студента:");
+    System.out.println("1-навчається");
+    System.out.println("2-академвідпустка");
+    System.out.println("3-відрахований");
+    int statusChoice = validation.readInt("Ваш вибір: ", 1, 3);
+    String status = "";
+    if (statusChoice == 1) {
+        status = "навчається";
+    } else if (statusChoice == 2) {
+        status = "академвідпустка";
+    } else {
+        status = "відрахований";
+    }
+    boolean success = studentService.editStudent(idStudent, newCourse, newGroup, status);
+    if (success) {
+        System.out.println(" Інформацію про студента успішно оновлено.");
+    } else {
+        System.out.println(" Помилка: Студента з таким ID не знайдено.");
+    }
+}
     private void showAddStudent() {
         System.out.println("--- ДОДАТИ СТУДЕНТА ---");
-        String id = validation.readString("Введіть ID студента: ");
-        String lastName = validation.readString("Введіть Прізвище: ");
-        String firstName = validation.readString("Введіть Ім'я: ");
-        String middleName = validation.readString("Введіть По-батькові: ");
+        String id = validation.readNotEmptyString("Введіть ID студента: ");
+        String lastName = validation.readNotEmptyString("Введіть Прізвище: ");
+        String firstName = validation.readNotEmptyString("Введіть Ім'я: ");
+        String middleName = validation.readNotEmptyString("Введіть По-батькові: ");
         int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
         int group = validation.readInt("Введіть групу (1-6): ", 1, 6);
         int yearOfAdmission = validation.readInt("Введіть рік вступу : ", 2015, 2025);
@@ -103,9 +127,9 @@ public class StudentMenu extends BaseMenu {
         } else {
             status = "відрахований";
         }
-        String dateOfBirth = "-";
-        String email = "-";
-        String phoneNumber = "-";
+        String dateOfBirth = validation.readNotEmptyString("Введіть дату народження (формат: ДД.ММ.РРРР): ");
+        String email = validation.readNotEmptyString("Введіть email: ");
+        String phoneNumber = validation.readNotEmptyString("Введіть номер телефону: ");
         try {
             Student newStudent = new Student(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber, course, group, yearOfAdmission, formOfEducation, status);
             studentService.addStudent(newStudent);
@@ -118,9 +142,9 @@ public class StudentMenu extends BaseMenu {
 //неправильний порядок 1по-батькові, 2імя, 3прізвище
     private void deleteStudent() {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
-        String lastName = validation.readString("Введіть прізвище студента: ");
-        String firstName = validation.readString("Введіть ім'я студента: ");
-        String middleName = validation.readString("Введіть по-батькові студента: ");
+        String lastName = validation.readNotEmptyString("Введіть прізвище студента: ");
+        String firstName = validation.readNotEmptyString("Введіть ім'я студента: ");
+        String middleName = validation.readNotEmptyString("Введіть по-батькові студента: ");
         studentService.deleteStudent(firstName, middleName, lastName);
         System.out.println("Команду виконано (студента видалено, якщо він існував)");
     }

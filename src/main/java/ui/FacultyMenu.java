@@ -37,11 +37,11 @@ public class FacultyMenu extends BaseMenu{
                 break;
             case 2:
                 System.out.println("--- Додавання факультету ---");
-                String id = validation.readString("ID факультету: ");
-                String name = validation.readString("Назва факультету: ");
-                String shortName = validation.readString("Коротка назва факультету: ");
-                String dean = validation.readString("Декан: ");
-                String phoneNumber = validation.readString("Номер телефону: ");
+                String id = validation.readNotEmptyString("ID факультету: ");
+                String name = validation.readNotEmptyString("Назва факультету: ");
+                String shortName = validation.readNotEmptyString("Коротка назва факультету: ");
+                String dean = validation.readNotEmptyString("Декан: ");
+                String phoneNumber = validation.readNotEmptyString("Номер телефону: ");
                 try {
                     //Сонічка тут напевно потрібно щось змінити в domain.Не хоче додаватися факультет та голова кафедри тому поки null
                     facultyService.addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
@@ -53,7 +53,7 @@ public class FacultyMenu extends BaseMenu{
                 break;
             case 3:
                 System.out.println("--- Видалення факультету ---");
-                String nameDel = validation.readString("Введіть назву для видалення: ");
+                String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
                 facultyService.deleteFaculty(nameDel);
                 System.out.println(" Команду видалення виконано.");
                 validation.waitZeroToExit();
@@ -61,19 +61,16 @@ public class FacultyMenu extends BaseMenu{
 
             case 4:
                 System.out.println("--- Редагування інформації про факультет ---");
-                String facultyId = validation.readString("Введіть ID факультету для редагування: ");
-                String newName = validation.readString("Нова назва факультету: ");
-                String newShortName = validation.readString("Новий короткий опис факультету: ");
-                String newDean = validation.readString("Новий декан факультету: ");
-                String newPhoneNumber = validation.readString("Новий номер телефону факультету: ");
-           /* try {
-                facultyService.updateFaculty(facultyId, newName, newShortName, newDean, newPhoneNumber);
-                System.out.println(" Інформацію про факультет успішно оновлено.");
-            } catch (Exception e) {
-                System.out.println(" Помилка: " + e.getMessage());
-            }
-            validation.waitZeroToExit();
-            break;*/
+                String idFaculty = validation.readNotEmptyString("Введіть ID факультету для редагування: ");
+                String newDean = validation.readNotEmptyString("Введіть нового декана: ");
+                boolean success = facultyService.editFaculty(idFaculty, newDean);
+                if (success) {
+                    System.out.println(" Інформацію про факультет успішно оновлено.");
+                } else {
+                    System.out.println(" Помилка: Факультету з таким ID не знайдено.");
+                }
+                validation.waitZeroToExit();
+                break;
         }
     }
 }

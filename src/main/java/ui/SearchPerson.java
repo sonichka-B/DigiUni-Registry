@@ -40,8 +40,8 @@ public class SearchPerson {
             }
         }
         private void searchStudentByName() {
-            System.out.println("Введіть повне ПІБ:");
-            String fullName = validation.readString("(через пробіл)");
+            System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
+            String fullName = validation.readNotEmptyString("(через пробіл)");
             String[] parts = fullName.trim().split("\\s+");
             if (parts.length < 3) {
                 System.out.println("Помилка вводу");
@@ -75,10 +75,8 @@ public class SearchPerson {
         // пошук викладача за ПІБ
         public void searchTeacherByName() {
             System.out.println("--- ПОШУК ВИКЛАДАЧА ---");
-            System.out.println("Введіть повне ПІБ викладача (через пробіл):");
-            String fullName = validation.readString("(через пробіл)");
-
-            // [0]прізвище, [1]імя, [2]по батькові
+            System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
+            String fullName = validation.readNotEmptyString("(через пробіл)");
             String[] parts = fullName.trim().split("\\s+");
             if (parts.length < 3) {
                 System.out.println("Помилка вводу");
