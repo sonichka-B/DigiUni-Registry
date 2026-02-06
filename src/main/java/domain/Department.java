@@ -41,7 +41,9 @@ public class Department {
 
     @Override
     public String toString() {
+        String facultyName = (faculty != null) ? faculty.getName() : "Не вказано";
+        String headName = (head != null) ? head.getFullName() : "Не вказано";
         return String.format("Department(id=%s, name=%s, faculty=%s, head=%s, location=%s)",
-                id, name, faculty.getName(), head.getFullName(), location);
+                id, name, facultyName, headName, location);
     }
 }

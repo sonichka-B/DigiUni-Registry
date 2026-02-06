@@ -48,10 +48,34 @@ public class DepartmentMenu extends BaseMenu {
                 String name = validation.readString("Назва кафедри: ");
                 String facultyName = validation.readString("Факультет: ");
                 Faculty faculty = FacultyService.findFacultyByName(facultyName);
+                while(true){
+                    if (faculty == null) {
+                        System.out.println(" Помилка: Факультет з такою назвою не знайдено!");
+                        facultyName = validation.readString("Факультет: ");
+                        faculty = FacultyService.findFacultyByName(facultyName);
+                    }
+                    if (faculty != null) {
+                        break;
+                }
+                }
                 String headFirstName = validation.readString("Ім'я завідувача кафедри: ");
                 String headMiddleName = validation.readString("По батькові завідувача: ");
                 String headLastName = validation.readString("Прізвище завідувача: ");
                 Teacher head = TeacherService.findTeacherByFullName(headFirstName, headMiddleName, headLastName);
+
+                while (true){
+                    if (head == null) {
+                        System.out.println(" Помилка: Викладач з таким ім'ям не знайдено!");
+                        headFirstName = validation.readString("Ім'я завідувача кафедри: ");
+                        headMiddleName = validation.readString("По батькові завідувача: ");
+                        headLastName = validation.readString("Прізвище завідувача: ");
+                        head = TeacherService.findTeacherByFullName(headFirstName, headMiddleName, headLastName);
+                    }
+                    if (head != null) {
+                        break;
+                    }
+                }
+
                 String location = validation.readString("Розташування кафедри: ");
                 try {
                     departmentService.addDepartment(new Department(id, name, faculty, head, location));
