@@ -1,7 +1,12 @@
 package ui;
 
 import domain.Department;
+import domain.Faculty;
+import domain.Teacher;
+import repository.TeacherRepository;
 import service.DepartmentService;
+import service.FacultyService;
+import service.TeacherService;
 
 public class DepartmentMenu extends BaseMenu {
     private DepartmentService departmentService;
@@ -40,12 +45,15 @@ public class DepartmentMenu extends BaseMenu {
                 System.out.println("--- Додавання кафедри ---");
                 String id = validation.readString("ID кафедри: ");
                 String name = validation.readString("Назва кафедри: ");
-               // String faculty = validation.readString("Факультет: ");
-                //String head = validation.readString("Завідувач кафедри: ");
+                String facultyName = validation.readString("Факультет: ");
+                Faculty faculty = FacultyService.findFacultyByName(facultyName);
+                String headFirstName = validation.readString("Ім'я завідувача кафедри: ");
+                String headMiddleName = validation.readString("По батькові завідувача: ");
+                String headLastName = validation.readString("Прізвище завідувача: ");
+                Teacher head = TeacherService.findTeacherByFullName(headFirstName, headMiddleName, headLastName);
                 String location = validation.readString("Розташування кафедри: ");
                 try {
-                    //Сонічка тут напевно потрібно щось змінити в domain.Не хоче додаватися факультет та голова кафедри тому поки null
-                    departmentService.addDepartment(new Department(id, name, null, null, location));
+                    departmentService.addDepartment(new Department(id, name, faculty, head, location));
                     System.out.println(" Кафедру успішно додано.");
                 } catch (Exception e) {
                     System.out.println(" Помилка: " + e.getMessage());

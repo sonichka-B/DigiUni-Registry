@@ -5,7 +5,7 @@ import repository.FacultyRepository;
 
 public class FacultyService {
 
-    private final FacultyRepository facultyRepository = new FacultyRepository();
+    private static final FacultyRepository facultyRepository = new FacultyRepository();
 
     public void addFaculty(Faculty faculty) {
         if(faculty == null) {
@@ -28,7 +28,10 @@ public class FacultyService {
         }
     }
 
-    public Faculty findFacultyByName(String name) {
+    public static Faculty findFacultyByName(String name) {
+       if(name == null) {
+           throw new IllegalArgumentException("Name cannot be null");
+       }
         return facultyRepository.findByName(name);
     }
 }

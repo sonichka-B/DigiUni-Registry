@@ -57,10 +57,15 @@ public class Student extends Person{
         this.status = status;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getMiddleName() + " " + getLastName();
+    }
+
     @Override
     public String toString() {
         return "Student{" +
-                "id='" + id + '\'' +
+                "id='" + id + '\'' + ", fullName='" + getFullName() + '\'' +", dateOfBirth='" + getDateOfBirth() + '\'' +
+                ", email='" + getEmail() + '\'' +", phoneNumber='" + getPhoneNumber() + '\'' +
                 ", course=" + course +
                 ", group=" + group +
                 ", yearOfAdmission=" + yearOfAdmission +

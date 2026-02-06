@@ -38,6 +38,6 @@ public class Department {
     @Override
     public String toString() {
         return String.format("Department(id=%s, name=%s, faculty=%s, head=%s, location=%s)",
-                id, name, faculty, head, location);
+                id, name, faculty.getName(), head.getFullName(), location);
     }
 }
