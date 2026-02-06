@@ -47,7 +47,7 @@ public class SearchPerson {
                 System.out.println("Помилка вводу");
                 return;
             }
-            Student found = studentService.findStudentByFullName(parts[1], parts[2], parts[0]);
+            Student found = studentService.findStudentByFullName(parts[0], parts[1], parts[2]);
             printResult(found);
         }
         private void searchStudentByCourse() {
@@ -84,7 +84,7 @@ public class SearchPerson {
                 System.out.println("Помилка вводу");
                 return;
             }
-            Teacher found = teacherService.findTeacherByFullName(parts[1], parts[2], parts[0]);
+            Teacher found = teacherService.findTeacherByFullName(parts[0], parts[1], parts[2]);
             if (found== null) {
                 System.out.println("Викладача не знайдено");
             } else {

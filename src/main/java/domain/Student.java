@@ -12,7 +12,7 @@ public class Student extends Person{
                    String dateOfBirth, String email, String phoneNumber,
                    int course, int group, int yearOfAdmission,
                    String formOfEducation, String status) {
-        super(id, firstName, lastName, middleName, dateOfBirth, email, phoneNumber);
+        super(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
         this.id = id;
         this.course = course;
         this.group = group;

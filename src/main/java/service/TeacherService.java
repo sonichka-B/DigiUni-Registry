@@ -11,7 +11,7 @@ public class TeacherService {
         if(teacher == null) {
             throw new IllegalArgumentException("Teacher cannot be null");
         }
-        if(teacher.getFirstName() == null || teacher.getMiddleName() == null || teacher.getLastName() == null) {
+        if(teacher.getFullName() == null ) {
             throw new IllegalArgumentException("Teacher's name fields cannot be null");
         }
         teacherRepository.save(teacher);

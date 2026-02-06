@@ -10,7 +10,7 @@ public class StudentService {
         if(student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
-        if(student.getFirstName() == null || student.getMiddleName() == null || student.getLastName() == null) {
+        if(student.getFullName() == null) {
             throw new IllegalArgumentException("Student's name fields cannot be null");
         }
         if(student.getCourse() == 0 ) {
@@ -63,7 +63,7 @@ public Student findStudentByFullName(String firstName, String middleName, String
     }
 
 //    edit only course, group and status, for more just add new parameters and set them in method
-    public boolean editStudent(String id, int course, int group, int yearOfAdmission, String status) {
+    public boolean editStudent(String id, int course, int group, String status) {
         Student student = studentRepository.findById(id);
         if (student!= null) {
             student.setCourse(course);
