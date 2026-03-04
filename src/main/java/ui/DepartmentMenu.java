@@ -22,10 +22,10 @@ public class DepartmentMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Показати всі кафедри");
-        System.out.println("2. Додати кафедру");
+        System.out.println("1. Додати кафедру");
+        System.out.println("2. Редагувати інформацію про кафедру");
         System.out.println("3. Видалити кафедру");
-        System.out.println("4. Редагувати інформацію про кафедру");
+        System.out.println("4. Показати всі кафедри");
         System.out.println("0. Назад");
     }
 
@@ -38,11 +38,6 @@ public class DepartmentMenu extends BaseMenu {
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("--- Список кафедр ---");
-                departmentService.listAllDepartments();
-                validation.waitZeroToExit();
-                break;
-            case 2:
                 System.out.println("--- Додавання кафедри ---");
                 String id = validation.readNotEmptyString("ID кафедри: ");
                 String name = validation.readNotEmptyString("Назва кафедри: ");
@@ -56,7 +51,7 @@ public class DepartmentMenu extends BaseMenu {
                     }
                     if (faculty != null) {
                         break;
-                }
+                    }
                 }
                 String headFirstName = validation.readNotEmptyString("Ім'я завідувача кафедри: ");
                 String headMiddleName = validation.readNotEmptyString("По батькові завідувача: ");
@@ -85,15 +80,7 @@ public class DepartmentMenu extends BaseMenu {
                 }
                 validation.waitZeroToExit();
                 break;
-            case 3:
-                //змінити щоб писалося якщо немає такої кафедри.Потрібно замінити void на boolean в serviсе
-                System.out.println("--- Видалення кафедри ---");
-                String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
-                departmentService.deleteDepartment(nameDel);
-                System.out.println(" Команду видалення виконано.");
-                validation.waitZeroToExit();
-                break;
-            case 4:
+            case 2:
                 System.out.println("--- Редагування інформації про кафедру ---");
                 String idDepartment = validation.readNotEmptyString("Введіть ID кафедри для редагування: ");
                 String newLocation = validation.readNotEmptyString("Введіть нове розташування кафедри: ");
@@ -103,6 +90,19 @@ public class DepartmentMenu extends BaseMenu {
                 } else {
                     System.out.println(" Помилка: Кафедру з таким ID не знайдено.");
                 }
+                validation.waitZeroToExit();
+                break;
+            case 3:
+                //змінити щоб писалося якщо немає такої кафедри.Потрібно замінити void на boolean в serviсе
+                System.out.println("--- Видалення кафедри ---");
+                String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
+                departmentService.deleteDepartment(nameDel);
+                System.out.println(" Команду видалення виконано.");
+                validation.waitZeroToExit();
+                break;
+            case 4:
+                System.out.println("--- Список кафедр ---");
+                departmentService.listAllDepartments();
                 validation.waitZeroToExit();
                 break;
         }

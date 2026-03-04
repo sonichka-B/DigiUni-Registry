@@ -1,18 +1,16 @@
 package ui;
 
 import domain.Student;
-import repository.StudentRepository;
 import service.StudentService;
 public class StudentMenu extends BaseMenu {
     private StudentService studentService;
-    private SearchPerson searchStudent;
+    private SearchStudent searchStudent;
     //  private StudentRepository studentRepository;
 
 
-    public StudentMenu(StudentService studentService, SearchPerson searchStudent/*, StudentRepository studentRepository*/) {
+    public StudentMenu(StudentService studentService, SearchStudent searchStudent) {
         this.studentService = studentService;
         this.searchStudent = searchStudent;
-        // this.studentRepository = studentRepository;
     }
 
     @Override
@@ -22,15 +20,14 @@ public class StudentMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Скористатися пошуком, щоб знайти студента");
-        System.out.println("2. Вивести всіх студентів певного курсу");
-        //Сонічка
-        System.out.println("3. Додати студента");
+        System.out.println("1. Додати студента");
+        System.out.println("2. Редагувати інформацію про студента");
+        System.out.println("3. Видалити студента");
         System.out.println("4. Вивести всіх студентів");
-        System.out.println("5. Видалити студента");
-        System.out.println("6. Редагувати інформацію про студента");
-        System.out.println("7. Перевести в іншу групу студента(ще не працює)");
-        System.out.println("8. Перевести на наступний курс(ще не працює)");
+        System.out.println("5. Вивести всіх студентів певного курсу");
+        System.out.println("6. Перевести в іншу групу студента(ще не працює)");
+        System.out.println("7. Перевести на наступний курс(ще не працює)");
+        System.out.println("8. Скористатися пошуком, щоб знайти студента");
         System.out.println("0. Повернутися назад");
     }
 
@@ -43,28 +40,30 @@ public class StudentMenu extends BaseMenu {
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                searchStudent.showStudentSearchMenu();
+                showAddStudent();
                 break;
             case 2:
-                int course = validation.readInt("Введіть курс : ", 1, 6);
-                studentService.showStudentsByCourse(course);
+                editStudent();
                 break;
+
             case 3:
-                showAddStudent();
+                deleteStudent();
                 break;
             case 4:
                 studentService.showAllStudents();
                 break;
             case 5:
-                deleteStudent();
+                int course = validation.readInt("Введіть курс : ", 1, 6);
+                studentService.showStudentsByCourse(course);
                 break;
+
             case 6:
-                editStudent();
                 break;
             case 7:
 
                 break;
             case 8:
+                searchStudent.showStudentSearchMenu();
                 break;
         }
         validation.waitZeroToExit();
@@ -139,7 +138,7 @@ private void editStudent() {
             System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
-//неправильний порядок 1по-батькові, 2імя, 3прізвище
+
     private void deleteStudent() {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
         String lastName = validation.readNotEmptyString("Введіть прізвище студента: ");

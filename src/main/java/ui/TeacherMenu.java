@@ -1,18 +1,14 @@
 package ui;
 
-import domain.Student;
 import domain.Teacher;
-import service.StudentService;
 import service.TeacherService;
-
-import java.awt.*;
 
 public class TeacherMenu extends BaseMenu {
     private TeacherService teacherService;
-    private SearchPerson searchTeacher;
+    private SearchTeacher searchTeacher;
 
 
-    public TeacherMenu(TeacherService teacherService, SearchPerson searchTeacher) {
+    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher) {
         this.teacherService = teacherService;
         this.searchTeacher=searchTeacher;
     }
@@ -23,13 +19,11 @@ public class TeacherMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-
-        System.out.println("1. Скористатися пошуком, щоб знайти викладача за ПІБ");
-        //Сонічка
-        System.out.println("2. Додати викладача");
-        System.out.println("3. Редагувати інформацію про викладача");
+        System.out.println("1. Додати викладача");
+        System.out.println("2. Редагувати інформацію про викладача");
+        System.out.println("3. Видалити викладача");
         System.out.println("4. Вивести всіх викладачів");
-        System.out.println("5. Видалити викладача");
+        System.out.println("5. Скористатися пошуком, щоб знайти викладача за ПІБ");
         System.out.println("0. Повернутися назад");
     }
 //доробити
@@ -42,21 +36,22 @@ public class TeacherMenu extends BaseMenu {
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                //Пошук викладача за ПІБ
-                searchTeacher.searchTeacherByName();
-                break;
-            case 2:
                 addTeacher();
                 break;
-            case 3:
+            case 2:
                 editTeacher();
+                break;
+            case 3:
+                deleteTeacher();
                 break;
             case 4:
                 teacherService.showAllTeachers();
                 break;
             case 5:
-                deleteTeacher();
+                //Пошук викладача за ПІБ
+                searchTeacher.searchTeacherByName();
                 break;
+
         }
         validation.waitZeroToExit();
     }

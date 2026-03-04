@@ -1,17 +1,13 @@
 package ui;
 import domain.Student;
-import domain.Teacher;
 import service.StudentService;
-import service.TeacherService;
 
-public class SearchPerson {
+public class SearchStudent {
         private Validation validation = new Validation();
         private StudentService studentService;
-        private TeacherService teacherService;
 
-        public SearchPerson(StudentService studentService, TeacherService teacherService) {
+        public SearchStudent(StudentService studentService) {
             this.studentService = studentService;
-            this.teacherService = teacherService;
         }
 //для студентіков (за ПІБ, курсом, групою)
         public void showStudentSearchMenu() {
@@ -33,8 +29,6 @@ public class SearchPerson {
                     case 3:
                         searchStudentByGroup();
                         break;
-                    case 0:
-                        return;
                 }
                 validation.waitZeroToExit();
             }
@@ -70,26 +64,6 @@ public class SearchPerson {
         }
     }
 
-
-
-        // пошук викладача за ПІБ
-        public void searchTeacherByName() {
-            System.out.println("--- ПОШУК ВИКЛАДАЧА ---");
-            System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
-            String fullName = validation.readNotEmptyString("(через пробіл)");
-            String[] parts = fullName.trim().split("\\s+");
-            if (parts.length < 3) {
-                System.out.println("Помилка вводу");
-                return;
-            }
-            Teacher found = teacherService.findTeacherByFullName(parts[0], parts[1], parts[2]);
-            if (found== null) {
-                System.out.println("Викладача не знайдено");
-            } else {
-                System.out.println("Знайдено: ");
-                System.out.println(found);
-            }
-        }
 
     }
 
