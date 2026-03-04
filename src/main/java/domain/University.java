@@ -13,19 +13,6 @@ public class University {
         this.address = address;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-    public String getShortName() {
-        return shortName;
-    }
-    public String getCity() {
-        return city;
-    }
-    public String getAddress() {
-        return address;
-    }
-
     @Override
     public String toString() {
         return String.format("University(fullName=%s, shortName=%s, city=%s, address=%s)",
