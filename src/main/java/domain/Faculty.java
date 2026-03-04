@@ -21,21 +21,6 @@ public class Faculty {
         this.dean = dean;
         this.phoneNumber = phoneNumber;
     }
-//    public String getId() {
-//        return id;
-//    }
-//    public String getName() {
-//        return name;
-//    }
-//    public String getShortName() {
-//        return shortName;
-//    }
-//    public String getDean() {
-//        return dean;
-//    }
-//    public String getPhoneNumber() {
-//        return phoneNumber;
-//    }
     @Override
     public String toString() {
         return String.format("Faculty(id=%s, name=%s, shortName=%s, dean=%s, phoneNumber=%s)",

@@ -19,27 +19,6 @@ public class Department {
         this.location = location;
     }
 
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public Faculty getFaculty() {
-//        return faculty;
-//    }
-//
-//    public Teacher getHead() {
-//        return head;
-//    }
-//
-//    public String getLocation() {
-//        return location;
-//    }
-
-
     @Override
     public String toString() {
         String facultyName = (faculty != null) ? faculty.getName() : "Не вказано";

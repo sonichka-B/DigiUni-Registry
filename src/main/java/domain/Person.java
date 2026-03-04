@@ -25,27 +25,6 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-//    public String getId() {
-//        return id;
-//    }
-//    public String getFirstName() {
-//        return firstName;
-//    }
-//    public String getLastName() {
-//        return lastName;
-//    }
-//    public String getMiddleName() {
-//        return middleName;
-//    }
-//    public String getDateOfBirth() {
-//        return dateOfBirth;
-//    }
-//    public String getEmail() {
-//        return email;
-//    }
-//    public String getPhoneNumber() {
-//        return phoneNumber;
-//    }
     public String getFullName() {
         return getFirstName() + " " + getMiddleName() + " " + getLastName();
     }
