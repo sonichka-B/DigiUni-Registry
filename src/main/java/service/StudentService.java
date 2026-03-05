@@ -1,76 +1,148 @@
 package service;
 
+import domain.Department;
+import domain.Faculty;
 import domain.Student;
+import repository.DepartmentRepository;
 import repository.StudentRepository;
+
+import java.util.*;
+import java.util.function.Function;
 
 public class StudentService {
     private final StudentRepository studentRepository = new StudentRepository();
 
     public void addStudent(Student student) {
-        if(student == null) {
-            throw new IllegalArgumentException("Student cannot be null");
-        }
-        if(student.getFullName() == null) {
-            throw new IllegalArgumentException("Student's name fields cannot be null");
-        }
-        if(student.getCourse() == 0 ) {
-            throw new IllegalArgumentException("Course cannot be null");
-        }
-        if(student.getGroup() == 0 ) {
-            throw new IllegalArgumentException("Group cannot be null");
-        }
-        studentRepository.save(student);
-    }
-
-    public void deleteStudent(String firstName, String middleName, String lastName) {
-    studentRepository.deleteByFullName(firstName, middleName, lastName);
-}
-
-public void showAllStudents() {
-    Student[] students = studentRepository.findAll();
-    for (Student student : students) {
-        System.out.println(student);
-    }
-}
-    public void showStudentsByCourse(int course) {
-        System.out.println("--- Звіт: Студенти " + course + " курсу ---");
-        boolean found = false;
-        Student[] allStudents = studentRepository.findAll();
-        for (int i = 0; i < allStudents.length; i++) {
-            Student s= allStudents[i];
-            if (s != null && s.getCourse() == course) {
-                System.out.println(s);
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("На цьому курсі студентів немає");
+        if(student != null){ //додай ще якісь перевірки
+            studentRepository.add(student);
         }
     }
-public Student findStudentByFullName(String firstName, String middleName, String lastName) {
-    return studentRepository.findByFullName(firstName, middleName, lastName);
-}
 
-    public Student findStudentByCourse(int course) {
-    return studentRepository.findByCourse(course);
-}
-    public Student findStudentByGroup(int group) {
-    return studentRepository.findByGroup(group);
-}
-
-    public Student findStudentById(String id) {
-        return studentRepository.findById(id);
+    public void deleteStudent(String id) {
+        Student student = studentRepository.findById(id);
+        if(student != null) {
+            studentRepository.delete(student);
+        } else {
+            System.out.println("Студента з таким id не знайдено");
+        }
     }
 
-//    edit only course, group and status, for more just add new parameters and set them in method
-    public boolean editStudent(String id, int course, int group, String status) {
+    public boolean editStudent(String id, int course, int group, String status, Department department) {
         Student student = studentRepository.findById(id);
         if (student!= null) {
             student.setCourse(course);
             student.setGroup(group);
             student.setStatus(status);
+            student.setDepartment(department);
             return true;
         }
         return false;
+    }
+
+    public void transferToNewDepartment(String id, Department department) {
+        Student student = studentRepository.findById(id);
+        if (student != null && department.getName() != null) {
+            student.setDepartment(department);
+        }
+    }
+
+    public void transferToNewCourse(String id, int newCourse) {
+        Student student = studentRepository.findById(id);
+        if (student != null) {
+            student.setCourse(newCourse);
+        }
+    }
+
+    public void transferToNewGroup(String id, int newGroup) {
+        Student student = studentRepository.findById(id);
+        if (student != null) {
+            student.setGroup(newGroup);
+        }
+    }
+
+    public void showAllStudents() {
+        studentRepository.findAll().forEach(System.out::println);
+    }
+
+    public void findStudentsByCourse(int course) {
+        System.out.println("--- Звіт: Студенти " + course + " курсу ---");
+        studentRepository.findByCourse(course).forEach(System.out::println);
+    }
+    public void findStudentsByGroup(int group) {
+        System.out.println("--- Звіт: Студенти групи " + group + " ---");
+        studentRepository.findByGroup(group).forEach(System.out::println);
+    }
+    public void findStudentsByFullName(String fullName) {
+        System.out.println("--- Звіт: Студенти з ПІБ " + fullName + " "  + " ---");
+        studentRepository.findByFullName(fullName + " " ).forEach(System.out::println);
+    }
+    public void findStudentById(String id) {
+        Student student = studentRepository.findById(id);
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("Студента з таким id не знайдено");
+        }
+    }
+    Comparator<Student>byCourse = Comparator.comparing(Student -> Student.getCourse());
+    public void sortStudentsByCourse() {
+        System.out.println("--- Звіт: Студенти, відсортовані за курсом ---");
+        List<Student> students = studentRepository.findAll();
+        List<Student> result = new ArrayList<>();
+            result.addAll(students);
+            result.sort(byCourse);
+        result.forEach(System.out::println);
+    }
+    public void sortStudentsByCourseInDepartment(Department department) {
+        System.out.println("--- Звіт: Студенти, відсортовані за курсом в межах кафедри ---");
+        List<Student> students = studentRepository.findAll();
+        List<Student> result = new ArrayList<>();
+        for(Student student: students){
+            if(student.getDepartment() == department){
+                result.add(student);
+            }
+        }
+        result.sort(byCourse);
+        result.forEach(System.out::println);
+    }
+
+    Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getFullName());
+
+    public void sortStudentsByAlphabetInFaculty(Faculty faculty, Department department) {
+        System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");
+        List<Student> students = studentRepository.findAll();
+        List<Student> result = new ArrayList<>();
+        for(Student student: students){
+             if(student.getDepartment().getFaculty() == faculty){
+                 result.add(student);
+             }
+        }
+         result.sort(byAlphabet);
+        result.forEach(System.out::println);
+    }
+
+    public void sortStudentsByAlphabetInDepartment(Department department) {
+        System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах кафедри ---");
+        List<Student> students = studentRepository.findAll();
+        List<Student> result = new ArrayList<>();
+        for(Student student: students){
+            if(student.getDepartment() == department){
+                result.add(student);
+            }
+        }
+        result.sort(byAlphabet);
+        result.forEach(System.out::println);
+    }
+
+    public void showStudentsInDepartmentAndCourse(Department department, int course) {
+        System.out.println("--- Звіт: Студенти " + course + " курсу в межах кафедри ---");
+        List<Student> students = studentRepository.findAll();
+        List<Student> result = new ArrayList<>();
+        for(Student student:students){
+            if(student.getDepartment() == department && student.getCourse() == course){
+                result.add(student);
+            }
+        }
+        result.forEach(System.out::println);
     }
 }

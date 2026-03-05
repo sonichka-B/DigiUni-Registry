@@ -3,7 +3,6 @@ package repository;
 import domain.Student;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class StudentRepository extends Repository<Student> {
@@ -23,8 +22,44 @@ public class StudentRepository extends Repository<Student> {
         public List<Student> findAll() {
             return new ArrayList<>(students);
         }
-        Comparator<Student> findByFullName = Comparator.comparing(Student::getFullName);
-        Comparator<Student> findByCourse = Comparator.comparingInt(Student::getCourse);
-        Comparator<Student> findByGroup = Comparator.comparingInt(Student::getGroup);
+
+        public List<Student> findByFullName(String FullName){
+            List<Student> result = new ArrayList<>();
+            for (Student student: students){
+                if (student.getFullName().equals(FullName)){
+                    result.add(student);
+                }
+            }
+            return result;
+        }
+
+        public List<Student> findByCourse(int course){
+            List<Student> result = new ArrayList<>();
+            for (Student student: students){
+                if (student.getCourse() == course){
+                    result.add(student);
+                }
+            }
+            return result;
+        }
+
+        public List<Student> findByGroup(int group){
+            List<Student> result = new ArrayList<>();
+            for (Student student: students){
+                if (student.getGroup() == group){
+                    result.add(student);
+                }
+            }
+            return result;
+        }
+
+        public Student findById(String id){
+            for (Student student: students){
+                if (student.getId().equals(id)){
+                    return student;
+                }
+            }
+            return null;
+        }
 
 }

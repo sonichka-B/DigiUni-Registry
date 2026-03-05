@@ -8,7 +8,7 @@ public class Student extends Person{
     private int course;
     private int group;
     private final int yearOfAdmission;
-    private String formOfEducation;
+    private final String formOfEducation;
     private String status;
     private Department department;
 
