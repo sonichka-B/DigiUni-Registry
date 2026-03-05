@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class Repository<T> implements CRUDRepository<T>{
+
     protected List<T> generalDATA = new ArrayList<>();
     
     @Override
@@ -16,6 +17,13 @@ abstract class Repository<T> implements CRUDRepository<T>{
         generalDATA.remove(entity);
     }
 
+    @Override
+    public T findById(String id) {
+        if(id == null) {
+            throw new IllegalArgumentException("ID cannot be null");
+        }
+        return null;
+    }
     @Override
     public List<T> findAll() {
         return generalDATA;

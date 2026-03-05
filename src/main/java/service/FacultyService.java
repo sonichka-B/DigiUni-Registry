@@ -1,6 +1,7 @@
 package service;
 
 import domain.Faculty;
+import domain.Teacher;
 import repository.FacultyRepository;
 
 public class FacultyService {
@@ -9,45 +10,48 @@ public class FacultyService {
 
     public void addFaculty(Faculty faculty) {
         if(faculty == null) {
-            throw new IllegalArgumentException("Faculty cannot be null");
+            throw new IllegalArgumentException("Факультет не може бути null");
         }
         if(faculty.getName() == null || faculty.getShortName() == null || faculty.getDean() == null || faculty.getPhoneNumber() == null) {
-            throw new IllegalArgumentException("Faculty fields cannot be null");
+            throw new IllegalArgumentException("Назва, коротка назва, декан та номер телефону факультету не можуть бути null");
         }
-        facultyRepository.save(faculty);
-    }
-
-    public void deleteFaculty(String name) {
-        facultyRepository.deleteByName(name);
-    }
-
-    public void showAllFaculties() {
-        Faculty[] faculties = facultyRepository.findAll();
-        for (Faculty faculty : faculties) {
-            System.out.println(faculty);
+        if(faculty.getDean(). getFullName() == null) {
+            throw new IllegalArgumentException("ПІБ декана не може бути null");
         }
+        facultyRepository.add(faculty);
     }
 
-    public static Faculty findFacultyByName(String name) {
-       if(name == null) {
-           throw new IllegalArgumentException("Name cannot be null");
-       }
-        return facultyRepository.findByName(name);
-    }
-
-    public static Faculty findFacultyById(String id) {
-        if(id == null) {
-            throw new IllegalArgumentException("ID cannot be null");
-        }
-        return facultyRepository.findById(id);
-    }
-
-    public boolean editFaculty(String id, String newDean) {
+    public void deleteFaculty(String id) {
         Faculty faculty = facultyRepository.findById(id);
         if (faculty != null) {
+            facultyRepository.delete(faculty);
+        } else {
+            System.out.println("Факультет з таким id не знайдено");
+        }
+    }
+
+    public boolean editFaculty(String id, Teacher newDean) {
+        Faculty faculty = facultyRepository.findById(id);
+        if (faculty != null && newDean != null && newDean.getFullName() != null) {
             faculty.setDean(newDean);
             return true;
         }
         return false;
     }
+    public void showAllFaculties() {
+        for (Faculty faculty : facultyRepository.findAll()) {
+            System.out.println(faculty);
+        }
+    }
+
+    public void findFacultyById(String id) {
+        Faculty faculty = facultyRepository.findById(id);
+        if (faculty != null) {
+            System.out.println(faculty);
+        } else {
+            System.out.println("Факультет з таким id не знайдено");
+        }
+    }
+
+
 }

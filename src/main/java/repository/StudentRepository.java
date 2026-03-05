@@ -8,19 +8,19 @@ import java.util.List;
 public class StudentRepository extends Repository<Student> {
     private final List<Student> students = new ArrayList<>();
 
-        @Override
-        public void add(Student student) {
-            students.add(student);
-        }
+    @Override
+    public void add(Student student) {
+        super.add(student);
+    }
 
-        @Override
-        public void delete(Student student) {
-            students.remove(student);
-        }
+    @Override
+    public void delete(Student student) {
+        super.delete(student);
+    }
 
-        @Override
+    @Override
         public List<Student> findAll() {
-            return new ArrayList<>(students);
+            return super.findAll();
         }
 
         public List<Student> findByFullName(String FullName){
@@ -52,7 +52,7 @@ public class StudentRepository extends Repository<Student> {
             }
             return result;
         }
-
+        @Override
         public Student findById(String id){
             for (Student student: students){
                 if (student.getId().equals(id)){

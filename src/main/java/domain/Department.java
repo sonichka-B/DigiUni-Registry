@@ -1,6 +1,7 @@
 package domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 @Getter
@@ -8,7 +9,8 @@ public class Department {
     private final String id;
     private final String name;
     private final Faculty faculty;
-    private final Teacher head;
+    @Setter
+    private Teacher head;
     private final String location;
 
     public Department(String id, String name, Faculty faculty, Teacher head, String location) {

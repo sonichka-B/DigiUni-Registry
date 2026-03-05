@@ -12,9 +12,9 @@ public class Faculty {
     private final String shortName;
     private final String phoneNumber;
     @Setter
-    private  String dean;
+    private  Teacher dean;
 
-    public Faculty(String id, String name, String shortName, String dean, String phoneNumber) {
+    public Faculty(String id, String name, String shortName, Teacher dean, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
@@ -24,7 +24,7 @@ public class Faculty {
     @Override
     public String toString() {
         return String.format("Faculty(id=%s, name=%s, shortName=%s, dean=%s, phoneNumber=%s)",
-                id, name, shortName, dean, phoneNumber);
+                id, name, shortName, dean.getFullName(), phoneNumber);
     }
 
     @Override

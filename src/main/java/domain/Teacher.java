@@ -3,6 +3,8 @@ package domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter @Setter
 public class Teacher extends Person{
     private String position;
@@ -13,7 +15,7 @@ public class Teacher extends Person{
     private Department department;
 
     public Teacher(String id, String firstName, String middleName, String lastName,Department department, String position,
-                   String academicDegree, String academicTitle, String dateOfEmployment, String rate, String dateOfBirth,
+                   String academicDegree, String academicTitle, String dateOfEmployment, String rate, LocalDate dateOfBirth,
                    String email, String phoneNumber) {
         super(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
         this.position = position;

@@ -2,6 +2,7 @@ package ui;
 
 import domain.Faculty;
 import domain.Student;
+import repository.StudentRepository;
 import service.DepartmentService;
 import service.FacultyService;
 import service.StudentService;
@@ -10,7 +11,8 @@ import service.TeacherService;
 public class Main {
     //доробити
     public static void main(String[] args) {
-        StudentService studentService = new StudentService();
+        StudentRepository studentRepository = new StudentRepository();
+        StudentService studentService = new StudentService(studentRepository);
         studentService.addStudent(new Student("1", "ПР", "Ш", "M", "2000-01-01",
                 "email1", "11", 1, 1, 2018, "бюджет", "навчається"));
         studentService.addStudent(new Student("2", "Ran", "Ben", "N", "2001-02-02",

@@ -1,21 +1,23 @@
 package domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
-@Getter
+@Getter@Setter
 public class Person {
-    private final String id;
-    private final String firstName;
-    private final String lastName;
-    private final String middleName;
-    private final String dateOfBirth;
-    private final String email;
-    private final String phoneNumber;
+    private  String id;
+    private  String firstName;
+    private  String lastName;
+    private  String middleName;
+    private  LocalDate dateOfBirth;
+    private  String email;
+    private  String phoneNumber;
 
     public Person(String id, String firstName, String middleName, String lastName,
-                  String dateOfBirth, String email, String phoneNumber) {
+                  LocalDate dateOfBirth, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
