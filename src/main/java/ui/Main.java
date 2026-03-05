@@ -9,10 +9,9 @@ import service.StudentService;
 import service.TeacherService;
 
 public class Main {
-    //доробити
     public static void main(String[] args) {
-        StudentRepository studentRepository = new StudentRepository();
-        StudentService studentService = new StudentService(studentRepository);
+        StudentService studentService = new StudentService();
+        studentService.crud().addStudent(new Student());
         studentService.addStudent(new Student("1", "ПР", "Ш", "M", "2000-01-01",
                 "email1", "11", 1, 1, 2018, "бюджет", "навчається"));
         studentService.addStudent(new Student("2", "Ran", "Ben", "N", "2001-02-02",

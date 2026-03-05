@@ -1,0 +1,54 @@
+package service;
+
+import domain.Department;
+import domain.Teacher;
+import repository.TeacherRepository;
+
+public class TeacherCRUDService {
+    private static final TeacherRepository teacherRepository = new TeacherRepository();
+
+    public void addTeacher(Teacher teacher) {
+        if(teacher == null) {
+            throw new IllegalArgumentException("Teacher cannot be null");
+        }
+        if(teacher.getFullName() == null ) {
+            throw new IllegalArgumentException("Teacher's name fields cannot be null");
+        }
+        if(teacher.getPosition() == null) {
+            throw new IllegalArgumentException("Teacher's position cannot be null");
+        }
+        if(teacher.getAcademicDegree() == null) {
+            throw new IllegalArgumentException("Teacher's academic degree cannot be null");
+        }
+        if(teacher.getAcademicTitle() == null) {
+            throw new IllegalArgumentException("Teacher's academic title cannot be null");
+        }
+        if(teacherRepository.findByFullName(teacher.getFullName()) != null) {
+            throw new IllegalArgumentException("A teacher with the same full name already exists");
+        }
+        if(teacher.getDepartment() == null || teacher.getDepartment().getName() == null) {
+            throw new IllegalArgumentException("Teacher must be associated with a department");
+        }
+        teacherRepository.add(teacher);
+    }
+    public void deleteTeacher(String id) {
+        Teacher teacher = teacherRepository.findById(id);
+        if(teacher != null) {
+            teacherRepository.delete(teacher);
+        } else {
+            System.out.println("Викладача з таким id не знайдено");
+        }
+    }
+
+    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle, Department department) {
+        Teacher teacher = teacherRepository.findById(id);
+        if (teacher != null && department.getName() != null) {
+            teacher.setPosition(position);
+            teacher.setAcademicDegree(academicDegree);
+            teacher.setAcademicTitle(academicTitle);
+            teacher.setDepartment(department);
+            return true;
+        }
+        return false;
+    }
+}
