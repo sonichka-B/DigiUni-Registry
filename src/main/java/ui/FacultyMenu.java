@@ -15,10 +15,10 @@ public class FacultyMenu extends BaseMenu{
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Показати всі факультети");
-        System.out.println("2. Додати факультет");
+        System.out.println("1. Додати факультет");
+        System.out.println("2. Редагувати інформацію про факультет");
         System.out.println("3. Видалити факультет");
-        System.out.println("4. Редагувати інформацію про факультет");
+        System.out.println("4. Показати всі факультети");
         System.out.println("0. Назад");
     }
 
@@ -31,11 +31,6 @@ public class FacultyMenu extends BaseMenu{
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("--- Список факультетів ---");
-                facultyService.showAllFaculties();
-                validation.waitZeroToExit();
-                break;
-            case 2:
                 System.out.println("--- Додавання факультету ---");
                 String id = validation.readNotEmptyString("ID факультету: ");
                 String name = validation.readNotEmptyString("Назва факультету: ");
@@ -51,15 +46,7 @@ public class FacultyMenu extends BaseMenu{
                 }
                 validation.waitZeroToExit();
                 break;
-            case 3:
-                System.out.println("--- Видалення факультету ---");
-                String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
-                facultyService.deleteFaculty(nameDel);
-                System.out.println(" Команду видалення виконано.");
-                validation.waitZeroToExit();
-                break;
-
-            case 4:
+            case 2:
                 System.out.println("--- Редагування інформації про факультет ---");
                 String idFaculty = validation.readNotEmptyString("Введіть ID факультету для редагування: ");
                 String newDean = validation.readNotEmptyString("Введіть нового декана: ");
@@ -69,6 +56,19 @@ public class FacultyMenu extends BaseMenu{
                 } else {
                     System.out.println(" Помилка: Факультету з таким ID не знайдено.");
                 }
+                validation.waitZeroToExit();
+                break;
+            case 3:
+                System.out.println("--- Видалення факультету ---");
+                String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
+                facultyService.deleteFaculty(nameDel);
+                System.out.println(" Команду видалення виконано.");
+                validation.waitZeroToExit();
+                break;
+
+            case 4:
+                System.out.println("--- Список факультетів ---");
+                facultyService.showAllFaculties();
                 validation.waitZeroToExit();
                 break;
         }

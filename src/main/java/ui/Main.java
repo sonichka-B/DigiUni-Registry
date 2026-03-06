@@ -1,6 +1,5 @@
 package ui;
 
-import domain.Faculty;
 import domain.Student;
 import repository.StudentRepository;
 import service.DepartmentService;
@@ -36,11 +35,12 @@ public class Main {
         departmentService.addDepartment(new domain.Department("202", "Biology", facultyService.findFacultyByName("Science"),
                 teacherService.findTeacherByFullName("Bob", "Johnson", "D"), "Building B"));
 
-        SearchPerson searchPerson = new SearchPerson(studentService, teacherService);
-FacultyMenu facultyMenu = new FacultyMenu(facultyService);
+        SearchTeacher searchTeacher = new SearchTeacher(teacherService);
+        SearchStudent searchStudent = new SearchStudent(studentService);
+        FacultyMenu facultyMenu = new FacultyMenu(facultyService);
         DepartmentMenu departmentMenu = new DepartmentMenu(departmentService);
-        StudentMenu studentMenu = new StudentMenu(studentService, searchPerson);
-        TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchPerson);
+        StudentMenu studentMenu = new StudentMenu(studentService, searchStudent);
+        TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchTeacher);
 
 
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu);
