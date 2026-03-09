@@ -90,7 +90,7 @@ public class StudentMenu extends BaseMenu {
 
                 break;
             case 10:
-                searchStudent.showStudentSearchMenu();
+                searchStudent.showMenu();
                 break;
         }
         validation.waitZeroToExit();

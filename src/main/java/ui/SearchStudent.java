@@ -2,7 +2,7 @@ package ui;
 import domain.Student;
 import service.StudentSearchService;
 
-public class SearchStudent {
+public class SearchStudent extends BaseMenu{
         private Validation validation = new Validation();
         private StudentSearchService studentSearchService;
 
@@ -11,29 +11,39 @@ public class SearchStudent {
             this.studentSearchService = studentSearchService;
         }
 //для студентіков (за ПІБ, курсом, групою)
-        public void showStudentSearchMenu() {
-            while (true) {
-                System.out.println("--- ПОШУК СТУДЕНТА ---");
-                System.out.println("1. За ПІБ");
-                System.out.println("2. За курсом");
-                System.out.println("3. За групою");
-                System.out.println("0. Назад");
+  @Override
+protected void printTitle() {
+    System.out.println("--- ПОШУК СТУДЕНТА ---");
+}
 
-                int choice = validation.readInt("Оберіть опцію", 0, 3);
-                switch (choice) {
-                    case 1:
-                        searchStudentByName();
-                        break;
-                    case 2:
-                        searchStudentByCourse();
-                        break;
-                    case 3:
-                        searchStudentByGroup();
-                        break;
-                }
-                validation.waitZeroToExit();
-            }
+    @Override
+    protected void printOptions() {
+        System.out.println("1. За ПІБ");
+        System.out.println("2. За курсом");
+        System.out.println("3. За групою");
+        System.out.println("0. Назад");
+    }
+
+    @Override
+    protected int getMaxOption() {
+        return 3;
+    }
+
+    @Override
+    protected void handleChoice(int choice) {
+        switch (choice) {
+            case 1:
+                searchStudentByName();
+                break;
+            case 2:
+                searchStudentByCourse();
+                break;
+            case 3:
+                searchStudentByGroup();
+                break;
         }
+        validation.waitZeroToExit();
+    }
         private void searchStudentByName() {
             System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
             String fullName = validation.readNotEmptyString("(через пробіл)");
