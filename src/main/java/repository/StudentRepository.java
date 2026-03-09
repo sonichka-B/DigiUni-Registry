@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Faculty;
 import domain.Student;
 
 import java.util.ArrayList;
@@ -61,5 +62,15 @@ public class StudentRepository extends Repository<Student> {
             }
             return null;
         }
+
+    @Override
+    public Student findByName(String name){
+        for (Student student: students){
+            if (student.getFullName().equals(name)){
+                return student;
+            }
+        }
+        return null;
+    }
 
 }

@@ -2,6 +2,7 @@ package service;
 
 import domain.Department;
 import domain.Teacher;
+import repository.DepartmentRepository;
 import repository.TeacherRepository;
 
 public class TeacherCRUDService {
@@ -23,7 +24,7 @@ public class TeacherCRUDService {
         if(teacher.getAcademicTitle() == null) {
             throw new IllegalArgumentException("Teacher's academic title cannot be null");
         }
-        if(teacherRepository.findByFullName(teacher.getFullName()) != null) {
+        if(teacherRepository.findByName(teacher.getFullName()) != null) {
             throw new IllegalArgumentException("A teacher with the same full name already exists");
         }
         if(teacher.getDepartment() == null || teacher.getDepartment().getName() == null) {
@@ -40,13 +41,14 @@ public class TeacherCRUDService {
         }
     }
 
-    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle, Department department) {
+    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle, String department) {
         Teacher teacher = teacherRepository.findById(id);
-        if (teacher != null && department.getName() != null) {
+        Department departments = new DepartmentRepository().findByName(department);
+        if (teacher != null && departments != null) {
             teacher.setPosition(position);
             teacher.setAcademicDegree(academicDegree);
             teacher.setAcademicTitle(academicTitle);
-            teacher.setDepartment(department);
+            teacher.setDepartment(departments);
             return true;
         }
         return false;

@@ -24,6 +24,14 @@ abstract class Repository<T> implements CRUDRepository<T>{
         }
         return null;
     }
+
+    @Override
+    public T findByName(String name) {
+        if(name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        return null;
+    }
     @Override
     public List<T> findAll() {
         return generalDATA;

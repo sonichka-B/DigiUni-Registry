@@ -2,6 +2,7 @@ package service;
 
 import domain.Department;
 import domain.Student;
+import repository.DepartmentRepository;
 import repository.StudentRepository;
 
 public class StudentCRUDService {
@@ -21,10 +22,6 @@ public class StudentCRUDService {
                 System.out.println("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
                 return;
             }
-            if(student.getDepartment() == null || student.getDepartment().getName() == null){
-                System.out.println("Помилка: Студент повинен бути прив'язаний до кафедри");
-                return;
-            }
         }
         studentRepository.add(student);
     }
@@ -39,9 +36,9 @@ public class StudentCRUDService {
         }
     }
 
-    public boolean editStudent(String id, int course, int group, String status, Department department) {
+    public boolean editStudent(String id, int course, int group, String status, String department) {
         Student student = studentRepository.findById(id);
-        if (student!= null && department.getName() !=null) {
+        if (student!= null && department !=null) {
             student.setCourse(course);
             student.setGroup(group);
             student.setStatus(status);
@@ -51,9 +48,10 @@ public class StudentCRUDService {
         return false;
     }
 
-    public void transferToNewDepartment(String id, Department department) {
+    public void transferToNewDepartment(String id, String department) {
         Student student = studentRepository.findById(id);
-        if (student != null && department.getName() != null) {
+        Department departments = new DepartmentRepository().findByName(department);
+        if (student != null && departments != null) {
             student.setDepartment(department);
         }
     }

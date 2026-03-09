@@ -31,4 +31,21 @@ public class DepartmentRepository extends Repository<Department>{
             }
         } return null;
     }
+
+    @Override
+    public Department findByName(String name){
+        for(Department department:departments){
+            if(department.getName().equals(name)){
+                return department;
+            }
+        } return null;
+    }
+
+    public Department findByFaculty(String faculty){
+        for(Department department:departments){
+            if(department.getFaculty().equals(faculty)){
+                return department;
+            }
+        } return null;
+    }
 }

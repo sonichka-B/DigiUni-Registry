@@ -32,9 +32,10 @@ public class TeacherRepository extends Repository<Teacher> {
         }return null;
     }
 
-    public Teacher findByFullName(String fullName){
+    @Override
+    public Teacher findByName(String name){
         for(Teacher teacher:teachers){
-            if(teacher.getFullName().equals(fullName)){
+            if(teacher.getFullName().equals(name)){
                 return teacher;
             }
         }return null;
