@@ -34,4 +34,14 @@ public class FacultyRepository extends Repository<Faculty>{
         }
         return Optional.empty();
     }
+
+    @Override
+    public Faculty findByName(String name){
+        for (Faculty faculty: faculties){
+            if (faculty.getName().equals(name)){
+                return faculty;
+            }
+        }
+        return null;
+    }
 }

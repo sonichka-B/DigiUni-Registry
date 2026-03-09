@@ -12,9 +12,9 @@ public class Student extends Person{
     private final int yearOfAdmission;
     private final String formOfEducation;
     private String status;
-    private Department department;
+    private String department;
 
-    public Student(String id, String firstName, String middleName, String lastName, int course, Department department, int group,
+    public Student(String id, String firstName, String middleName, String lastName, int course, String department, int group,
                    int yearOfAdmission, String formOfEducation, String status, LocalDate dateOfBirth, String email, String phoneNumber) {
         super(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
         this.course = course;
@@ -28,7 +28,7 @@ public class Student extends Person{
     @Override
     public String toString() {
         return "Student{" +
-                "id:'" + getId() + '\'' + ", ПІБ:'" + getFullName() + '\'' + ", курс:" + course + '\'' + ", кафедра:'" + department.getName() + '\'' +
+                "id:'" + getId() + '\'' + ", ПІБ:'" + getFullName() + '\'' + ", курс:" + course + '\'' + ", кафедра:'" + department + '\'' +
                 ", група:" + group + '\'' + ", рік вступу:" + yearOfAdmission + '\'' + ", форма навчання:'" + formOfEducation + '\'' +
                 ", статус:'" + status + '\'' + ", дата народження:'" + getDateOfBirth() + '\'' +
                 ", email:'" + getEmail() + '\'' +", номер телефону:'" + getPhoneNumber() + '\'' +

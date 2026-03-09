@@ -3,6 +3,7 @@ package service;
 import domain.Department;
 import domain.Teacher;
 import repository.DepartmentRepository;
+import repository.TeacherRepository;
 
 public class DepartmentCRUDService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
@@ -24,9 +25,11 @@ public class DepartmentCRUDService {
         }
     }
 
-    public boolean editDepartment(String id, Teacher head){
+    public boolean editDepartment(String id, String head){
         Department department = departmentRepository.findById(id);
-        if (department != null && head != null && head.getFullName() != null) {
+        TeacherRepository teacherRepository = new TeacherRepository();
+        Teacher headTeacher = teacherRepository.findByName(head);
+        if (department != null && headTeacher != null) {
             department.setHead(head);
             return true;
         }

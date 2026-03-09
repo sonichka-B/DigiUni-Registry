@@ -37,12 +37,12 @@ public class StudentSearchService {
         }
     }
 
-    public void showStudentsInDepartmentAndCourse(Department department, int course) {
+    public void showStudentsInDepartmentAndCourse(String department, int course) {
         System.out.println("--- Звіт: Студенти " + course + " курсу в межах кафедри ---");
         List<Student> students = studentRepository.findAll();
         List<Student> result = new ArrayList<>();
         for(Student student:students){
-            if(student.getDepartment() == department && student.getCourse() == course){
+            if(student.getDepartment().equals(department) && student.getCourse() == course){
                 result.add(student);
             }
         }

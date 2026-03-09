@@ -3,6 +3,7 @@ package service;
 import domain.Department;
 import domain.Faculty;
 import domain.Student;
+import repository.DepartmentRepository;
 import repository.StudentRepository;
 
 import java.util.ArrayList;
@@ -21,12 +22,12 @@ public class StudentSortingService {
         result.sort(byCourse);
         result.forEach(System.out::println);
     }
-    public void sortStudentsByCourseInDepartment(Department department) {
+    public void sortStudentsByCourseInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за курсом в межах кафедри ---");
         List<Student> students = studentRepository.findAll();
         List<Student> result = new ArrayList<>();
         for(Student student: students){
-            if(student.getDepartment() == department){
+            if(student.getDepartment().equals(department)){
                 result.add(student);
             }
         }
@@ -36,12 +37,13 @@ public class StudentSortingService {
 
     Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getFullName());
 
-    public void sortStudentsByAlphabetInFaculty(Faculty faculty, Department department) {
+    public void sortStudentsByAlphabetInFaculty(String faculty, String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");
         List<Student> students = studentRepository.findAll();
         List<Student> result = new ArrayList<>();
+        Department departments = new DepartmentRepository().findByFaculty(faculty);
         for(Student student: students){
-            if(student.getDepartment().getFaculty() == faculty){
+            if(departments.equals(department)){
                 result.add(student);
             }
         }
@@ -49,12 +51,12 @@ public class StudentSortingService {
         result.forEach(System.out::println);
     }
 
-    public void sortStudentsByAlphabetInDepartment(Department department) {
+    public void sortStudentsByAlphabetInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах кафедри ---");
         List<Student> students = studentRepository.findAll();
         List<Student> result = new ArrayList<>();
         for(Student student: students){
-            if(student.getDepartment() == department){
+            if(student.getDepartment().equals(department)){
                 result.add(student);
             }
         }

@@ -8,12 +8,12 @@ import java.util.Objects;
 public class Department {
     private final String id;
     private final String name;
-    private final Faculty faculty;
+    private final String faculty;
     @Setter
-    private Teacher head;
+    private String head;
     private final String location;
 
-    public Department(String id, String name, Faculty faculty, Teacher head, String location) {
+    public Department(String id, String name, String faculty, String head, String location) {
         this.id = id;
         this.name = name;
         this.faculty = faculty;
@@ -23,10 +23,8 @@ public class Department {
 
     @Override
     public String toString() {
-        String facultyName = (faculty != null) ? faculty.getName() : "Не вказано";
-        String headName = (head != null) ? head.getFullName() : "Не вказано";
         return String.format("Department(id=%s, name=%s, faculty=%s, head=%s, location=%s)",
-                id, name, facultyName, headName, location);
+                id, name, faculty, head, location);
     }
 
     @Override

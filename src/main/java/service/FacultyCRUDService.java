@@ -3,6 +3,7 @@ package service;
 import domain.Faculty;
 import domain.Teacher;
 import repository.FacultyRepository;
+import repository.TeacherRepository;
 
 import java.util.Optional;
 
@@ -16,9 +17,7 @@ public class FacultyCRUDService {
         if(faculty.getName() == null || faculty.getShortName() == null || faculty.getDean() == null || faculty.getPhoneNumber() == null) {
             throw new IllegalArgumentException("Назва, коротка назва, декан та номер телефону факультету не можуть бути null");
         }
-        if(faculty.getDean(). getFullName() == null) {
-            throw new IllegalArgumentException("ПІБ декана не може бути null");
-        }
+
         facultyRepository.add(faculty);
     }
 
@@ -31,9 +30,10 @@ public class FacultyCRUDService {
         }
     }
 
-    public boolean editFaculty(String id, Teacher newDean) {
+    public boolean editFaculty(String id, String newDean) {
         Faculty faculty = facultyRepository.findById(id);
-        if (faculty != null && newDean != null && newDean.getFullName() != null) {
+        Teacher Dean = new TeacherRepository().findByName(newDean);
+        if (faculty != null && Dean != null) {
             faculty.setDean(newDean);
             return true;
         }
