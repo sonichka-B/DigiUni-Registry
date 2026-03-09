@@ -1,13 +1,14 @@
 package ui;
 import domain.Student;
-import service.StudentService;
+import service.StudentSearchService;
 
 public class SearchStudent {
         private Validation validation = new Validation();
-        private StudentService studentService;
+        private StudentSearchService studentSearchService;
 
-        public SearchStudent(StudentService studentService) {
-            this.studentService = studentService;
+        public SearchStudent(StudentSearchService studentSearchService) {
+
+            this.studentSearchService = studentSearchService;
         }
 //для студентіков (за ПІБ, курсом, групою)
         public void showStudentSearchMenu() {
@@ -36,34 +37,16 @@ public class SearchStudent {
         private void searchStudentByName() {
             System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
             String fullName = validation.readNotEmptyString("(через пробіл)");
-            String[] parts = fullName.trim().split("\\s+");
-            if (parts.length < 3) {
-                System.out.println("Помилка вводу");
-                return;
-            }
-            Student found = studentService.findStudentByFullName(parts[0], parts[1], parts[2]);
-            printResult(found);
+            studentSearchService.findStudentsByFullName(fullName);
         }
         private void searchStudentByCourse() {
             int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
-            Student found = studentService.findStudentByCourse(course);
-            printResult(found);
+           studentSearchService.findStudentsByCourse(course);
         }
         private void searchStudentByGroup() {
             int group = validation.readInt("Введіть номер групи: ", 1, 6);
-            Student found = studentService.findStudentByGroup(group);
-            printResult(found);
+            studentSearchService.findStudentsByGroup(group);
         }
-    // вивід результатів студентів
-    private void printResult(Student student) {
-        if (student == null) {
-            System.out.println("Нікого не знайдено");
-        } else {
-            System.out.println("Знайдено: ");
-            System.out.println(student);
-        }
-    }
-
 
     }
 

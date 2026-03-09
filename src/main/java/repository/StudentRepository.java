@@ -1,9 +1,11 @@
 package repository;
 
 import domain.Student;
+import domain.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentRepository extends Repository<Student> {
     private final List<Student> students = new ArrayList<>();
@@ -53,13 +55,13 @@ public class StudentRepository extends Repository<Student> {
             return result;
         }
         @Override
-        public Student findById(String id){
+        public Optional<Student> findById(String id){
             for (Student student: students){
                 if (student.getId().equals(id)){
-                    return student;
+                    return Optional.of(student);
                 }
             }
-            return null;
+            return Optional.empty();
         }
 
 }

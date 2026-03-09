@@ -1,9 +1,11 @@
 package repository;
 
 import domain.Department;
+import domain.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DepartmentRepository extends Repository<Department>{
     private final List<Department> departments = new ArrayList<>();
@@ -24,11 +26,11 @@ public class DepartmentRepository extends Repository<Department>{
     }
 
     @Override
-    public Department findById(String id){
+    public Optional<Department> findById(String id){
         for(Department department:departments){
             if(department.getId().equals(id)){
-                return department;
+                return Optional.of(department);
             }
-        } return null;
+        } return Optional.empty();
     }
 }

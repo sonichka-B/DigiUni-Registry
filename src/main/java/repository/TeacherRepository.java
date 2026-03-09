@@ -4,6 +4,7 @@ import domain.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TeacherRepository extends Repository<Teacher> {
     private final List<Teacher> teachers = new ArrayList<>();
@@ -24,12 +25,12 @@ public class TeacherRepository extends Repository<Teacher> {
     }
 
     @Override
-    public Teacher findById(String id){
+    public Optional<Teacher> findById(String id){
         for(Teacher teacher:teachers){
             if(teacher.getId().equals(id)){
-                return teacher;
+                return Optional.of(teacher);
             }
-        }return null;
+        }return Optional.empty();
     }
 
     public Teacher findByFullName(String fullName){

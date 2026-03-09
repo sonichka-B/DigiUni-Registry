@@ -4,6 +4,8 @@ import domain.Faculty;
 import domain.Teacher;
 import repository.FacultyRepository;
 
+import java.util.Optional;
+
 public class FacultyCRUDService {
     private static final FacultyRepository facultyRepository = new FacultyRepository();
 
@@ -21,9 +23,9 @@ public class FacultyCRUDService {
     }
 
     public void deleteFaculty(String id) {
-        Faculty faculty = facultyRepository.findById(id);
-        if (faculty != null) {
-            facultyRepository.delete(faculty);
+        Optional<Faculty> faculty = facultyRepository.findById(id);
+        if (faculty.isPresent()) {
+            facultyRepository.delete(faculty.orElse(null));
         } else {
             System.out.println("Факультет з таким id не знайдено");
         }
