@@ -47,7 +47,8 @@ public class StudentMenu extends BaseMenu {
                 break;
             case 2:
                 int course = validation.readInt("Введіть курс : ", 1, 6);
-                studentService.showStudentsByCourse(course);
+//                new StudentService().sort().sortStudentsByCourse()
+//                я тута побалувалася, думала це допоможе виконати тести, але вони не запустяться поки всі помилки не пофіксимо(
                 break;
             case 3:
                 showAddStudent();
