@@ -3,6 +3,8 @@ package service;
 import domain.Teacher;
 import repository.TeacherRepository;
 
+import java.util.Optional;
+
 public class TeacherSearchService {
     private static final TeacherRepository teacherRepository = new TeacherRepository();
 
@@ -24,8 +26,8 @@ public class TeacherSearchService {
 
     public void findTeacherById(String id) {
         System.out.println("--- Звіт: Викладач з id " + id + " " + " ---");
-        Teacher teacher = teacherRepository.findById(id);
-        if (teacher != null) {
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        if (teacher.isPresent()) {
             System.out.println(teacher);
         } else {
             System.out.println("Викладача з таким id не знайдено");

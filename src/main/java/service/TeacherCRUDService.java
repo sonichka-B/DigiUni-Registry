@@ -45,13 +45,13 @@ public class TeacherCRUDService {
     }
 
     public boolean editTeacher(String id, String position, String academicDegree, String academicTitle, String department) {
-        Teacher teacher = teacherRepository.findById(id);
+        Optional<Teacher> teacher = teacherRepository.findById(id);
         Department departments = new DepartmentRepository().findByName(department);
-        if (teacher != null && departments != null) {
-            teacher.setPosition(position);
-            teacher.setAcademicDegree(academicDegree);
-            teacher.setAcademicTitle(academicTitle);
-            teacher.setDepartment(departments);
+        if (teacher.isPresent() && departments != null) {
+            teacher.get().setPosition(position);
+            teacher.get().setAcademicDegree(academicDegree);
+            teacher.get().setAcademicTitle(academicTitle);
+            teacher.get().setDepartment(departments);
             return true;
         }
         return false;

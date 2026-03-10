@@ -83,7 +83,7 @@ public class StudentCRUDService {
             student.get().getMiddleName();
             student.get().getLastName();
             student.get().setPhoneNumber();*/
-            student.setDepartment(department.getId());
+            student.setDepartment(department.getName());
             return true;
         }
 

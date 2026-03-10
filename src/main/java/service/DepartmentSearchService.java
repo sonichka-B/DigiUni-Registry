@@ -3,6 +3,8 @@ package service;
 import domain.Department;
 import repository.DepartmentRepository;
 
+import java.util.Optional;
+
 public class DepartmentSearchService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
 
@@ -13,8 +15,8 @@ public class DepartmentSearchService {
     }
 
     public void findDepartmentById(String id){
-        Department department = departmentRepository.findById(id);
-        if (department != null) {
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isPresent()) {
             System.out.println(department);
         } else {
             System.out.println("Кафедра з таким id не знайдена");
