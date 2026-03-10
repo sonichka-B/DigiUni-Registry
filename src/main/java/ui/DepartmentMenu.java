@@ -3,19 +3,19 @@ package ui;
 import domain.Department;
 import domain.Faculty;
 import domain.Teacher;
+import exceptions.NotFoundException;
 import repository.TeacherRepository;
-import service.DepartmentService;
-import service.FacultyService;
-import service.TeacherService;
-import service.DepartmentCRUDService;
-import service.DepartmentSearchService;
+import service.*;
 
 public class DepartmentMenu extends BaseMenu {
     private DepartmentCRUDService departmentCRUDService;
     private DepartmentSearchService departmentSearchService;
+    private FacultySearchService facultySearchService;
 
-    public DepartmentMenu(DepartmentService departmentService, DepartmentCRUDService departmentCRUDService, DepartmentSearchService departmentSearchService) {
+    public DepartmentMenu(DepartmentService departmentService, DepartmentCRUDService departmentCRUDService, DepartmentSearchService departmentSearchService, FacultySearchService facultySearchService) {
         this.departmentCRUDService = departmentCRUDService;
+        this.departmentSearchService = departmentSearchService;
+        this.facultySearchService = facultySearchService;
     }
 
     @Override
@@ -63,13 +63,11 @@ public class DepartmentMenu extends BaseMenu {
         System.out.println("--- Додавання кафедри ---");
         String id = validation.readNotEmptyString("ID кафедри: ");
         String name = validation.readNotEmptyString("Назва кафедри: ");
-        String facultyName = validation.readNotEmptyString("Факультет: ");
-        Faculty faculty = FacultyCRUDService.findFacultyByName(facultyName);
-        while (true) {
-            if (faculty == null) {
-                System.out.println(" Помилка: Факультет з такою назвою не знайдено!");
-                facultyName = validation.readNotEmptyString("Факультет: ");
-                faculty = FacultyService.findFacultyByName(facultyName);
+        String idFaculty = validation.readNotEmptyString("ID факультету: ");
+        Faculty faculty = facultySearchService.findFacultyById(idFaculty);
+        try {
+            domain.Faculty faculty = facultyRepository.findById(idFaculty)
+                    .orElseThrow(() -> new NotFoundException("Факультет з ID ", idFaculty));
             }
             if (faculty != null) {
                 break;
@@ -78,7 +76,7 @@ public class DepartmentMenu extends BaseMenu {
         String headFirstName = validation.readNotEmptyString("Ім'я завідувача кафедри: ");
         String headMiddleName = validation.readNotEmptyString("По батькові завідувача: ");
         String headLastName = validation.readNotEmptyString("Прізвище завідувача: ");
-        Teacher head = TeacherService.findTeacherByFullName(headFirstName, headMiddleName, headLastName);
+        Teacher head = .findByName(headFirstName, headMiddleName, headLastName);
 
         while (true) {
             if (head == null) {
@@ -95,7 +93,7 @@ public class DepartmentMenu extends BaseMenu {
 
         String location = validation.readNotEmptyString("Розташування кафедри: ");
         try {
-            departmentService.addDepartment(new Department(id, name, faculty, head, location));
+            departmentCRUDService.addDepartment(new Department(id, name, faculty, head, location));
             System.out.println(" Кафедру успішно додано.");
         } catch (Exception e) {
             System.out.println(" Помилка: " + e.getMessage());
@@ -105,7 +103,7 @@ public class DepartmentMenu extends BaseMenu {
             System.out.println("--- Редагування інформації про кафедру ---");
             String idDepartment = validation.readNotEmptyString("Введіть ID кафедри для редагування: ");
             String newLocation = validation.readNotEmptyString("Введіть нове розташування кафедри: ");
-            boolean success = departmentService.editDepartment(idDepartment, newLocation);
+            boolean success = departmentCRUDService.editDepartment(idDepartment, newLocation);
             if (success) {
                 System.out.println(" Інформацію про кафедру успішно оновлено.");
             } else {
@@ -116,7 +114,7 @@ public class DepartmentMenu extends BaseMenu {
             //змінити щоб писалося якщо немає такої кафедри.Потрібно замінити void на boolean в serviсе
             System.out.println("--- Видалення кафедри ---");
             String nameDel = validation.readNotEmptyString("Введіть назву для видалення: ");
-            departmentService.deleteDepartment(nameDel);
+            departmentCRUDService.deleteDepartment(nameDel);
             System.out.println(" Команду видалення виконано.");
         }
     }

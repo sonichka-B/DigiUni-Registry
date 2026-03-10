@@ -2,6 +2,7 @@ package service;
 
 import domain.Department;
 import domain.Student;
+import repository.DepartmentRepository;
 import repository.StudentRepository;
 import exceptions.IncorrectDataException;
 import exceptions.IdAlreadyPresentException;
@@ -26,7 +27,7 @@ public class StudentCRUDService {
                 throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
 
             }
-            if(student.getDepartment() == null || student.getDepartment().getName() == null){
+            if(student.getDepartment() == null || student.getDepartment().trim().isEmpty()){
                 throw new IncorrectDataException("Помилка: Студент повинен бути прив'язаний до кафедри");
 
             }
@@ -39,13 +40,13 @@ public class StudentCRUDService {
             if (student.getDateOfBirth() == null) {
                 throw new IncorrectDataException("Дата народження не може бути порожньою");
             }
-            if (student.getFirstName() == null || student.getFirstName() == null) {
+            if (student.getFirstName() == null) {
                 throw new IncorrectDataException("Це поле не може бути порожнім");
             }
-            if (student.getMiddleName() == null || student.getMiddleName() == null) {
+            if (student.getMiddleName() == null) {
                 throw new IncorrectDataException("Це поле не може бути порожнім");
             }
-            if (student.getLastName() == null || student.getLastName() == null) {
+            if (student.getLastName() == null) {
                 throw new IncorrectDataException("Це поле не може бути порожнім");
             }
             if (student.getYearOfAdmission() < 2015 || student.getYearOfAdmission() > 2025) {
@@ -61,19 +62,18 @@ public class StudentCRUDService {
 
 
     public void deleteStudent(String id) {
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isPresent()) {
-            studentRepository.delete(student.orElse(null));
-        } else {
-            throw new NotFoundException("Студента ", id);
-        }
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Студента ", id));
+        studentRepository.delete(student);
     }
 
     public boolean editStudent(String id, int course, int group, String status, Department department) {
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Студента", id));
-        if (department == null || department.getName() == null) {
-            throw new IllegalArgumentException("Кафедра не може бути порожньою");
+            Student student = studentRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Студента", id));
+
+            if (department == null || department.getName() == null) {
+                throw new IllegalArgumentException("Кафедра не може бути порожньою");
+            }
             student.setCourse(course);
             student.setGroup(group);
             student.setStatus(status);
@@ -83,28 +83,28 @@ public class StudentCRUDService {
             student.get().getMiddleName();
             student.get().getLastName();
             student.get().setPhoneNumber();*/
-            student.setDepartment(department);
+            student.setDepartment(department.getId());
             return true;
         }
-        return false;
-    }
 
-    public void transferToNewDepartment(String id, Department department) {
-        Student student = studentRepository.findById(id);
-        if (student != null && department.getName() != null) {
+
+    public void transferToNewDepartment(String id, String department) {
+        Student student = studentRepository.findById(id).orElse(null);
+        Department departments = new DepartmentRepository().findByName(department);
+        if (student != null && departments != null) {
             student.setDepartment(department);
         }
     }
 
     public void transferToNewCourse(String id, int newCourse) {
-        Student student = studentRepository.findById(id);
+        Student student = studentRepository.findById(id).orElse(null);
         if (student != null) {
             student.setCourse(newCourse);
         }
     }
 
     public void transferToNewGroup(String id, int newGroup) {
-        Student student = studentRepository.findById(id);
+        Student student = studentRepository.findById(id).orElse(null);
         if (student != null) {
             student.setGroup(newGroup);
         }

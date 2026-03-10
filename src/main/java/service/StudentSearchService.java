@@ -1,11 +1,11 @@
 package service;
 
-import domain.Department;
 import domain.Student;
 import repository.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentSearchService {
     private static final StudentRepository studentRepository = new StudentRepository();
@@ -23,8 +23,8 @@ public class StudentSearchService {
         studentRepository.findByFullName(fullName + " " ).forEach(System.out::println);
     }
     public void findStudentById(String id) {
-        Student student = studentRepository.findById(id);
-        if (student != null) {
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
             System.out.println(student);
         } else {
             System.out.println("Студента з таким id не знайдено");

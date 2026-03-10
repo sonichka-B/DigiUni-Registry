@@ -31,10 +31,10 @@ public class FacultyCRUDService {
     }
 
     public boolean editFaculty(String id, String newDean) {
-        Faculty faculty = facultyRepository.findById(id);
+        Optional<Faculty> faculty = facultyRepository.findById(id);
         Teacher Dean = new TeacherRepository().findByName(newDean);
-        if (faculty != null && Dean != null) {
-            faculty.setDean(newDean);
+        if (faculty.isPresent() && Dean != null) {
+            faculty.get().setDean(newDean);
             return true;
         }
         return false;

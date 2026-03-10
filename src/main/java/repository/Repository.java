@@ -2,6 +2,7 @@ package repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 abstract class Repository<T> implements CRUDRepository<T>{
 
@@ -18,7 +19,7 @@ abstract class Repository<T> implements CRUDRepository<T>{
     }
 
     @Override
-    public T findById(String id) {
+    public Optional<T> findById(String id) {
         if(id == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }

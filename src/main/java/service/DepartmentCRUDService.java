@@ -5,6 +5,8 @@ import domain.Teacher;
 import repository.DepartmentRepository;
 import repository.TeacherRepository;
 
+import java.util.Optional;
+
 public class DepartmentCRUDService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
 
@@ -17,20 +19,20 @@ public class DepartmentCRUDService {
     }
 
     public void deleteDepartment(String id){
-        Department department = departmentRepository.findById(id);
-        if (department != null) {
-            departmentRepository.delete(department);
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isPresent()) {
+            departmentRepository.delete(department.orElse(null));
         } else {
             System.out.println("Кафедра з таким id не знайдена");
         }
     }
 
     public boolean editDepartment(String id, String head){
-        Department department = departmentRepository.findById(id);
+        Optional<Department> department = departmentRepository.findById(id);
         TeacherRepository teacherRepository = new TeacherRepository();
         Teacher headTeacher = teacherRepository.findByName(head);
-        if (department != null && headTeacher != null) {
-            department.setHead(head);
+        if (department.isPresent() && headTeacher != null) {
+            department.get().setHead(head);
             return true;
         }
         return false;
