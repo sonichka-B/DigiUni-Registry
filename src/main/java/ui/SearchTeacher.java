@@ -1,30 +1,50 @@
 package ui;
 
 import domain.Teacher;
-import service.TeacherService;
+import service.TeacherSearchService;
 
-public class SearchTeacher {
-    private TeacherService teacherService;
+
+public class SearchTeacher extends BaseMenu{
+    private TeacherSearchService teacherSearchService;
     private Validation validation = new Validation();
 
-    public SearchTeacher(TeacherService teacherService) {
-        this.teacherService = teacherService;
+    public SearchTeacher(TeacherSearchService teacherSearchService) {
+
+        this.teacherSearchService = teacherSearchService;
     }
-    public void searchTeacherByName() {
+    @Override
+    protected void printTitle() {
         System.out.println("--- ПОШУК ВИКЛАДАЧА ---");
+    }
+    @Override
+    protected void printOptions() {
+        System.out.println("1. За ПІБ");
+        System.out.println("2. За ID");
+        System.out.println("0. Назад");
+    }
+    @Override
+    protected int getMaxOption() {
+        return 2;
+    }
+    protected void handleChoice(int choice) {
+        switch (choice) {
+            case 1:
+                findTeacherByFullName();
+                    break;
+            case 2:
+                findTeacherById();
+                    break;
+        }
+        validation.waitZeroToExit();
+    }
+
+    public void findTeacherByFullName() {
         System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
         String fullName = validation.readNotEmptyString("(через пробіл)");
-        String[] parts = fullName.trim().split("\\s+");
-        if (parts.length < 3) {
-            System.out.println("Помилка вводу");
-            return;
-        }
-        Teacher found = teacherService.findTeacherByFullName(parts[0], parts[1], parts[2]);
-        if (found== null) {
-            System.out.println("Викладача не знайдено");
-        } else {
-            System.out.println("Знайдено: ");
-            System.out.println(found);
-        }
+        teacherSearchService.findTeacherByFullName(fullName);
+    }
+    public void findTeacherById() {
+        String id = validation.readNotEmptyString("Введіть ID: ");
+        teacherSearchService.findTeacherByFullName(id);
     }
 }

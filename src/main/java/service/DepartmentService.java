@@ -1,43 +1,24 @@
 package service;
 
 import domain.Department;
+import domain.Teacher;
 import repository.DepartmentRepository;
 
 public class DepartmentService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
+    private final DepartmentCRUDService departmentCRUDService;
+    private final DepartmentSearchService departmentSearchService;
 
-    public void addDepartment(Department department){
-        departmentRepository.save(department);
-    }
-
-    public void findDepartmentByName(String name){
-        Department department = departmentRepository.findByName(name);
-        if (department != null) {
-            System.out.println(department);
-        } else {
-            System.out.println("Department not found.");
-        }
-    }
-    public void listAllDepartments(){
-        Department[] departments = departmentRepository.findAll();
-        for (Department department : departments) {
-            System.out.println(department);
-        }
-    }
-    public void deleteDepartment(String name){
-        departmentRepository.deleteByName(name);
+    public DepartmentService() {
+        this.departmentCRUDService = new DepartmentCRUDService();
+        this.departmentSearchService = new DepartmentSearchService();
     }
 
-    public Department findDepartmentById(String id){
-        return departmentRepository.findById(id);
+    public DepartmentCRUDService crud() {
+        return departmentCRUDService;
     }
 
-    public boolean editDepartment(String id, String newLocation){
-        Department department = departmentRepository.findById(id);
-        if (department != null) {
-            department.setLocation(newLocation);
-            return true;
-        }
-        return false;
+    public DepartmentSearchService search() {
+        return departmentSearchService;
     }
 }

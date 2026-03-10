@@ -2,61 +2,51 @@ package repository;
 
 import domain.Department;
 
-public class DepartmentRepository {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    private Department[] departments;
-    private int count;
-    private final int capacity = 5;
+public class DepartmentRepository extends Repository<Department>{
+    private final List<Department> departments = new ArrayList<>();
 
-    public DepartmentRepository() {
-        this.departments = new Department[capacity];
-        this.count = 0;
+    @Override
+    public void add(Department department) {
+        super.add(department);
     }
 
-    public void save(Department department){
-        if (count < capacity) {
-            departments[count] = department;
-            count++;
-        } else {
-            System.out.println("Repository is full. Cannot add more departments.");
-        }
+    @Override
+    public void delete(Department department) {
+        super.delete(department);
     }
 
+    @Override
+    public List<Department> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    public Optional<Department> findById(String id){
+        for(Department department:departments){
+            if(department.getId().equals(id)){
+                return Optional.of(department);
+            }
+        } return Optional.empty();
+    }
+
+    @Override
     public Department findByName(String name){
-        for (int i = 0; i < count; i++) {
-            if (departments[i].getName().equals(name)) {
-                return departments[i];
+        for(Department department:departments){
+            if(department.getName().equals(name)){
+                return department;
             }
-        }
-        return null;
+        } return null;
     }
 
-    public Department[] findAll(){
-        Department[] result = new Department[count];
-        System.arraycopy(departments, 0, result, 0, count);
-        return result;
-    }
-
-    public void deleteByName(String name){
-        for (int i = 0; i < count; i++) {
-            if (departments[i].getName().equals(name)) {
-                // Shift elements to the left to fill the gap
-                for (int j = i; j < count - 1; j++) {
-                    departments[j] = departments[j + 1];
-                }
-                departments[count - 1] = null; // Clear the last element
-                count--;
-                return;
+    public Department findByFaculty(String faculty){
+        for(Department department:departments){
+            if(department.getFaculty().equals(faculty)){
+                return department;
             }
-        }
-    }
-
-    public Department findById(String id){
-        for (int i = 0; i < count; i++) {
-            if (departments[i].getId().equals(id)) {
-                return departments[i];
-            }
-        }
-        return null;
+        } return null;
     }
 }

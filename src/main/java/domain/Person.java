@@ -1,16 +1,23 @@
 package domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+@Getter@Setter
 public class Person {
-    private final String id;
-    private final String firstName;
-    private final String lastName;
-    private final String middleName;
-    private final String dateOfBirth;
-    private final String email;
-    private final String phoneNumber;
+    private  String id;
+    private  String firstName;
+    private  String lastName;
+    private  String middleName;
+    private  LocalDate dateOfBirth;
+    private  String email;
+    private  String phoneNumber;
 
     public Person(String id, String firstName, String middleName, String lastName,
-                  String dateOfBirth, String email, String phoneNumber) {
+                  LocalDate dateOfBirth, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -20,30 +27,26 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {
-        return id;
+    public String getFullName() {
+        return getFirstName() + " " + getMiddleName() + " " + getLastName();
     }
-    public String getFirstName() {
-        return firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public String getMiddleName() {
-        return middleName;
-    }
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+
     @Override
     public String toString() {
-        return String.format("Person(id=%s, firstName=%s, middleName=%s, lastName=%s, dateOfBirth=%s, email=%s, phoneNumber=%s)",
-                id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
+        return "Person{" +
+                "id:'" + id + '\'' + ", ПІБ:'" + getFullName() + '\'' +", дата народження:'" + dateOfBirth + '\'' +
+                ", email:'" + email + '\'' +", номер телефону:'" + phoneNumber + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Person person)) return false;
+        return Objects.equals(id, person.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

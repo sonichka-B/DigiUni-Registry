@@ -2,64 +2,43 @@ package repository;
 
 import domain.Teacher;
 
-public class TeacherRepository {
-    private Teacher[] teachers;
-    private int count;
-    private final int capacity = 5;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    public TeacherRepository() {
-        this.teachers = new Teacher[capacity];
-        this.count = 0;
+public class TeacherRepository extends Repository<Teacher> {
+    private final List<Teacher> teachers = new ArrayList<>();
+
+    @Override
+    public void add(Teacher teacher){
+        teachers.add(teacher);
     }
 
-    public void save(Teacher teacher){
-        if (count < capacity) {
-            teachers[count] = teacher;
-            count++;
-        } else {
-            System.out.println("Repository is full. Cannot add more teachers.");
-        }
+    @Override
+    public void delete(Teacher entity) {
+        super.delete(entity);
     }
 
-    public Teacher findByFullName(String firstName, String middleName, String lastName) {
-        for (int i = 0; i < count; i++) {
-            if (teachers[i].getFirstName().equals(firstName) &&
-                    teachers[i].getMiddleName().equals(middleName) &&
-                    teachers[i].getLastName().equals(lastName)) {
-                return teachers[i];
+    @Override
+    public List<Teacher> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    public Optional<Teacher> findById(String id){
+        for(Teacher teacher:teachers){
+            if(teacher.getId().equals(id)){
+                return Optional.of(teacher);
             }
-        }
-        return null;
+        }return Optional.empty();
     }
 
-    public void deleteByFullName(String firstName, String middleName, String lastName) {
-        for (int i = 0; i < count; i++) {
-            if (teachers[i].getFirstName().equals(firstName) &&
-                    teachers[i].getMiddleName().equals(middleName) &&
-                    teachers[i].getLastName().equals(lastName)) {
-                // Shift elements to the left to fill the gap
-                for (int j = i; j < count - 1; j++) {
-                    teachers[j] = teachers[j + 1];
-                }
-                teachers[count - 1] = null; // Clear the last element
-                count--;
-                return;
+    @Override
+    public Teacher findByName(String name){
+        for(Teacher teacher:teachers){
+            if(teacher.getFullName().equals(name)){
+                return teacher;
             }
-        }
-    }
-
-    public Teacher[] findAll(){
-        Teacher[] result = new Teacher[count];
-        System.arraycopy(teachers, 0, result, 0, count);
-        return result;
-    }
-
-    public Teacher findById(String id) {
-        for (int i = 0; i < count; i++) {
-            if (teachers[i].getId().equals(id)) {
-                return teachers[i];
-            }
-        }
-        return null;
+        }return null;
     }
 }

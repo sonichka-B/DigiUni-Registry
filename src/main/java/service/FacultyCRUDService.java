@@ -1,0 +1,42 @@
+package service;
+
+import domain.Faculty;
+import domain.Teacher;
+import repository.FacultyRepository;
+import repository.TeacherRepository;
+
+import java.util.Optional;
+
+public class FacultyCRUDService {
+    private static final FacultyRepository facultyRepository = new FacultyRepository();
+
+    public void addFaculty(Faculty faculty) {
+        if(faculty == null) {
+            throw new IllegalArgumentException("Факультет не може бути null");
+        }
+        if(faculty.getName() == null || faculty.getShortName() == null || faculty.getDean() == null || faculty.getPhoneNumber() == null) {
+            throw new IllegalArgumentException("Назва, коротка назва, декан та номер телефону факультету не можуть бути null");
+        }
+
+        facultyRepository.add(faculty);
+    }
+
+    public void deleteFaculty(String id) {
+        Optional<Faculty> faculty = facultyRepository.findById(id);
+        if (faculty.isPresent()) {
+            facultyRepository.delete(faculty.orElse(null));
+        } else {
+            System.out.println("Факультет з таким id не знайдено");
+        }
+    }
+
+    public boolean editFaculty(String id, String newDean) {
+        Optional<Faculty> faculty = facultyRepository.findById(id);
+        Teacher Dean = new TeacherRepository().findByName(newDean);
+        if (faculty.isPresent() && Dean != null) {
+            faculty.get().setDean(newDean);
+            return true;
+        }
+        return false;
+    }
+}

@@ -2,82 +2,75 @@ package repository;
 
 import domain.Student;
 
-public class StudentRepository {
-    private Student [] students;
-    private int count;
-    private final int capacity = 5;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    public StudentRepository() {
-        this.students = new Student[capacity];
-        this.count = 0;
+public class StudentRepository extends Repository<Student> {
+    private final List<Student> students = new ArrayList<>();
+
+    @Override
+    public void add(Student student) {
+        super.add(student);
     }
-    public void save(Student student){
-        if (count < capacity) {
-            students[count] = student;
-            count++;
-        } else {
-            System.out.println("Repository is full. Cannot add more students.");
+
+    @Override
+    public void delete(Student student) {
+        super.delete(student);
+    }
+
+    @Override
+        public List<Student> findAll() {
+            return super.findAll();
         }
-    }
 
-    public Student findByFullName(String firstName, String middleName, String lastName){
-        for (int i = 0; i < count; i++) {
-            if (students[i].getFirstName().equals(firstName) &&
-                students[i].getMiddleName().equals(middleName) &&
-                students[i].getLastName().equals(lastName)) {
-                return students[i];
-            }
-        }
-        return null;
-    }
-
-    public Student findByCourse(int course){
-        for (int i = 0; i < count; i++) {
-            if (students[i].getCourse() == course) {
-                return students[i];
-            }
-        }
-        return null;
-    }
-
-    public Student findByGroup(int group){
-        for (int i = 0; i < count; i++) {
-            if (students[i].getGroup() == group) {
-                return students[i];
-            }
-        }
-        return null;
-    }
-
-    public Student findById(String id){
-        for (int i = 0; i < count; i++) {
-            if (students[i].getId().equals(id)) {
-                return students[i];
-            }
-        }
-        return null;
-    }
-
-    public Student[] findAll(){
-        Student[] result = new Student[count];
-        System.arraycopy(students, 0, result, 0, count);
-        return result;
-    }
-
-    public void deleteByFullName(String firstName, String middleName, String lastName){
-        for (int i = 0; i < count; i++) {
-            if (students[i].getFirstName().equals(firstName) &&
-                students[i].getMiddleName().equals(middleName) &&
-                students[i].getLastName().equals(lastName)) {
-                // Shift elements to the left to fill the gap
-                for (int j = i; j < count - 1; j++) {
-                    students[j] = students[j + 1];
+        public List<Student> findByFullName(String FullName){
+            List<Student> result = new ArrayList<>();
+            for (Student student: students){
+                if (student.getFullName().equals(FullName)){
+                    result.add(student);
                 }
-                students[count - 1] = null; // Clear the last element
-                count--;
-                return;
+            }
+            return result;
+        }
+
+        public List<Student> findByCourse(int course){
+            List<Student> result = new ArrayList<>();
+            for (Student student: students){
+                if (student.getCourse() == course){
+                    result.add(student);
+                }
+            }
+            return result;
+        }
+
+        public List<Student> findByGroup(int group){
+            List<Student> result = new ArrayList<>();
+            for (Student student: students){
+                if (student.getGroup() == group){
+                    result.add(student);
+                }
+            }
+            return result;
+        }
+        @Override
+        public Optional<Student> findById(String id){
+            for (Student student: students){
+                if (student.getId().equals(id)){
+                    return Optional.of(student);
+                }
+            }
+            return Optional.empty();
+        }
+
+    @Override
+    public Student findByName(String name){
+        for (Student student: students){
+            if (student.getFullName().equals(name)){
+                return student;
             }
         }
+        return null;
     }
 
 }

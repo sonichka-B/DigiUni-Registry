@@ -2,56 +2,43 @@ package repository;
 
 import domain.Faculty;
 
-public class FacultyRepository {
-    private Faculty[] faculties;
-    private int count;
-    private final int capacity = 5;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    public FacultyRepository() {
-        this.faculties = new Faculty[capacity];
-        this.count = 0;
-    }
-    public void save(Faculty faculty) {
-        if (count < capacity) {
-            faculties[count] = faculty;
-            count++;
-        } else {
-            System.out.println("Repository is full. Cannot add more faculties.");
-        }
+public class FacultyRepository extends Repository<Faculty>{
+    private final List<Faculty> faculties = new ArrayList<>();
+
+    @Override
+    public void add(Faculty faculty) {
+        super.add(faculty);
     }
 
-    public Faculty[] findAll() {
-        Faculty[] result = new Faculty[count];
-        System.arraycopy(faculties, 0, result, 0, count);
-        return result;
+    @Override
+    public void delete(Faculty entity) {
+        super.delete(entity);
     }
 
-    public Faculty findByName(String name) {
-        for (int i = 0; i < count; i++) {
-            if (faculties[i].getName().equals(name)) {
-                return faculties[i];
+    @Override
+    public List<Faculty> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    public Optional<Faculty> findById(String id){
+        for (Faculty faculty: faculties){
+            if (faculty.getId().equals(id)){
+                return Optional.of(faculty);
             }
         }
-        return null;
-    }
-    public void deleteByName(String name) {
-        for (int i = 0; i < count; i++) {
-            if (faculties[i].getName().equals(name)) {
-                // Shift elements to the left to fill the gap
-                for (int j = i; j < count - 1; j++) {
-                    faculties[j] = faculties[j + 1];
-                }
-                faculties[count - 1] = null; // Clear the last element
-                count--;
-                return;
-            }
-        }
+        return Optional.empty();
     }
 
-    public Faculty findById(String id) {
-        for (int i = 0; i < count; i++) {
-            if (faculties[i].getId().equals(id)) {
-                return faculties[i];
+    @Override
+    public Faculty findByName(String name){
+        for (Faculty faculty: faculties){
+            if (faculty.getName().equals(name)){
+                return faculty;
             }
         }
         return null;

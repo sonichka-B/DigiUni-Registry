@@ -3,6 +3,7 @@ package ui;
 import domain.Faculty;
 import service.FacultyService;
 
+
 public class FacultyMenu extends BaseMenu{
     private FacultyService facultyService;
     public FacultyMenu(FacultyService facultyService) {
