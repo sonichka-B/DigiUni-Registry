@@ -1,13 +1,10 @@
 package ui;
 
-import domain.Department;
 import domain.Student;
-import service.StudentService;
-import service.StudentCRUDService;
-import service.StudentSortingService;
-import service.StudentSearchService;
+import service.*;
 import repository.DepartmentRepository;
-import exceptions.NotFoundException;
+import exceptions.NotFoundIDException;
+import validation.ValidLocalDate;
 
 import java.time.LocalDate;
 
@@ -117,7 +114,7 @@ private void editStudent() {
     String departmentId = validation.readNotEmptyString("Введіть ID кафедри: ");
     try {
         domain.Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new NotFoundException("Кафедра з ID ", departmentId));
+                .orElseThrow(() -> new NotFoundIDException("Кафедра з ID ", departmentId));
 
         boolean editStudent=studentCRUDService.editStudent(id, сourse, group, status, department);
         System.out.println("Інформацію про студента успішно оновлено.");
@@ -165,7 +162,7 @@ private void editStudent() {
         String departmentId = validation.readNotEmptyString("Введіть ID кафедри: ");
         try {
             domain.Department department = departmentRepository.findById(departmentId)
-                    .orElseThrow(() -> new NotFoundException("Кафедра з ID ", departmentId));
+                    .orElseThrow(() -> new NotFoundIDException("Кафедра з ID ", departmentId));
 
             Student newStudent = new Student(id, firstName, middleName, lastName, course, departmentId, group,
              yearOfAdmission, formOfEducation, status, dateOfBirth,email,phoneNumber);

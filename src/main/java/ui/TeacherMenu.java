@@ -2,10 +2,7 @@ package ui;
 
 import domain.Department;
 import domain.Teacher;
-import service.TeacherService;
-import service.TeacherCRUDService;
-import service.TeacherSortingService;
-import service.TeacherSearchService;
+import service.*;
 
 public class TeacherMenu extends BaseMenu {
     private TeacherService teacherService;

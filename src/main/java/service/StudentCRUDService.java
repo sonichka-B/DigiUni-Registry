@@ -6,9 +6,7 @@ import repository.DepartmentRepository;
 import repository.StudentRepository;
 import exceptions.IncorrectDataException;
 import exceptions.IdAlreadyPresentException;
-import exceptions.NotFoundException;
-
-import java.util.Optional;
+import exceptions.NotFoundIDException;
 
 public class StudentCRUDService {
     private static final StudentRepository studentRepository = new StudentRepository();
@@ -63,13 +61,13 @@ public class StudentCRUDService {
 
     public void deleteStudent(String id) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Студента ", id));
+                .orElseThrow(() -> new NotFoundIDException("Студента ", id));
         studentRepository.delete(student);
     }
 
     public boolean editStudent(String id, int course, int group, String status, Department department) {
             Student student = studentRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundException("Студента", id));
+                    .orElseThrow(() -> new NotFoundIDException("Студента", id));
 
             if (department == null || department.getName() == null) {
                 throw new IllegalArgumentException("Кафедра не може бути порожньою");

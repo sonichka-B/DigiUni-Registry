@@ -1,7 +1,7 @@
 package ui;
 
-import domain.Teacher;
 import service.TeacherSearchService;
+import validation.Validation;
 
 
 public class SearchTeacher extends BaseMenu{

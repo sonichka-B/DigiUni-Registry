@@ -1,4 +1,7 @@
 package ui;
+
+import validation.Validation;
+
 //готовий
 public abstract class BaseMenu {
     protected Validation validation=new Validation();

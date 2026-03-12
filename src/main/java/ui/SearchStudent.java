@@ -1,6 +1,6 @@
 package ui;
-import domain.Student;
 import service.StudentSearchService;
+import validation.Validation;
 
 public class SearchStudent extends BaseMenu{
         private Validation validation = new Validation();

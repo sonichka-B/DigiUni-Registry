@@ -11,7 +11,8 @@ public class Department {
     private final String faculty;
     @Setter
     private String head;
-    private final String location;
+    @Setter
+    private String location;
 
     public Department(String id, String name, String faculty, String head, String location) {
         this.id = id;

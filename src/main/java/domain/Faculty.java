@@ -10,9 +10,10 @@ public class Faculty {
     private final String id;
     private final String name;
     private final String shortName;
-    private final String phoneNumber;
     @Setter
     private  String dean;
+    @Setter
+    private String phoneNumber;
 
     public Faculty(String id, String name, String shortName, String dean, String phoneNumber) {
         this.id = id;
