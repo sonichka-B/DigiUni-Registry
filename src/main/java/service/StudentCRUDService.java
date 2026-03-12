@@ -32,7 +32,7 @@ public class StudentCRUDService {
             if (student.getEmail() == null || !student.getEmail().contains("@")) {
                 throw new IncorrectDataException("Email має містити символ '@' та не може бути порожнім");
             }
-            if(student.getPhoneNumber() == null || !student.getPhoneNumber().matches("\\+?\\d{10,15}")) {
+            if(student.getPhoneNumber() == 0 || !student.getPhoneNumber().matches("\\+?\\d{10,15}")) {
                 throw new IncorrectDataException("Невірний формат номера телефону (номер має містити від 10 до 15 цифр, може починатися з '+')");
             }
             if (student.getDateOfBirth() == null) {
