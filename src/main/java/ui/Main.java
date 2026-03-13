@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
+//        checkpoint 2 done
         StudentSearchService studentSearchService = new StudentSearchService();
         TeacherSearchService teacherSearchService = new TeacherSearchService();
         FacultySearchService facultySearchService = new FacultySearchService();
