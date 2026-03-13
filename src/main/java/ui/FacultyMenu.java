@@ -73,7 +73,7 @@ public class FacultyMenu extends BaseMenu{
     private void editFaculty(){
         System.out.println("--- Редагування інформації про факультет ---");
         String idFaculty = validation.readNotEmptyString("Введіть ID факультету для редагування: ");
-        String newDean = validation.readNotEmptyString("Введіть нового декана: ");
+        String newDean = validation.readNotEmptyString("Введіть ПІБ декана: ");
         String newPhoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть новий номер телефону: ");
         try{
         boolean success = facultyCRUDService.editFaculty(idFaculty, newDean, newPhoneNumber);

@@ -78,9 +78,9 @@ public class DepartmentMenu extends BaseMenu {
             System.out.println("--- Редагування інформації про кафедру ---");
             String idDepartment = validation.readNotEmptyString("Введіть ID кафедри для редагування: ");
             String newLocation = validation.readNotEmptyString("Введіть нове розташування кафедри: ");
-            String newHeadId = validation.readNotEmptyString("Введіть ID нового завідувача кафедри: ");
+            String newHeadName = validation.readNotEmptyString("Введіть імя нового завідувача кафедри: ");
             try {
-                boolean success = departmentCRUDService.editDepartment(idDepartment, newHeadId, newLocation);
+                boolean success = departmentCRUDService.editDepartment(idDepartment, newHeadName, newLocation);
                 if (success) {
                     System.out.println(" Інформацію про кафедру успішно оновлено.");
                 } else { /*можливо потрібно переробити*/

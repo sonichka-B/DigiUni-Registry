@@ -29,6 +29,9 @@ public StudentRepository getRepository() {
                 throw new IncorrectDataException("Помилка: Курс повинен бути в межах від 1 до 6");
 
             }
+            if(studentRepository.findById(student.getId()).isPresent()){
+                throw new IdAlreadyPresentException("Студент", student.getId());
+            }
             if(student.getGroup() < 1){
                 throw new IncorrectDataException("Помилка: Номер групи повинен бути позитивним числом");
 

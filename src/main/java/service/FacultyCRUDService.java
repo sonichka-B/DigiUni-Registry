@@ -3,6 +3,7 @@ package service;
 import domain.Department;
 import domain.Faculty;
 import domain.Teacher;
+import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
 import exceptions.NotFoundIDException;
 import exceptions.NotFoundNameException;
@@ -23,7 +24,9 @@ public FacultyRepository getRepository() {
         if(faculty == null) {
             throw new IncorrectDataException("Факультет не может быть null");
         }
-        validateNotEmpty(faculty.getId(), "ID факультету");
+        if(facultyRepository.findById(faculty.getId()).isPresent()){
+            throw new IdAlreadyPresentException("Факультет", faculty.getId());
+        }
         validateNotEmpty(faculty.getName(), "Назва факультету");
         validateNotEmpty(faculty.getShortName(), "Скорочена назва факультету");
         validateNotEmpty(faculty.getPhoneNumber(), "Номер телефону факультету");

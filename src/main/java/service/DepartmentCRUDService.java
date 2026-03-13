@@ -16,7 +16,7 @@ import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 
 public class DepartmentCRUDService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
-    private  final FacultyRepository facultyRepository = new FacultyRepository();
+    private static final FacultyRepository facultyRepository = new FacultyRepository();
     private  final TeacherRepository teacherRepository = new TeacherRepository();
 public DepartmentRepository getRepository() {
         return departmentRepository;
@@ -25,7 +25,10 @@ public DepartmentRepository getRepository() {
         if (department == null) {
             throw new IncorrectDataException("Кафедри не може бути null");
         }
-        validateNotEmpty(department.getId(), "ID кафедри");
+        if(departmentRepository.findById(department.getId()).isPresent()){
+            throw new IdAlreadyPresentException("Кафедра", department.getId());
+        }
+
         validateNotEmpty(department.getName(), "Назва кафедри");
         validateNotEmpty(department.getFaculty(), "ID факультету");
         validateNotEmpty(department.getLocation(), "Розташування");
