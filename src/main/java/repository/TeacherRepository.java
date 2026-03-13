@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Department;
 import domain.Teacher;
 
 import java.util.ArrayList;
@@ -7,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class TeacherRepository extends Repository<Teacher> {
-    private final List<Teacher> teachers = new ArrayList<>();
+   // private final List<Teacher> teachers = new ArrayList<>();
 
     @Override
     public void add(Teacher teacher){
-        teachers.add(teacher);
+        super.add(teacher);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class TeacherRepository extends Repository<Teacher> {
 
     @Override
     public Optional<Teacher> findById(String id){
-        for(Teacher teacher:teachers){
+        for(Teacher teacher:findAll()){
             if(teacher.getId().equals(id)){
                 return Optional.of(teacher);
             }
@@ -34,11 +35,11 @@ public class TeacherRepository extends Repository<Teacher> {
     }
 
     @Override
-    public Teacher findByName(String name){
-        for(Teacher teacher:teachers){
+    public Optional<Teacher> findByName(String name){
+        for(Teacher teacher:findAll()){
             if(teacher.getFullName().equals(name)){
-                return teacher;
+                return Optional.of(teacher);
             }
-        }return null;
+        }return Optional.empty();
     }
 }

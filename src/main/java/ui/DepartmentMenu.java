@@ -4,7 +4,7 @@ import domain.Department;
 import repository.TeacherRepository;
 import service.*;
 import repository.FacultyRepository;
-
+//DONE
 public class DepartmentMenu extends BaseMenu {
     private DepartmentCRUDService departmentCRUDService;
     private DepartmentSearchService departmentSearchService;
@@ -12,7 +12,7 @@ public class DepartmentMenu extends BaseMenu {
     private TeacherRepository teacherRepository;
     private FacultyRepository facultyRepository;
 
-    public DepartmentMenu(DepartmentService departmentService, DepartmentCRUDService departmentCRUDService, DepartmentSearchService departmentSearchService, FacultySearchService facultySearchService, TeacherRepository teacherRepository, FacultyRepository facultyRepository) {
+    public DepartmentMenu(DepartmentCRUDService departmentCRUDService, DepartmentSearchService departmentSearchService, FacultySearchService facultySearchService, TeacherRepository teacherRepository, FacultyRepository facultyRepository) {
         this.departmentCRUDService = departmentCRUDService;
         this.departmentSearchService = departmentSearchService;
         this.facultySearchService = facultySearchService;

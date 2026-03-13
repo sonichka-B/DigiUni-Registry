@@ -12,7 +12,7 @@ public class ValidLocalDate {
             try {
                 return LocalDate.parse(input, formatter);
             } catch (DateTimeParseException e) {
-                System.out.println("Невірний формат дати. Введіть дату у форматі yyyy-MM-dd.");
+                System.out.println("Невірний формат дати. Введіть дату у форматі ДД.ММ.РРРР");
             }
         }
     }

@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TeacherSortingService {
-    private static final TeacherRepository teacherRepository = new TeacherRepository();
+    private static TeacherRepository teacherRepository;
 
     Comparator<Teacher> byAlphabet = Comparator.comparing(Teacher -> Teacher.getFullName());
 
@@ -38,5 +38,8 @@ public class TeacherSortingService {
         }
         result.sort(byAlphabet);
         result.forEach(System.out::println);
+    }
+
+    public void setTeacherRepository(TeacherRepository repository) {
     }
 }

@@ -14,10 +14,10 @@ public class Person {
     private  String middleName;
     private  LocalDate dateOfBirth;
     private  String email;
-    private  int phoneNumber;
+    private  String phoneNumber;
 
     public Person(String id, String firstName, String middleName, String lastName,
-                  LocalDate dateOfBirth, String email, int phoneNumber) {
+                  LocalDate dateOfBirth, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;

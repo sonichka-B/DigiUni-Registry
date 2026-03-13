@@ -7,7 +7,8 @@ import java.util.Objects;
 @Getter
 public class Department {
     private final String id;
-    private final String name;
+    @Setter
+    private String name;
     private final String faculty;
     @Setter
     private String head;

@@ -2,11 +2,13 @@ package ui;
 
 import domain.Faculty;
 import service.*;
+import validation.*;
 
 
 public class FacultyMenu extends BaseMenu{
     private FacultyCRUDService facultyCRUDService;
     private FacultySearchService facultySearchService;
+    private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
 
     public FacultyMenu(FacultyCRUDService facultyCRUDService, FacultySearchService facultySearchService) {
         this.facultyCRUDService = facultyCRUDService;
@@ -35,15 +37,15 @@ public class FacultyMenu extends BaseMenu{
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-
+                addFaculty();
                 validation.waitZeroToExit();
                 break;
             case 2:
-
+                editFaculty();
                 validation.waitZeroToExit();
                 break;
             case 3:
-
+                deleteFaculty();
                 validation.waitZeroToExit();
                 break;
 
@@ -56,11 +58,11 @@ public class FacultyMenu extends BaseMenu{
     }
     private void addFaculty() {
         System.out.println("--- Додавання факультету ---");
-        String id = validation.readNotEmptyString("ID факультету: ");
-        String name = validation.readNotEmptyString("Назва факультету: ");
-        String shortName = validation.readNotEmptyString("Коротка назва факультету: ");
-        String dean = validation.readNotEmptyString("Декан: ");
-        String phoneNumber = validation.readNotEmptyString("Номер телефону: ");
+        String id = validation.readNotEmptyString("Введіть ID факультету: ");
+        String name = validation.readNotEmptyString("Введіть назву факультету: ");
+        String shortName = validation.readNotEmptyString("Введіть коротку назву факультету: ");
+        String dean = validation.readNotEmptyString("Введіть декана: ");
+        String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
         try {
             facultyCRUDService.addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
             System.out.println(" Факультет успішно додано.");
@@ -72,7 +74,7 @@ public class FacultyMenu extends BaseMenu{
         System.out.println("--- Редагування інформації про факультет ---");
         String idFaculty = validation.readNotEmptyString("Введіть ID факультету для редагування: ");
         String newDean = validation.readNotEmptyString("Введіть нового декана: ");
-        String newPhoneNumber = validation.readNotEmptyString("Введіть новий номер телефону: ");
+        String newPhoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть новий номер телефону: ");
         try{
         boolean success = facultyCRUDService.editFaculty(idFaculty, newDean, newPhoneNumber);
         if (success) {

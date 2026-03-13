@@ -8,7 +8,7 @@ public class Authentication {
     private final UsersService usersService = new UsersService();
     private Users currentUser;
 
-    public boolean login(String username, String password) {
+   /* public boolean login(String username, String password) {
         Users user = usersService.findUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
             System.out.println("Успішний вхід для користувача: " + username);
@@ -31,5 +31,5 @@ public class Authentication {
 
     public Users checkCurrentUser(){
         return currentUser;
-    }
+    }*/
 }

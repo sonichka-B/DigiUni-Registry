@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DepartmentRepository extends Repository<Department>{
-    private final List<Department> departments = new ArrayList<>();
+    //private final List<Department> departments = new ArrayList<>();
 
     @Override
     public void add(Department department) {
@@ -26,7 +26,7 @@ public class DepartmentRepository extends Repository<Department>{
 
     @Override
     public Optional<Department> findById(String id){
-        for(Department department:departments){
+        for(Department department:findAll()){
             if(department.getId().equals(id)){
                 return Optional.of(department);
             }
@@ -34,19 +34,19 @@ public class DepartmentRepository extends Repository<Department>{
     }
 
     @Override
-    public Department findByName(String name){
-        for(Department department:departments){
+    public Optional<Department> findByName(String name){
+        for(Department department:findAll()){
             if(department.getName().equals(name)){
-                return department;
+                return Optional.of(department);
             }
-        } return null;
+        } return Optional.empty();
     }
 
-    public Department findByFaculty(String faculty){
-        for(Department department:departments){
+    public Optional<Department> findByFaculty(String faculty){
+        for(Department department:findAll()){
             if(department.getFaculty().equals(faculty)){
-                return department;
+                return Optional.of(department);
             }
-        } return null;
+        } return Optional.empty();
     }
 }

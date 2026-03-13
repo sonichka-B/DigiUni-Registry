@@ -16,7 +16,7 @@ public class Teacher extends Person{
 
     public Teacher(String id, String firstName, String middleName, String lastName,Department department, String position,
                    String academicDegree, String academicTitle, String dateOfEmployment, String rate, LocalDate dateOfBirth,
-                   String email, int phoneNumber) {
+                   String email, String phoneNumber) {
         super(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
         this.position = position;
         this.academicDegree = academicDegree;

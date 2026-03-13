@@ -2,9 +2,10 @@ package validation;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
+import validation.ReadString;
 public class Validation {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private ReadString readString = new ReadString();
 
     public int readInt(String message, int min, int max) {
         while (true) {
@@ -25,14 +26,6 @@ public class Validation {
         }
     }
 
-    private String readString(String message) {
-        System.out.println(message);
-        try {
-            return reader.readLine();
-        } catch (Exception e) {
-            return "";
-        }
-    }
     public void waitZeroToExit() {
         System.out.println();
         int input = -1;
@@ -42,7 +35,7 @@ public class Validation {
     }
     public String readNotEmptyString(String message) {
         while (true) {
-            String input = readString(message);
+            String input = readString.readString(message);
             if (input != null && !input.trim().isEmpty()) {
                 return input.trim();
             }

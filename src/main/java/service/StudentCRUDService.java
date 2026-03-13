@@ -1,16 +1,28 @@
 package service;
 
 import domain.Department;
+import domain.Faculty;
 import domain.Student;
+import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
 import repository.StudentRepository;
 import exceptions.IncorrectDataException;
 import exceptions.IdAlreadyPresentException;
 import exceptions.NotFoundIDException;
 
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
+
 public class StudentCRUDService {
     private static final StudentRepository studentRepository = new StudentRepository();
+        private static final DepartmentRepository departmentRepository = new DepartmentRepository();
 
+public StudentRepository getRepository() {
+        return studentRepository;
+    }
     public void addStudent(Student student) {
         if(student != null) {
             if(student.getCourse() < 1 || student.getCourse() > 6){
@@ -27,34 +39,30 @@ public class StudentCRUDService {
             }
             if(student.getDepartment() == null || student.getDepartment().trim().isEmpty()){
                 throw new IncorrectDataException("Помилка: Студент повинен бути прив'язаний до кафедри");
-
             }
+            Department department = departmentRepository.findByName(student.getDepartment())
+                    .orElseThrow(() -> new NotFoundNameException("Кафедри", student.getDepartment()));
             if (student.getEmail() == null || !student.getEmail().contains("@")) {
-                throw new IncorrectDataException("Email має містити символ '@' та не може бути порожнім");
+                throw new IncorrectDataException("Помилка: Email має містити символ '@' та не може бути порожнім");
             }
-            if(student.getPhoneNumber() == 0 || !student.getPhoneNumber().matches("\\+?\\d{10,15}")) {
-                throw new IncorrectDataException("Невірний формат номера телефону (номер має містити від 10 до 15 цифр, може починатися з '+')");
+            if(student.getPhoneNumber() == null || !student.getPhoneNumber().matches("^\\+380[0-9]{9}$")) {
+                throw new IncorrectDataException("Помилка: невірний формат номера телефону (повинен починаться с +380 и 9 цифр)");
             }
-            if (student.getDateOfBirth() == null) {
-                throw new IncorrectDataException("Дата народження не може бути порожньою");
+            if(student.getDateOfBirth() == null || student.getDateOfBirth().isAfter(java.time.LocalDate.now())) {
+                throw new IncorrectDataException("Помилка: дата народження не может быть null");
             }
-            if (student.getFirstName() == null) {
-                throw new IncorrectDataException("Це поле не може бути порожнім");
-            }
-            if (student.getMiddleName() == null) {
-                throw new IncorrectDataException("Це поле не може бути порожнім");
-            }
-            if (student.getLastName() == null) {
-                throw new IncorrectDataException("Це поле не може бути порожнім");
-            }
+            validateNotEmpty(student.getFirstName(), "Ім'я студента");
+            validateNotEmpty(student.getLastName(), "Прізвище студента");
+            validateNotEmpty(student.getMiddleName(), "По батькові студента");
             if (student.getYearOfAdmission() < 2015 || student.getYearOfAdmission() > 2025) {
                 throw new IncorrectDataException("Рік вступу повинен бути в межах від 2015 до 2025");
             }
             if(studentRepository.findById(student.getId()).isPresent()){
                 throw new IdAlreadyPresentException("Студент", student.getId());
             }
+            studentRepository.add(student);
         }
-        studentRepository.add(student);
+
         //id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber, course, group, yearOfAdmission, formOfEducation, status
     }
 
@@ -65,34 +73,62 @@ public class StudentCRUDService {
         studentRepository.delete(student);
     }
 
-    public boolean editStudent(String id, int course, int group, String status, Department department) {
-            Student student = studentRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundIDException("Студента", id));
-
-            if (department == null || department.getName() == null) {
-                throw new IllegalArgumentException("Кафедра не може бути порожньою");
-            }
-            student.setCourse(course);
-            student.setGroup(group);
-            student.setStatus(status);
-            /*student.get().setFormOfEducation();
-            student.get().setDateOfBirth();
-            student.get().setFirstName();
-            student.get().getMiddleName();
-            student.get().getLastName();
-            student.get().setPhoneNumber();*/
-            student.setDepartment(department.getName());
-            return true;
+    public boolean editStudent(String id, String firstName, String middleName, String lastName,
+                               int course, String department, int group,
+                               String status, String email, String phoneNumber) {
+        Optional<Student> oStudent = studentRepository.findById(id);
+        if(oStudent.isEmpty()) {
+            return false;
         }
+        Student student = oStudent.get();
+        if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+            student.setPhoneNumber(phoneNumber);
+        }
+        if (email!= null && !email.trim().isEmpty()) {
+            student.setEmail(email);
+        }
+        if (firstName!=null&&!firstName.trim().isEmpty()){
+            student.setFirstName(firstName);
+        }
+        if (lastName!=null&&!lastName.trim().isEmpty()){
+            student.setLastName(lastName);
+        }
+        if (middleName!=null&&!middleName.trim().isEmpty()){
+            student.setMiddleName(middleName);
+        }
+        if(status!=null&&!status.trim().isEmpty()){
+            if(!status.equals("навчається") && !status.equals("відрахований") && !status.equals("академічна відпустка")){
+                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
+            }
+            student.setStatus(status);
+        }
+        if(course>0&&course<7){
+            student.setCourse(course);
+        } else {
+            throw new IncorrectDataException("Помилка: Курс повинен бути в межах від 1 до 6");
+        }
+        if(group>0&&group<7){
+            student.setGroup(group);
+        } else {
+            throw new IncorrectDataException("Помилка: Номер групи повинен бути в межах від 1 до 6");
+        }
+        if (department != null && !department.trim().isEmpty()) {
+            departmentRepository.findByName(department)
+                    .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
+            student.setDepartment(department);
+        }
+        return true;
+    }
+
 
 
     public void transferToNewDepartment(String id, String department) {
-        Student student = studentRepository.findById(id).orElse(null);
-        Department departments = new DepartmentRepository().findByName(department);
-        if (student != null && departments != null) {
-            student.setDepartment(department);
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundIDException("Студента", id));
+        departmentRepository.findByName(department)
+                .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
+        student.setDepartment(department);
         }
-    }
 
     public void transferToNewCourse(String id, int newCourse) {
         Student student = studentRepository.findById(id).orElse(null);

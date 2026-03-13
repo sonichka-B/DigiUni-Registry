@@ -5,11 +5,12 @@ import repository.UsersRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsersService {
     private final UsersRepository usersRepository = new UsersRepository();
 
-    public void addUser(Users user){
+  /*  public void addUser(Users user){
         if(user!=null && user.getUsername() !=null && user.getPassword() !=null && user.getRole() !=null){
             usersRepository.add(user);
         }else{
@@ -18,7 +19,7 @@ public class UsersService {
     }
 
     public void deleteUser(String username){
-        Users user = usersRepository.findByName(username);
+        Optional<Users> user = usersRepository.findByName(username);
         if (user != null) {
             usersRepository.delete(user);
         } else {
@@ -38,5 +39,5 @@ public class UsersService {
 
     public List<Users> findAllUsers(){
         return usersRepository.findAll();
-    }
+    }*/
 }

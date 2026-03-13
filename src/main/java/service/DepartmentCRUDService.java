@@ -5,6 +5,7 @@ import domain.Teacher;
 import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
 import exceptions.NotFoundIDException;
+import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
 import repository.FacultyRepository;
 import repository.TeacherRepository;
@@ -17,7 +18,9 @@ public class DepartmentCRUDService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
     private  final FacultyRepository facultyRepository = new FacultyRepository();
     private  final TeacherRepository teacherRepository = new TeacherRepository();
-
+public DepartmentRepository getRepository() {
+        return departmentRepository;
+    }
     public void addDepartment(Department department){
         if (department == null) {
             throw new IncorrectDataException("Кафедри не може бути null");
@@ -25,16 +28,17 @@ public class DepartmentCRUDService {
         validateNotEmpty(department.getId(), "ID кафедри");
         validateNotEmpty(department.getName(), "Назва кафедри");
         validateNotEmpty(department.getFaculty(), "ID факультету");
-        validateNotEmpty(department.getHead(), "Завідувач кафедри");
         validateNotEmpty(department.getLocation(), "Розташування");
         if (departmentRepository.findById(department.getId()).isPresent()) {
             throw new IdAlreadyPresentException("Кафедра", department.getId());
         }
-            facultyRepository.findById(department.getFaculty())
+          /*  facultyRepository.findById(department.getFaculty())
                     .orElseThrow(() -> new NotFoundIDException("Факультет ", department.getFaculty()));
-            teacherRepository.findById(department.getHead())
-                .orElseThrow(() -> new NotFoundIDException("Вчитель", department.getHead()));
-
+        String head=department.getHead();
+        if(head!=null && !head.trim().isEmpty()) {
+            teacherRepository.findByName(department.getHead())
+                    .orElseThrow(() -> new NotFoundNameException("Завідувача", department.getHead()));
+        }*/
         departmentRepository.add(department);
     }
 
@@ -48,7 +52,7 @@ public class DepartmentCRUDService {
         return false;
     }
 
-    public boolean editDepartment(String id, String newHeadId,String newLocation) {
+    public boolean editDepartment(String id, String newHeadName,String newLocation) {
         Optional<Department> oDepartment = departmentRepository.findById(id);
         if (oDepartment.isEmpty()) {
             return false;
@@ -57,10 +61,10 @@ public class DepartmentCRUDService {
         if (newLocation != null && !newLocation.trim().isEmpty()) {
             department.setLocation(newLocation);
         }
-        if (newHeadId != null && !newHeadId.trim().isEmpty()) {
-            teacherRepository.findById(newHeadId)
-                    .orElseThrow(() -> new NotFoundIDException("Завідувач", newHeadId));
-            department.setHead(newHeadId);
+        if (newHeadName != null && !newHeadName.trim().isEmpty()) {
+            teacherRepository.findByName(newHeadName)
+                    .orElseThrow(() -> new NotFoundNameException("Завідувача", newHeadName));
+            department.setHead(newHeadName);
         }
         return true;
     }

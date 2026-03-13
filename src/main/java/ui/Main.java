@@ -1,50 +1,91 @@
 package ui;
 
+import domain.Department;
+import domain.Faculty;
 import domain.Student;
-import repository.StudentRepository;
+import domain.Teacher;
 import service.*;
+
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
+
+        // ==========================================
+        // СПІЛЬНІ СЕРВІСИ ПОШУКУ ТА СОРТУВАННЯ
+        // ==========================================
+        StudentSearchService studentSearchService = new StudentSearchService();
+        TeacherSearchService teacherSearchService = new TeacherSearchService();
+        FacultySearchService facultySearchService = new FacultySearchService();
+        DepartmentSearchService departmentSearchService = new DepartmentSearchService();
+        TeacherSortingService teacherSortingService = new TeacherSortingService();
+        StudentSortingService studentSortingService = new StudentSortingService();
+
+
+        // ==========================================
+        // БЛОК СТУДЕНТІВ
+        // ==========================================
         StudentService studentService = new StudentService();
         StudentCRUDService studentCRUDService = new StudentCRUDService();
-        studentService.crud().addStudent(new Student());
-        studentCRUDService.addStudent(new Student("1", "ПР", "Ш", "M", "2000-01-01",
-                "email1", "11", 1, 1, 2018, "бюджет", "навчається"));
-        studentCRUDService.addStudent(new Student("2", "Ran", "Ben", "N", "2001-02-02",
-                "email2", "22", 2, 2, 2019, "контракт", "навчається"));
+        studentSortingService.setStudentRepository(studentCRUDService.getRepository());
 
+        studentCRUDService.getRepository().add(new Student("1", "Марія", "Іванівна", "Козаченко", 2,
+                "Біологія", 1, 2022, "бюджет", "навчається", LocalDate.of(2004, 2, 27), "mariya@ukr.net", "+380991234567"));
+        studentCRUDService.getRepository().add(new Student("2", "Іван", "Сергійович", "Петренко", 3,
+                "Комп'ютерні науки", 2, 2021, "контракт", "навчається", LocalDate.of(2003, 5, 15), "ivan@ukr.net", "+380997654321"));
+
+        // ==========================================
+        // БЛОК ВИКЛАДАЧІВ ТА КАФЕДР
+        // ==========================================
         TeacherService teacherService = new TeacherService();
         TeacherCRUDService teacherCRUDService = new TeacherCRUDService();
-        teacherCRUDService.addTeacher(new domain.Teacher("1", "Alice", "Brown", "C", "1980-03-10",
-                "email3", "33", "доцент", "кандидат наук", "доцент", "2010-09-01", "1.0"));
-        teacherCRUDService.addTeacher(new domain.Teacher("2", "Bob", "Johnson", "D", "1975-07-20",
-                "email4", "44", "професор", "доктор наук", "професор", "2005-02-15", "1.0"));
-        teacherCRUDService.addTeacher(new domain.Teacher("3", "Charlie", "Smith", "E", "1985-11-30",
-                "email5", "55", "старший викладач", "кандидат наук", "старший викладач", "2012-05-20", "0.8"));
+        teacherSortingService.setTeacherRepository(teacherCRUDService.getRepository());
+        // Створюємо кафедри заздалегідь, щоб передати їх викладачам
+        Department compSci = new Department("201", "Комп'ютерні науки", "101", "Alice Brown", "Корпус 1");
+        Department biology = new Department("202", "Біологія", "102", "Bob Johnson", "Корпус 2");
 
+        teacherCRUDService.getRepository().add(new Teacher("1", "Alice", "B.", "Brown", compSci,
+                "доцент", "кандидат наук", "доцент", "2010-09-01", "1.0", LocalDate.of(1980, 3, 10), "alice@ukma.edu.ua", "+380951112233"));
+        teacherCRUDService.getRepository().add(new Teacher("2", "Bob", "J.", "Johnson", biology,
+                "професор", "доктор наук", "професор", "2005-02-15", "1.0", LocalDate.of(1975, 7, 20), "bob@ukma.edu.ua", "+380952223344"));
+
+        // ==========================================
+        // БЛОК ФАКУЛЬТЕТІВ
+        // ==========================================
         FacultyService facultyService = new FacultyService();
         FacultyCRUDService facultyCRUDService = new FacultyCRUDService();
-        facultyCRUDService.addFaculty(new domain.Faculty("101","Engineering", "ENG", "Dr. White", "123-456-7890"));
-        facultyCRUDService.addFaculty(new domain.Faculty("102","Science", "SCI", "Dr. Green", "098-765-4321"));
-        facultyCRUDService.addFaculty(new domain.Faculty("103","Arts", "ART", "Dr. Black", "555-555-5555"));
 
+        facultyCRUDService.getRepository().add(new Faculty("101", "Інженерія", "ІНЖ", "Alice Brown", "+380441112233"));
+        facultyCRUDService.getRepository().add(new Faculty("102", "Наука", "НАУК", "Bob Johnson", "+380449998877"));
+
+        // ==========================================
+        // БЛОК ДОДАВАННЯ КАФЕДР В БАЗУ
+        // ==========================================
         DepartmentService departmentService = new DepartmentService();
         DepartmentCRUDService departmentCRUDService = new DepartmentCRUDService();
-        departmentCRUDService.addDepartment(new domain.Department("201", "Computer Science", facultyService.findFacultyByName("Engineering"),
-                teacherService.findTeacherByFullName("Alice", "Brown", "C"), "Building A"));
-        departmentCRUDService.addDepartment(new domain.Department("202", "Biology", facultyService.findFacultyByName("Science"),
-                teacherService.findTeacherByFullName("Bob", "Johnson", "D"), "Building B"));
 
+        // Кладемо наші змінні кафедр у сховище
+        departmentCRUDService.getRepository().add(compSci);
+        departmentCRUDService.getRepository().add(biology);
+
+        // ==========================================
+        // БЛОК МЕНЮ (ЗБІРКА ТА ЗАПУСК)
+        // ==========================================
         SearchTeacher searchTeacher = new SearchTeacher(teacherSearchService);
-        SearchStudent searchStudent = new SearchStudent(studentService);
-        FacultyMenu facultyMenu = new FacultyMenu(facultyService);
-        DepartmentMenu departmentMenu = new DepartmentMenu(departmentService);
-        StudentMenu studentMenu = new StudentMenu(studentService, searchStudent, studentCRUDService, new StudentSortingService());
-        TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchTeacher, new TeacherSortingService(), teacherCRUDService);
+        SearchStudent searchStudent = new SearchStudent(studentSearchService);
 
+        FacultyMenu facultyMenu = new FacultyMenu(facultyCRUDService, facultySearchService);
+
+        // Меню кафедр отримує бази викладачів і факультетів через наші getRepository()
+        DepartmentMenu departmentMenu = new DepartmentMenu(departmentCRUDService, departmentSearchService, facultySearchService,
+                teacherCRUDService.getRepository(), facultyCRUDService.getRepository());
+
+        StudentMenu studentMenu = new StudentMenu(studentService, searchStudent, studentCRUDService, studentSortingService, studentSearchService);
+        TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchTeacher, teacherSortingService, teacherCRUDService, teacherSearchService);
 
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu);
+
+        System.out.println("=== Дані успішно завантажено! ===");
         mainMenu.showMenu();
     }
 }

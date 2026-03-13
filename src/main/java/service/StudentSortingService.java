@@ -3,6 +3,7 @@ package service;
 import domain.Department;
 import domain.Faculty;
 import domain.Student;
+import exceptions.NotFoundIDException;
 import repository.DepartmentRepository;
 import repository.StudentRepository;
 
@@ -11,7 +12,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class StudentSortingService {
-    private static final StudentRepository studentRepository = new StudentRepository();
+    private static StudentRepository studentRepository;
+    public void setStudentRepository(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     Comparator<Student> byCourse = Comparator.comparing(Student -> Student.getCourse());
     public void sortStudentsByCourse() {
@@ -41,7 +45,8 @@ public class StudentSortingService {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");
         List<Student> students = studentRepository.findAll();
         List<Student> result = new ArrayList<>();
-        Department departments = new DepartmentRepository().findByFaculty(faculty);
+        Department departments = new DepartmentRepository().findByFaculty(faculty)
+                .orElseThrow (()-> new NotFoundIDException("Кафедру",department));
         for(Student student: students){
             if(departments.equals(department)){
                 result.add(student);

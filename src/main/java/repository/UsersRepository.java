@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Department;
 import domain.Users;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class UsersRepository extends  Repository<Users>{
     }
 
     @Override
-    public Users findByName(String username) {
+    public Optional<Users> findByName(String username) {
         return super.findByName(username);
     }
 

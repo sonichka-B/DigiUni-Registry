@@ -7,7 +7,7 @@ public interface CRUDRepository<T> {
     void add(T entity);
     void delete(T entity);
     Optional<T> findById(String id);
-    T findByName(String name);
+    Optional <T> findByName(String name);
     List<T> findAll();
 
 }

@@ -15,7 +15,7 @@ public class Student extends Person{
     private String department;
 
     public Student(String id, String firstName, String middleName, String lastName, int course, String department, int group,
-                   int yearOfAdmission, String formOfEducation, String status, LocalDate dateOfBirth, String email, int phoneNumber) {
+                   int yearOfAdmission, String formOfEducation, String status, LocalDate dateOfBirth, String email, String phoneNumber) {
         super(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber);
         this.course = course;
         this.group = group;

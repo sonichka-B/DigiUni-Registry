@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Department;
 import domain.Faculty;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class FacultyRepository extends Repository<Faculty>{
-    private final List<Faculty> faculties = new ArrayList<>();
+   // private final List<Faculty> faculties = new ArrayList<>();
 
     @Override
     public void add(Faculty faculty) {
@@ -26,7 +27,7 @@ public class FacultyRepository extends Repository<Faculty>{
 
     @Override
     public Optional<Faculty> findById(String id){
-        for (Faculty faculty: faculties){
+        for (Faculty faculty: findAll()){
             if (faculty.getId().equals(id)){
                 return Optional.of(faculty);
             }
@@ -35,12 +36,12 @@ public class FacultyRepository extends Repository<Faculty>{
     }
 
     @Override
-    public Faculty findByName(String name){
-        for (Faculty faculty: faculties){
+    public Optional<Faculty> findByName(String name){
+        for (Faculty faculty: findAll()){
             if (faculty.getName().equals(name)){
-                return faculty;
+                return Optional.of(faculty);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }

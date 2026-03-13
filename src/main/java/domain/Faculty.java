@@ -13,9 +13,9 @@ public class Faculty {
     @Setter
     private  String dean;
     @Setter
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public Faculty(String id, String name, String shortName, String dean, int phoneNumber) {
+    public Faculty(String id, String name, String shortName, String dean, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;

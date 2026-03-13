@@ -1,5 +1,7 @@
 package repository;
 
+import domain.Department;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +29,7 @@ abstract class Repository<T> implements CRUDRepository<T>{
     }
 
     @Override
-    public T findByName(String name) {
+    public Optional<T> findByName(String name) {
         if(name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }

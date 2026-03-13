@@ -16,7 +16,7 @@ public class TeacherSearchService {
 
     public void findTeacherByFullName(String fullName) {
         System.out.println("--- Звіт: Викладач з ПІБ " + fullName + " " + " ---");
-        Teacher teacher = teacherRepository.findByName(fullName);
+        Optional<Teacher> teacher = teacherRepository.findByName(fullName);
         if (teacher != null) {
             System.out.println(teacher);
         } else {

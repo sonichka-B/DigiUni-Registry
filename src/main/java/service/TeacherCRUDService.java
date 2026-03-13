@@ -1,59 +1,89 @@
 package service;
 
 import domain.Department;
+import domain.Faculty;
 import domain.Teacher;
+import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
+import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
 import repository.TeacherRepository;
 
 import java.util.Optional;
 
+import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
+
 public class TeacherCRUDService {
     private static final TeacherRepository teacherRepository = new TeacherRepository();
-
+    private static final DepartmentRepository departmentRepository = new DepartmentRepository();
+    public TeacherRepository getRepository() {
+        return teacherRepository;
+    }
     public void addTeacher(Teacher teacher) {
         if (teacher == null) {
-            throw new IncorrectDataException("Помилка: Дані про викладача відсутні");
+            throw new IncorrectDataException("Помилка: Викладач не может быть null");
         }
-        if (teacher.getFullName() == null || teacher.getFullName().trim().isEmpty()) {
-            throw new IncorrectDataException("Помилка: ПІБ викладача не може бути порожнім");
+        validateNotEmpty(teacher.getId(), "ID викладача");
+        if(teacherRepository.findById(teacher.getId()).isPresent()){
+            throw new IdAlreadyPresentException("Викладач", teacher.getId());
         }
-        if (teacher.getPosition() == null || teacher.getPosition().trim().isEmpty()) {
-            throw new IncorrectDataException("Помилка: Посада викладача не може бути порожньою");
-        }
-        if (teacher.getAcademicDegree() == null || teacher.getAcademicDegree().trim().isEmpty()) {
-            throw new IncorrectDataException("Помилка: Науковий ступінь викладача не може бути порожнім");
-        }
-        if (teacher.getAcademicTitle() == null || teacher.getAcademicTitle().trim().isEmpty()) {
-            throw new IncorrectDataException("Помилка: Вчене звання викладача не може бути порожнім");
-        }
-        if (teacherRepository.findByName(teacher.getFullName()) != null) {
-            throw new IncorrectDataException("Помилка: Викладач з таким ПІБ вже існує");
+        validateNotEmpty(teacher.getFirstName(), "Ім'я викладача");
+        validateNotEmpty(teacher.getLastName(), "Прізвище викладача");
+        validateNotEmpty(teacher.getMiddleName(), "По батькові викладача");
+        validateNotEmpty(teacher.getPosition(), "Посада викладача");
+        validateNotEmpty(teacher.getAcademicDegree(), "Науковий ступінь викладача");
+        validateNotEmpty(teacher.getAcademicTitle(), "Вчене звання викладача");
+        if(teacher.getDateOfBirth() == null || teacher.getDateOfBirth().isAfter(java.time.LocalDate.now())) {
+            throw new IncorrectDataException("Помилка: дата народження не может быть null");
         }
         if (teacher.getDepartment() == null || teacher.getDepartment().getName() == null) {
             throw new IncorrectDataException("Помилка: Викладач повинен бути прив'язаний до кафедри");
         }
+        /*String fakeName = teacher.getDepartment().getName();
+        Department realDepartment = departmentRepository.findByName(fakeName)
+                .orElseThrow(() -> new NotFoundNameException("Кафедри", fakeName));
+        teacher.setDepartment(realDepartment);*/
         teacherRepository.add(teacher);
     }
-    public void deleteTeacher(String id) {
+    public boolean deleteTeacher(String id) {
         Optional<Teacher> teacher = teacherRepository.findById(id);
-        if(teacher.isPresent()) {
-            teacherRepository.delete(teacher.orElse(null));
-        } else {
-            System.out.println("Викладача з таким id не знайдено");
-        }
-    }
-
-    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle, String department) {
-        Optional<Teacher> teacher = teacherRepository.findById(id);
-        Department departments = new DepartmentRepository().findByName(department);
-        if (teacher.isPresent() && departments != null) {
-            teacher.get().setPosition(position);
-            teacher.get().setAcademicDegree(academicDegree);
-            teacher.get().setAcademicTitle(academicTitle);
-            teacher.get().setDepartment(departments);
+        if (teacher.isPresent()) {
+            teacherRepository.delete(teacher.get());
             return true;
         }
         return false;
+    }
+
+
+    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle,String firstName,String middleName,String lastName, Department department) {
+        Optional<Teacher> oTeacher = teacherRepository.findById(id);
+        if(oTeacher.isEmpty()) {
+            return false;
+        }
+        Teacher teacher = oTeacher.get();
+        if (position!= null && !position.trim().isEmpty()) {
+            teacher.setPosition(position);
+        }
+        if (academicDegree != null && !academicDegree.trim().isEmpty()) {
+            teacher.setAcademicDegree(academicDegree);
+        }
+        if (academicTitle != null && !academicTitle.trim().isEmpty()) {
+            teacher.setAcademicTitle(academicTitle);
+        }
+        if (firstName!=null&&!firstName.trim().isEmpty()){
+            teacher.setFirstName(firstName);
+        }
+        if (lastName!=null&&!lastName.trim().isEmpty()){
+            teacher.setLastName(lastName);
+        }
+        if (middleName!=null&&!middleName.trim().isEmpty()){
+            teacher.setMiddleName(middleName);
+        }
+        if (department != null&& department.getName() != null && !department.getName().trim().isEmpty()) {
+            Department foundDepartment=departmentRepository.findByName(department.getName())
+                    .orElseThrow(() -> new NotFoundNameException("Кафедри", department.getName()));
+            teacher.setDepartment(foundDepartment);
+        }
+        return true;
     }
 }

@@ -3,6 +3,8 @@ package ui;
 import domain.Department;
 import domain.Teacher;
 import service.*;
+import validation.*;
+import java.time.LocalDate;
 
 public class TeacherMenu extends BaseMenu {
     private TeacherService teacherService;
@@ -10,6 +12,9 @@ public class TeacherMenu extends BaseMenu {
     private TeacherSortingService teacherSortingService;
     private TeacherCRUDService teacherCRUDService;
     private TeacherSearchService teacherSearchService;
+    private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
+    private ReadEmail readEmail = new ReadEmail();
+    private ValidLocalDate validLocalDate = new ValidLocalDate();
 
 
     public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher, TeacherSortingService teacherSortingService, TeacherCRUDService teacherCRUDService, TeacherSearchService teacherSearchService) {
@@ -30,7 +35,9 @@ public class TeacherMenu extends BaseMenu {
         System.out.println("2. Редагувати інформацію про викладача");
         System.out.println("3. Видалити викладача");
         System.out.println("4. Вивести всіх викладачів");
-        System.out.println("5. Скористатися пошуком, щоб знайти викладача за ПІБ");
+        System.out.println("5. Вивести всіх викладачів, відсортованих за алфавітом в межах факультету");
+        System.out.println("6. Вивести всіх викладачів, відсортованих за алфавітом в межах кафедри");
+        System.out.println("7. Скористатися пошуком, щоб знайти викладача за ПІБ");
         System.out.println("0. Повернутися назад");
     }
 //доробити
@@ -44,27 +51,41 @@ public class TeacherMenu extends BaseMenu {
         switch (choice) {
             case 1:
                 addTeacher();
+                validation.waitZeroToExit();
                 break;
             case 2:
                 editTeacher();
+                validation.waitZeroToExit();
                 break;
             case 3:
                 deleteTeacher();
+                validation.waitZeroToExit();
                 break;
             case 4:
                 teacherSearchService.showAllTeachers();
+                validation.waitZeroToExit();
                 break;
             case 5:
+                sortTeachersByAlphabetInFaculty();
+                validation.waitZeroToExit();
+                break;
+            case 6:
+                sortTeachersByAlphabetInDepartment();
+                validation.waitZeroToExit();
+                break;
+            case 7:
                 //Пошук викладача за ПІБ
                 searchTeacher.showMenu();
                 break;
 
         }
-        validation.waitZeroToExit();
     }
     private void editTeacher() {
         System.out.println("--- Редагування інформації про викладача ---");
         String id = validation.readNotEmptyString("Введіть ID викладача для редагування: ");
+        String firstName = validation.readNotEmptyString("Введіть нове ім'я викладача: ");
+        String middleName = validation.readNotEmptyString("Введіть нове по-батькові викладача: ");
+        String lastName = validation.readNotEmptyString("Введіть нове прізвище викладача: ");
         System.out.println("Оберіть нову посаду:");
         System.out.println("1-лаборант");
         System.out.println("2-асистент");
@@ -117,18 +138,14 @@ public class TeacherMenu extends BaseMenu {
             academicTitle = "старший дослідник";
         }
         String departmentName = validation.readNotEmptyString("Введіть нову кафедру викладача: ");
-        Department department = teacherCRUDService.findDepartmentByName(departmentName);
-        while (department == null) {
-            System.out.println(" Помилка: Кафедру з такою назвою не знайдено!");
-            departmentName = validation.readNotEmptyString("Введіть нову кафедру викладача: ");
-            department = teacherCRUDService.findDepartmentByName(departmentName);
-        }
+        try{
+            Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
+            fakeDepartment.setName(departmentName);
         //===================Запитати чи можна дописати пошук за назвою
-        boolean success = teacherCRUDService.editTeacher(id, position, academicDegree, academicTitle, department);
-        if (success) {
+        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,firstName, middleName, lastName, fakeDepartment);
             System.out.println(" Інформацію про студента успішно оновлено.");
-        } else {
-            System.out.println(" Помилка: Студента з таким ID не знайдено.");
+        } catch (Exception e) {
+            System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
     private void addTeacher() {
@@ -137,9 +154,9 @@ public class TeacherMenu extends BaseMenu {
         String lastName = validation.readNotEmptyString("Прізвище: ");
         String firstName = validation.readNotEmptyString("Ім'я: ");
         String middleName = validation.readNotEmptyString("По-батькові: ");
-        String dateOfBirth = "-";
-        String email = "-";
-        String phoneNumber = "-";
+        LocalDate dateOfBirth = validLocalDate.readLocalDate("Введіть дату народження (формат: ДД.ММ.РРРР): ");
+        String email = readEmail.isValidEmail("Введіть email викладача: ");
+        String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону викладача: ");
         System.out.println("Оберіть посаду:");
         System.out.println("1-лаборант");
         System.out.println("2-асистент");
@@ -191,11 +208,16 @@ public class TeacherMenu extends BaseMenu {
         } else if (titleChoice == 3) {
             title = "старший дослідник";
         }
+        String departmentName = validation.readNotEmptyString("Введіть назву кафедри до якої підв'язаний викладач: ");
         String dateOfEmployment = validation.readNotEmptyString("Дата прийняття на роботу: ");
         //Сонічка я не дуже розумію що таке rate тому залишила як є
         String rate = validation.readNotEmptyString("Ставка: ");
         try {
-            Teacher newTeacher = new Teacher(id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber, position, degree, title, dateOfEmployment, rate);
+            Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
+            fakeDepartment.setName(departmentName);
+            Teacher newTeacher = new Teacher(id, firstName, middleName, lastName,fakeDepartment, position,
+                    degree, title, dateOfEmployment, rate, dateOfBirth,
+                    email,  phoneNumber);
             teacherCRUDService.addTeacher(newTeacher);
             System.out.println("Викладача додано");
 
@@ -212,8 +234,13 @@ public class TeacherMenu extends BaseMenu {
     }
     //
     private void sortTeachersByAlphabetInFaculty(){
-        String facultyName = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
-        teacherSortingService.sortTeachersByAlphabetInFaculty(facultyName);
+        String faculty = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
+        String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
+        teacherSortingService.sortTeachersByAlphabetInFaculty(faculty, department);
+    }
+    private void sortTeachersByAlphabetInDepartment(){
+        String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
+        teacherSortingService.sortTeachersByAlphabetInDepartment(department);
     }
 }
 
