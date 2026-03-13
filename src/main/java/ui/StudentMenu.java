@@ -186,8 +186,12 @@ private void editStudent() {
     private void deleteStudent() {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
         String id= validation.readNotEmptyString("Введіть ID студента для видалення: ");
+        try{
         studentCRUDService.deleteStudent(id);
         System.out.println("Команду виконано (студента видалено, якщо він існував)");
+        } catch (NotFoundIDException e) {
+            System.out.println("Помилка: " + e.getMessage());
+        }
     }
     private void sortStudentsByAlphabetInFaculty(){
         String facultyName = validation.readNotEmptyString("Введіть назву факультету для сортування: ");

@@ -89,7 +89,10 @@ public class FacultyMenu extends BaseMenu{
     private void deleteFaculty(){
         System.out.println("--- Видалення факультету ---");
         String nameDel = validation.readNotEmptyString("Введіть ID для видалення: ");
+        try{
         facultyCRUDService.deleteFaculty(nameDel);
         System.out.println(" Команду видалення виконано.");
+    }catch (Exception e) {
+        System.out.println(" Помилка: " + e.getMessage());}
     }
 }

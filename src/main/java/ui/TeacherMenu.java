@@ -229,10 +229,13 @@ public class TeacherMenu extends BaseMenu {
     private void deleteTeacher() {
         System.out.println("--- ВИДАЛЕННЯ ВИКЛАДАЧА ---");
         String id= validation.readNotEmptyString("Введіть ID викладача: ");
+        try{
             teacherCRUDService.deleteTeacher(id);
         System.out.println("Команду виконано (викладача видалено, якщо він існував)");
+         }catch (Exception e){
+        System.out.println("Помилка: " + e.getMessage());}
     }
-    //
+
     private void sortTeachersByAlphabetInFaculty(){
         String faculty = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
         String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");

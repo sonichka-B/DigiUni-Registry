@@ -28,16 +28,7 @@ public class TeacherSortingService {
     }
 
     public void sortTeachersByAlphabetInDepartment(String department) {
-        System.out.println("--- Звіт: Викладачі, відсортовані за алфавітом в межах кафедри ---");
-        List<Teacher> teachers = teacherRepository.findAll();
-        List<Teacher> result = new ArrayList<>();
-        for(Teacher teacher: teachers){
-            if(teacher.getDepartment().equals(department)){
-                result.add(teacher);
-            }
-        }
-        result.sort(byAlphabet);
-        result.forEach(System.out::println);
+
     }
 
     public void setTeacherRepository(TeacherRepository repository) {

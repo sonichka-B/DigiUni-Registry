@@ -6,8 +6,7 @@ import repository.DepartmentRepository;
 import java.util.Optional;
 
 public class DepartmentSearchService {
-    private  final DepartmentRepository departmentRepository = new DepartmentRepository();
-
+    private  DepartmentRepository departmentRepository = new DepartmentRepository();
     public void showAllDepartments(){
         for(Department department: departmentRepository.findAll()){
             System.out.println(department);
@@ -21,5 +20,9 @@ public class DepartmentSearchService {
         } else {
             System.out.println("Кафедра з таким id не знайдена");
         }
+    }
+
+    public void setDepartmentRepository(DepartmentRepository repository) {
+        this.departmentRepository = repository;
     }
 }

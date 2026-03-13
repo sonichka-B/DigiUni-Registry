@@ -93,7 +93,10 @@ public class DepartmentMenu extends BaseMenu {
         private void deleteDepartment() {
             System.out.println("--- Видалення кафедри ---");
             String nameHead = validation.readNotEmptyString("Введіть ID для видалення: ");
-            departmentCRUDService.deleteDepartment(nameHead);
-            System.out.println(" Команду видалення виконано.");
+            try{
+                departmentCRUDService.deleteDepartment(nameHead);
+                System.out.println(" Команду видалення виконано.");
+        }catch (Exception e){
+            System.out.println(" Помилка: " + e.getMessage());}
         }
     }

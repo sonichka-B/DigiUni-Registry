@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StudentSearchService {
-    private static final StudentRepository studentRepository = new StudentRepository();
+    private static StudentRepository studentRepository = new StudentRepository();
 
     public void findStudentsByCourse(int course) {
         System.out.println("--- Звіт: Студенти " + course + " курсу ---");
@@ -47,5 +47,9 @@ public class StudentSearchService {
             }
         }
         result.forEach(System.out::println);
+    }
+
+    public void setStudentRepository(StudentRepository repository) {
+        this.studentRepository = repository;
     }
 }

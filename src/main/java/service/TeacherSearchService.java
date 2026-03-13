@@ -6,7 +6,7 @@ import repository.TeacherRepository;
 import java.util.Optional;
 
 public class TeacherSearchService {
-    private static final TeacherRepository teacherRepository = new TeacherRepository();
+    private static TeacherRepository teacherRepository = new TeacherRepository();
 
     public void showAllTeachers() {
         for (Teacher teacher : teacherRepository.findAll()) {
@@ -32,5 +32,8 @@ public class TeacherSearchService {
         } else {
             System.out.println("Викладача з таким id не знайдено");
         }
+    }
+    public void setTeacherRepository(TeacherRepository repository) {
+        this.teacherRepository = repository;
     }
 }
