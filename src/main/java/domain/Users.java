@@ -2,25 +2,14 @@ package domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 
-@Getter@Setter
+@Value
 public class Users {
-    private final String username;
-    private String password;
-    private Role role;
-
-    public Users(String username, String password, Role role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
+    String username;
+    @NonFinal@Setter
+    String password;
+    @NonFinal@Setter
+    Role role;
 }

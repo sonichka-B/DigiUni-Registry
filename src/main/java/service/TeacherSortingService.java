@@ -12,7 +12,7 @@ import java.util.List;
 public class TeacherSortingService {
     private static TeacherRepository teacherRepository;
 
-    Comparator<Teacher> byAlphabet = Comparator.comparing(Teacher -> Teacher.getFullName());
+    Comparator<Teacher> byAlphabet = Comparator.comparing(Teacher -> Teacher.getPIB());
 
     public void sortTeachersByAlphabetInFaculty(String faculty, String department) {
         System.out.println("--- Звіт: Викладачі, відсортовані за алфавітом в межах факультету ---");

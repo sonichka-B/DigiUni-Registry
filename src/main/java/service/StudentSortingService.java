@@ -39,7 +39,7 @@ public class StudentSortingService {
         result.forEach(System.out::println);
     }
 
-    Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getFullName());
+    Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getPIB());
 
     public void sortStudentsByAlphabetInFaculty(String faculty, String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");

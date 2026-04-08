@@ -9,32 +9,24 @@ import java.util.Objects;
 @Getter@Setter
 public class Person {
     private  String id;
-    private  String firstName;
-    private  String lastName;
-    private  String middleName;
+    private  String PIB;
     private  LocalDate dateOfBirth;
     private  String email;
     private  String phoneNumber;
 
-    public Person(String id, String firstName, String middleName, String lastName,
+    public Person(String id, String PIB,
                   LocalDate dateOfBirth, String email, String phoneNumber) {
         this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.PIB = PIB;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public String getFullName() {
-        return getFirstName() + " " + getMiddleName() + " " + getLastName();
-    }
-
     @Override
     public String toString() {
         return "Person{" +
-                "id:'" + id + '\'' + ", ПІБ:'" + getFullName() + '\'' +", дата народження:'" + dateOfBirth + '\'' +
+                "id:'" + id + '\'' + ", ПІБ:'" + PIB + '\'' +", дата народження:'" + dateOfBirth + '\'' +
                 ", email:'" + email + '\'' +", номер телефону:'" + phoneNumber + '\'' +
                 '}';
     }

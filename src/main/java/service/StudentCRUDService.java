@@ -56,9 +56,7 @@ public StudentRepository getRepository() {
             if(student.getDateOfBirth() == null || student.getDateOfBirth().isAfter(java.time.LocalDate.now())) {
                 throw new IncorrectDataException("Помилка: дата народження не может быть null");
             }
-            validateNotEmpty(student.getFirstName(), "Ім'я студента");
-            validateNotEmpty(student.getLastName(), "Прізвище студента");
-            validateNotEmpty(student.getMiddleName(), "По батькові студента");
+            validateNotEmpty(student.getPIB(), "ПІБ студента");
             if (student.getYearOfAdmission() < 2015 || student.getYearOfAdmission() > 2025) {
                 throw new IncorrectDataException("Рік вступу повинен бути в межах від 2015 до 2025");
             }
@@ -78,7 +76,7 @@ public StudentRepository getRepository() {
         studentRepository.delete(student);
     }
 
-    public boolean editStudent(String id, String firstName, String middleName, String lastName,
+    public boolean editStudent(String id, String pib,
                                int course, String department, int group,
                                String status, String email, String phoneNumber) {
         Optional<Student> oStudent = studentRepository.findById(id);
@@ -92,15 +90,15 @@ public StudentRepository getRepository() {
         if (email!= null && !email.trim().isEmpty()) {
             student.setEmail(email);
         }
-        if (firstName!=null&&!firstName.trim().isEmpty()){
-            student.setFirstName(firstName);
+        if (pib!=null&&!pib.trim().isEmpty()){
+            student.setPIB(pib);
         }
-        if (lastName!=null&&!lastName.trim().isEmpty()){
-            student.setLastName(lastName);
-        }
-        if (middleName!=null&&!middleName.trim().isEmpty()){
-            student.setMiddleName(middleName);
-        }
+//        if (lastName!=null&&!lastName.trim().isEmpty()){
+//            student.setLastName(lastName);
+//        }
+//        if (middleName!=null&&!middleName.trim().isEmpty()){
+//            student.setMiddleName(middleName);
+//        }
         if(status!=null&&!status.trim().isEmpty()){
             if(!status.equals("навчається") && !status.equals("відрахований") && !status.equals("академічна відпустка")){
                 throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");

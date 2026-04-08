@@ -105,9 +105,9 @@ public class StudentMenu extends BaseMenu {
 private void editStudent() {
         System.out.println("--- Редагування інформації про студента ---");
     String id= validation.readNotEmptyString("Введіть ID студента для редагування: ");
-    String firstName = validation.readNotEmptyString("Введіть нове ім'я студента: ");
-    String middleName = validation.readNotEmptyString("Введіть нове по-батькові студента: ");
-    String lastName = validation.readNotEmptyString("Введіть нове прізвище студента: ");
+    String pib = validation.readNotEmptyString("Введіть нове ПІБ студента: ");
+//    String middleName = validation.readNotEmptyString("Введіть нове по-батькові студента: ");
+//    String lastName = validation.readNotEmptyString("Введіть нове прізвище студента: ");
     int course = validation.readInt("Введіть новий курс студента: " , 1, 6);
     int group = validation.readInt("Введіть нову групу студента: ", 1, 6);
     System.out.println("Оберіть новий статус студента:");
@@ -128,7 +128,7 @@ private void editStudent() {
     String departmentName = validation.readNotEmptyString("Введіть назву кафедри: ");
     try {
         //МОЖНА ЗМІНИТИ І ШУКАТИ НЕ ЗА ІД
-        boolean editStudent=studentCRUDService.editStudent(id, firstName, middleName, lastName, course, departmentName,group, status, email, phoneNumber);
+        boolean editStudent=studentCRUDService.editStudent(id, pib, course, departmentName,group, status, email, phoneNumber);
         System.out.println("Інформацію про студента успішно оновлено.");
 
     } catch (Exception e) {
@@ -138,9 +138,9 @@ private void editStudent() {
     private void addStudent() {
         System.out.println("--- ДОДАТИ СТУДЕНТА ---");
         String id = validation.readNotEmptyString("Введіть ID студента: ");
-        String lastName = validation.readNotEmptyString("Введіть Прізвище: ");
-        String firstName = validation.readNotEmptyString("Введіть Ім'я: ");
-        String middleName = validation.readNotEmptyString("Введіть По-батькові: ");
+        String pib = validation.readNotEmptyString("Введіть ПІБ: ");
+//        String firstName = validation.readNotEmptyString("Введіть Ім'я: ");
+//        String middleName = validation.readNotEmptyString("Введіть По-батькові: ");
         int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
         int group = validation.readInt("Введіть групу (1-6): ", 1, 6);
         int yearOfAdmission = validation.readInt("Введіть рік вступу : ", 2015, 2025);
@@ -173,7 +173,7 @@ private void editStudent() {
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри: ");
         try {
-            Student newStudent = new Student(id, firstName, middleName, lastName, course, departmentName, group,
+            Student newStudent = new Student(id, pib, course, departmentName, group,
              yearOfAdmission, formOfEducation, status, dateOfBirth,email,phoneNumber);
             studentCRUDService.addStudent(newStudent);
             System.out.println("Студента додано");

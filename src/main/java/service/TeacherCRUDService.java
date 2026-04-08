@@ -29,9 +29,9 @@ public class TeacherCRUDService {
         if(teacherRepository.findById(teacher.getId()).isPresent()){
             throw new IdAlreadyPresentException("Викладач", teacher.getId());
         }
-        validateNotEmpty(teacher.getFirstName(), "Ім'я викладача");
-        validateNotEmpty(teacher.getLastName(), "Прізвище викладача");
-        validateNotEmpty(teacher.getMiddleName(), "По батькові викладача");
+        validateNotEmpty(teacher.getPIB(), "ПІБ викладача");
+//        validateNotEmpty(teacher.getLastName(), "Прізвище викладача");
+//        validateNotEmpty(teacher.getMiddleName(), "По батькові викладача");
         validateNotEmpty(teacher.getPosition(), "Посада викладача");
         validateNotEmpty(teacher.getAcademicDegree(), "Науковий ступінь викладача");
         validateNotEmpty(teacher.getAcademicTitle(), "Вчене звання викладача");
@@ -57,7 +57,7 @@ public class TeacherCRUDService {
     }
 
 
-    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle,String firstName,String middleName,String lastName, Department department) {
+    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle,String pib, Department department) {
         Optional<Teacher> oTeacher = teacherRepository.findById(id);
         if(oTeacher.isEmpty()) {
             return false;
@@ -72,15 +72,15 @@ public class TeacherCRUDService {
         if (academicTitle != null && !academicTitle.trim().isEmpty()) {
             teacher.setAcademicTitle(academicTitle);
         }
-        if (firstName!=null&&!firstName.trim().isEmpty()){
-            teacher.setFirstName(firstName);
+        if (pib!=null&&!pib.trim().isEmpty()){
+            teacher.setPIB(pib);
         }
-        if (lastName!=null&&!lastName.trim().isEmpty()){
-            teacher.setLastName(lastName);
-        }
-        if (middleName!=null&&!middleName.trim().isEmpty()){
-            teacher.setMiddleName(middleName);
-        }
+//        if (lastName!=null&&!lastName.trim().isEmpty()){
+//            teacher.setLastName(lastName);
+//        }
+//        if (middleName!=null&&!middleName.trim().isEmpty()){
+//            teacher.setMiddleName(middleName);
+//        }
         if (department != null&& department.getName() != null && !department.getName().trim().isEmpty()) {
             Department foundDepartment=departmentRepository.findByName(department.getName())
                     .orElseThrow(() -> new NotFoundNameException("Кафедри", department.getName()));

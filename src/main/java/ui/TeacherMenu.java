@@ -83,9 +83,9 @@ public class TeacherMenu extends BaseMenu {
     private void editTeacher() {
         System.out.println("--- Редагування інформації про викладача ---");
         String id = validation.readNotEmptyString("Введіть ID викладача для редагування: ");
-        String firstName = validation.readNotEmptyString("Введіть нове ім'я викладача: ");
-        String middleName = validation.readNotEmptyString("Введіть нове по-батькові викладача: ");
-        String lastName = validation.readNotEmptyString("Введіть нове прізвище викладача: ");
+        String pib = validation.readNotEmptyString("Введіть нове ПІБ викладача: ");
+//        String middleName = validation.readNotEmptyString("Введіть нове по-батькові викладача: ");
+//        String lastName = validation.readNotEmptyString("Введіть нове прізвище викладача: ");
         System.out.println("Оберіть нову посаду:");
         System.out.println("1-лаборант");
         System.out.println("2-асистент");
@@ -142,7 +142,7 @@ public class TeacherMenu extends BaseMenu {
             Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
             fakeDepartment.setName(departmentName);
         //===================Запитати чи можна дописати пошук за назвою
-        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,firstName, middleName, lastName, fakeDepartment);
+        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
             System.out.println(" Інформацію про студента успішно оновлено.");
         } catch (Exception e) {
             System.out.println("Помилка при створенні: " + e.getMessage());
@@ -151,9 +151,9 @@ public class TeacherMenu extends BaseMenu {
     private void addTeacher() {
         System.out.println("--- ДОДАТИ ВИКЛАДАЧА ---");
         String id = validation.readNotEmptyString("ID викладача: ");
-        String lastName = validation.readNotEmptyString("Прізвище: ");
-        String firstName = validation.readNotEmptyString("Ім'я: ");
-        String middleName = validation.readNotEmptyString("По-батькові: ");
+        String pib = validation.readNotEmptyString("ПІБ: ");
+//        String firstName = validation.readNotEmptyString("Ім'я: ");
+//        String middleName = validation.readNotEmptyString("По-батькові: ");
         LocalDate dateOfBirth = validLocalDate.readLocalDate("Введіть дату народження (формат: ДД.ММ.РРРР): ");
         String email = readEmail.isValidEmail("Введіть email викладача: ");
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону викладача: ");
@@ -215,7 +215,7 @@ public class TeacherMenu extends BaseMenu {
         try {
             Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
             fakeDepartment.setName(departmentName);
-            Teacher newTeacher = new Teacher(id, firstName, middleName, lastName,fakeDepartment, position,
+            Teacher newTeacher = new Teacher(id, pib,fakeDepartment, position,
                     degree, title, dateOfEmployment, rate, dateOfBirth,
                     email,  phoneNumber);
             teacherCRUDService.addTeacher(newTeacher);

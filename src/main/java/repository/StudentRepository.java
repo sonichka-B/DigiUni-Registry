@@ -3,15 +3,15 @@ package repository;
 import domain.Department;
 import domain.Student;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class StudentRepository extends Repository<Student> {
    // private final List<Student> students = new ArrayList<>();
+//    private HashSet<String> ids = new HashSet<>();
 
     @Override
     public void add(Student student) {
+//        ids.add(student.getId());
         super.add(student);
     }
 
@@ -28,7 +28,7 @@ public class StudentRepository extends Repository<Student> {
         public List<Student> findByFullName(String FullName){
             List<Student> result = new ArrayList<>();
             for (Student student: findAll()){
-                if (student.getFullName().equals(FullName)){
+                if (student.getPIB().equals(FullName)){
                     result.add(student);
                 }
             }
@@ -63,11 +63,19 @@ public class StudentRepository extends Repository<Student> {
             }
             return Optional.empty();
         }
+//        варіант через map
+//        @Override
+//        public Optional< Student> findById(String id){
+//            if(forIds.containsKey(id)){
+//                return Optional.of(forIds.get(id));
+//            }
+//            return Optional.empty();
+//        }
 
     @Override
     public Optional<Student> findByName(String name){
         for (Student student: findAll()){
-            if (student.getFullName().equals(name)){
+            if (student.getPIB().equals(name)){
                 return Optional.of(student);
             }
         }
