@@ -1,5 +1,6 @@
 package repository;
 
+import domain.DTO.StudentDTO;
 import domain.Department;
 import domain.Student;
 
@@ -21,56 +22,19 @@ public class StudentRepository extends Repository<Student> {
     }
 
     @Override
-        public List<Student> findAll() {
+    public List<Student> findAll() {
             return super.findAll();
         }
 
-        public List<Student> findByFullName(String FullName){
-            List<Student> result = new ArrayList<>();
-            for (Student student: findAll()){
-                if (student.getPIB().equals(FullName)){
-                    result.add(student);
-                }
+    @Override
+    public Optional<Student> findById(String id){
+        for (Student student: findAll()){
+            if (student.getId().equals(id)){
+                return Optional.of(student);
             }
-            return result;
         }
-
-        public List<Student> findByCourse(int course){
-            List<Student> result = new ArrayList<>();
-            for (Student student: findAll()){
-                if (student.getCourse() == course){
-                    result.add(student);
-                }
-            }
-            return result;
-        }
-
-        public List<Student> findByGroup(int group){
-            List<Student> result = new ArrayList<>();
-            for (Student student: findAll()){
-                if (student.getGroup() == group){
-                    result.add(student);
-                }
-            }
-            return result;
-        }
-        @Override
-        public Optional<Student> findById(String id){
-            for (Student student: findAll()){
-                if (student.getId().equals(id)){
-                    return Optional.of(student);
-                }
-            }
-            return Optional.empty();
-        }
-//        варіант через map
-//        @Override
-//        public Optional< Student> findById(String id){
-//            if(forIds.containsKey(id)){
-//                return Optional.of(forIds.get(id));
-//            }
-//            return Optional.empty();
-//        }
+        return Optional.empty();
+    }
 
     @Override
     public Optional<Student> findByName(String name){
@@ -81,5 +45,40 @@ public class StudentRepository extends Repository<Student> {
         }
         return Optional.empty();
     }
+
+//    public List<StudentDTO> findByFullName(String pib){
+//        return findAll().stream()
+//                .filter(student -> student.getPIB().equals(pib))
+//                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+//                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+//                .toList();
+//    }
+
+        public List<StudentDTO> findByCourse(int course){
+            return findAll().stream()
+                    .filter(student -> student.getCourse() == course)
+                    .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                            student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                    .toList();
+        }
+
+        public List<StudentDTO> findByGroup(int group){
+            return findAll().stream()
+                    .filter(student -> student.getGroup() == group)
+                    .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                            student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                    .toList();
+        }
+
+//        варіант через map
+//        @Override
+//        public Optional< Student> findById(String id){
+//            if(forIds.containsKey(id)){
+//                return Optional.of(forIds.get(id));
+//            }
+//            return Optional.empty();
+//        }
+
+
 
 }

@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.TeacherDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Teacher;
@@ -17,13 +18,17 @@ public class TeacherSortingService {
     public void sortTeachersByAlphabetInFaculty(String faculty, String department) {
         System.out.println("--- Звіт: Викладачі, відсортовані за алфавітом в межах факультету ---");
         List<Teacher> teachers = teacherRepository.findAll();
-        List<Teacher> result = new ArrayList<>();
-        for(Teacher teacher: teachers){
-            if(teacher.getDepartment().getFaculty().equals(faculty)){
-                result.add(teacher);
-            }
-        }
-        result.sort(byAlphabet);
+        List<TeacherDTO> result = teacherRepository.findAll().stream()
+                .filter(teacher -> teacher.getDepartment().getFaculty().equals(faculty))
+                .sorted(byAlphabet)
+                .map(teacher -> new TeacherDTO(
+                        teacher.getId(),
+                        teacher.getPIB(),
+                        teacher.getDepartment(),
+                        teacher.getPosition(),
+                        teacher.getEmail()
+                ))
+                .toList();
         result.forEach(System.out::println);
     }
 

@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.StudentDTO;
 import domain.Student;
 import repository.StudentRepository;
 
@@ -20,7 +21,7 @@ public class StudentSearchService {
     }
     public void findStudentsByFullName(String fullName) {
         System.out.println("--- Звіт: Студенти з ПІБ " + fullName + " "  + " ---");
-        studentRepository.findByFullName(fullName + " " ).forEach(System.out::println);
+        System.out.println(studentRepository.findByName(fullName + " " ));
     }
     public void findStudentById(String id) {
         Optional<Student> student = studentRepository.findById(id);
@@ -39,15 +40,16 @@ public class StudentSearchService {
 
     public void showStudentsInDepartmentAndCourse(String department, int course) {
         System.out.println("--- Звіт: Студенти " + course + " курсу в межах кафедри ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        for(Student student:students){
-            if(student.getDepartment().equals(department) && student.getCourse() == course){
-                result.add(student);
-            }
-        }
+
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> student.getDepartment().equals(department) && student.getCourse() == course)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
+
         result.forEach(System.out::println);
-    }
+        }
+
 
     public void setStudentRepository(StudentRepository repository) {
         this.studentRepository = repository;

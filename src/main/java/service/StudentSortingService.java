@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.StudentDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Student;
@@ -20,22 +21,21 @@ public class StudentSortingService {
     Comparator<Student> byCourse = Comparator.comparing(Student -> Student.getCourse());
     public void sortStudentsByCourse() {
         System.out.println("--- Звіт: Студенти, відсортовані за курсом ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        result.addAll(students);
-        result.sort(byCourse);
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .sorted(byCourse)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
         result.forEach(System.out::println);
     }
     public void sortStudentsByCourseInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за курсом в межах кафедри ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        for(Student student: students){
-            if(student.getDepartment().equals(department)){
-                result.add(student);
-            }
-        }
-        result.sort(byCourse);
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> student.getDepartment().equals(department))
+                .sorted(byCourse)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
         result.forEach(System.out::println);
     }
 
@@ -43,29 +43,25 @@ public class StudentSortingService {
 
     public void sortStudentsByAlphabetInFaculty(String faculty, String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
         Department departments = new DepartmentRepository().findByFaculty(faculty)
                 .orElseThrow (()-> new NotFoundIDException("Кафедру",department));
-        for(Student student: students){
-            if(departments.equals(department)){
-                result.add(student);
-            }
-        }
-        result.sort(byAlphabet);
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> departments.equals(department))
+                .sorted(byAlphabet)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
         result.forEach(System.out::println);
     }
 
     public void sortStudentsByAlphabetInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах кафедри ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        for(Student student: students){
-            if(student.getDepartment().equals(department)){
-                result.add(student);
-            }
-        }
-        result.sort(byAlphabet);
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> student.getDepartment().equals(department))
+                .sorted(byAlphabet)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
         result.forEach(System.out::println);
     }
 }
