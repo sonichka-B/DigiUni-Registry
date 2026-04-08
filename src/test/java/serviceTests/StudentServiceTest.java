@@ -1,50 +1,63 @@
 package serviceTests;
 
 import domain.Student;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import exceptions.IncorrectDataException;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import repository.DepartmentRepository;
-import service.StudentService;
+import org.junit.jupiter.params.provider.CsvSource;
+import service.StudentCRUDService;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentServiceTest {
 
-
-    @Test
-    public void addValidStudent(){
+    @ParameterizedTest
+    @CsvSource({"1, 5, 4, dep",
+                "2, 1, 1, dep",
+                "3, 6, 6, dep"})
+    public void addStudent(String id, int course, int group,String department){
+        StudentCRUDService service = new StudentCRUDService();
         LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
-        StudentService studentService = new StudentService();
-        studentService.crud().addStudent(new Student("1", "firstname", "middlename", "lastname", 3,
-                "fsd", 3, 4, "бюджет", "навчається",
-                dateOfBirth, "email", "1234567890"));
-    }
 
-    @Test
-    public void addInvalidStudent(){
-        LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
-        StudentService studentService = new StudentService();
-        studentService.crud().addStudent(new Student("2", "firstname", "middlename", "lastname", 3,
-                "fsd", 0, 4, "invalidType", "навчається",
+        service.getRepository().add(new Student(id, "firstname", "middlename", "lastname", course,
+                department, group, 4, "бюджет", "навчається",
                 dateOfBirth, "email", "1234567890"));
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            studentService.crud().addStudent(new Student("3", "firstname", "middlename", "lastname", 3,
-                    "fsd", 3, 4, "бюджет", "invalidStatus",
-                    dateOfBirth, "email", "1234567890"));
-        });
+        assertTrue(service.getRepository().findById(id).isPresent());
     }
 
     @ParameterizedTest
-        @ValueSource(strings = {"1", "2", "3"})
-        public void deleteStudent(String id) {
-            StudentService studentService = new StudentService();
-            studentService.crud().deleteStudent(id);
+    @CsvSource({"4, 7, 8, dep",
+                "5, 0, 0, dep"})
+    public void addInvalidStudent(String id, int course, int group, String department){
+        StudentCRUDService service = new StudentCRUDService();
+        LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
+        try {
+            service.getRepository().add(new Student(id, "firstname", "middlename", "lastname", course,
+                    department, group, 4, "бюджет", "навчається",
+                    dateOfBirth, "email", "1234567890"));
         }
+        catch (IncorrectDataException e){
+            throw new IncorrectDataException("not correct data" +e.getMessage());
+        }
+    }
+
+
+
+    @ParameterizedTest
+    @CsvSource({"1, dep",
+            "2, dep",
+            "3, dep"})
+        public void deleteStudentTest(String id, String department) {
+        StudentCRUDService service = new StudentCRUDService();
+        LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
+        service.getRepository().add(new Student(id, "firstname", "middlename", "lastname", 2,
+                department, 5, 4, "бюджет", "навчається",
+                dateOfBirth, "email", "1234567890"));
+        service.deleteStudent(id);
+        assertTrue(service.getRepository().findById(id).isEmpty());
+        }
+
 
 
 }
