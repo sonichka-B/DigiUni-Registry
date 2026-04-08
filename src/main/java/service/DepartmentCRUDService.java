@@ -1,6 +1,7 @@
 package service;
 
 import domain.Department;
+import domain.Role;
 import domain.Teacher;
 import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
@@ -9,11 +10,12 @@ import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
 import repository.FacultyRepository;
 import repository.TeacherRepository;
+import security.RoleAnotation;
 
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
-
+@RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 public class DepartmentCRUDService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
     private static final FacultyRepository facultyRepository = new FacultyRepository();
@@ -44,8 +46,6 @@ public DepartmentRepository getRepository() {
         }*/
         departmentRepository.add(department);
     }
-
-
     public boolean deleteDepartment(String id){
         Optional<Department> department = departmentRepository.findById(id);
         if (department.isPresent()) {
@@ -54,7 +54,6 @@ public DepartmentRepository getRepository() {
         }
         return false;
     }
-
     public boolean editDepartment(String id, String newHeadName,String newLocation) {
         Optional<Department> oDepartment = departmentRepository.findById(id);
         if (oDepartment.isEmpty()) {

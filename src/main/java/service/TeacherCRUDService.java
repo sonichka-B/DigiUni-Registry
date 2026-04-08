@@ -2,17 +2,19 @@ package service;
 
 import domain.Department;
 import domain.Faculty;
+import domain.Role;
 import domain.Teacher;
 import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
 import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
 import repository.TeacherRepository;
+import security.RoleAnotation;
 
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
-
+@RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 public class TeacherCRUDService {
     private static final TeacherRepository teacherRepository = new TeacherRepository();
     private static final DepartmentRepository departmentRepository = new DepartmentRepository();

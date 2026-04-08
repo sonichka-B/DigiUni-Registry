@@ -5,10 +5,17 @@ import service.UsersService;
 
 public class Authentication {
 //    who is the user
+    private static Authentication instance;
     private final UsersService usersService = new UsersService();
     private Users currentUser;
 
-   /* public boolean login(String username, String password) {
+    public static Authentication getInstance() {
+        if (instance == null) {
+            instance = new Authentication();
+        }
+        return instance;
+    }
+   public boolean login(String username, String password) {
         Users user = usersService.findUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
             System.out.println("Успішний вхід для користувача: " + username);
@@ -31,5 +38,5 @@ public class Authentication {
 
     public Users checkCurrentUser(){
         return currentUser;
-    }*/
+    }
 }

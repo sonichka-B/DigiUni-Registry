@@ -19,14 +19,24 @@ public class UsersRepository extends  Repository<Users>{
         super.delete(user);
     }
 
-    @Override
-    public Optional<Users> findById(String id) {
-        return super.findById(id);
-    }
+    //@Override
+    /*public Optional<Users> findById(String id) {
+        for (Users user : users) {
+            if(user.getId()equals(id)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }*/
 
     @Override
     public Optional<Users> findByName(String username) {
-        return super.findByName(username);
+        for (Users user : users) {
+            if(user.getUsername().equals(username)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override

@@ -2,6 +2,7 @@ package service;
 
 import domain.Department;
 import domain.Faculty;
+import domain.Role;
 import domain.Student;
 import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
@@ -9,13 +10,14 @@ import repository.StudentRepository;
 import exceptions.IncorrectDataException;
 import exceptions.IdAlreadyPresentException;
 import exceptions.NotFoundIDException;
+import security.RoleAnotation;
 
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
-
+@RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 public class StudentCRUDService {
     private static final StudentRepository studentRepository = new StudentRepository();
         private static final DepartmentRepository departmentRepository = new DepartmentRepository();

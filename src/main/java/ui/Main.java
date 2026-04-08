@@ -64,6 +64,7 @@ public class Main {
         TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchTeacher, teacherSortingService, teacherCRUDService, teacherSearchService);
 
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu);
-        mainMenu.showMenu();
+        AuthorizationMenu authorizationMenu=new AuthorizationMenu(mainMenu);
+        authorizationMenu.showMenu();
     }
 }
