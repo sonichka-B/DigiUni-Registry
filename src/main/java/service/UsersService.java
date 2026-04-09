@@ -1,5 +1,6 @@
 package service;
 
+import domain.Role;
 import domain.Users;
 import repository.UsersRepository;
 
@@ -25,7 +26,6 @@ public class UsersService {
             System.out.println("Користувач з таким ім'ям не знайдений");
         }
     }
-
     public Users findUserByUsername(String username){
         Optional<Users> user = usersRepository.findByName(username);
         if(user.isPresent()){
@@ -38,5 +38,13 @@ public class UsersService {
 
     public List<Users> findAllUsers(){
         return usersRepository.findAll();
+    }
+    public boolean changeRole(String username, Role newRole){
+       Users user = findUserByUsername(username);
+       if(user!=null){
+           user.setRole(newRole);
+           return true;
+       }
+       else return false;
     }
 }

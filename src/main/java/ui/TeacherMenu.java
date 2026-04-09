@@ -1,9 +1,15 @@
 package ui;
 
 import domain.Department;
+import domain.Role;
 import domain.Teacher;
+import lombok.SneakyThrows;
+import security.Authorization;
+import security.RoleAnotation;
 import service.*;
 import validation.*;
+
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 
 public class TeacherMenu extends BaseMenu {
@@ -46,19 +52,29 @@ public class TeacherMenu extends BaseMenu {
         return 5;
     }
 
+    @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                addTeacher();
+                Method addMethod = this.getClass().getDeclaredMethod("addTeacher");
+                if (Authorization.access(addMethod)) {
+                    addTeacher();
+                }
                 validation.waitZeroToExit();
                 break;
             case 2:
-                editTeacher();
+                Method editMethod = this.getClass().getDeclaredMethod("editTeacher");
+                if (Authorization.access(editMethod)) {
+                    editTeacher();
+                }
                 validation.waitZeroToExit();
                 break;
             case 3:
-                deleteTeacher();
+                Method deleteMethod = this.getClass().getDeclaredMethod("deleteTeacher");
+                if (Authorization.access(deleteMethod)) {
+                    deleteTeacher();
+                }
                 validation.waitZeroToExit();
                 break;
             case 4:
@@ -80,6 +96,7 @@ public class TeacherMenu extends BaseMenu {
 
         }
     }
+                @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editTeacher() {
         System.out.println("--- Редагування інформації про викладача ---");
         String id = validation.readNotEmptyString("Введіть ID викладача для редагування: ");
@@ -148,6 +165,7 @@ public class TeacherMenu extends BaseMenu {
             System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
+            @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addTeacher() {
         System.out.println("--- ДОДАТИ ВИКЛАДАЧА ---");
         String id = validation.readNotEmptyString("ID викладача: ");
@@ -225,7 +243,7 @@ public class TeacherMenu extends BaseMenu {
             System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
-
+            @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void deleteTeacher() {
         System.out.println("--- ВИДАЛЕННЯ ВИКЛАДАЧА ---");
         String id= validation.readNotEmptyString("Введіть ID викладача: ");

@@ -63,7 +63,10 @@ public class DepartmentMenu extends BaseMenu {
                 validation.waitZeroToExit();
                 break;
             case 3:
-                deleteDepartment();
+                Method deleteMethod = this.getClass().getDeclaredMethod("deleteDepartment");
+                if (Authorization.access(deleteMethod)) {
+                    deleteDepartment();
+                }
                 validation.waitZeroToExit();
                 break;
             case 4:

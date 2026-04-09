@@ -1,6 +1,9 @@
 package ui;
 
 import domain.Faculty;
+import domain.Role;
+import domain.Users;
+import security.Authentication;
 
 //меню факультет кафедри доробити
 public class MainMenu extends BaseMenu{
@@ -8,11 +11,13 @@ public class MainMenu extends BaseMenu{
     private TeacherMenu teacherMenu;
     private DepartmentMenu departmentMenu;
     private FacultyMenu facultyMenu;
-    public MainMenu(StudentMenu studentMenu, TeacherMenu teacherMenu, DepartmentMenu departmentMenu, FacultyMenu facultyMenu) {
+    private AdminMenu adminMenu;
+    public MainMenu(StudentMenu studentMenu, TeacherMenu teacherMenu, DepartmentMenu departmentMenu, FacultyMenu facultyMenu, AdminMenu adminMenu) {
         this.teacherMenu = teacherMenu;
         this.studentMenu = studentMenu;
         this.departmentMenu = departmentMenu;
         this.facultyMenu = facultyMenu;
+        this.adminMenu = adminMenu;
     }
 
     @Override
@@ -28,12 +33,22 @@ public class MainMenu extends BaseMenu{
         System.out.println("3. Інформація про кафедри");
         System.out.println("4. Інформація про студентів");
         System.out.println("5. Інформація про викладачів");
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN){
+            System.out.println("6. Додаткові функції для адміна");
+        }
         System.out.println("0. Вихід");
     }
 
     @Override
     protected int getMaxOption() {
-        return 5;
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN) {
+            return 6;
+        }
+        else{
+            return 5;
+        }
     }
 
     @Override
@@ -55,6 +70,10 @@ public class MainMenu extends BaseMenu{
             case 5:
                 teacherMenu.showMenu();
                 break;
+            case 6:
+                adminMenu.showMenu();
+                break;
+
         }
     }
 

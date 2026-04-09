@@ -1,9 +1,6 @@
 package ui;
 
-import domain.Department;
-import domain.Faculty;
-import domain.Student;
-import domain.Teacher;
+import domain.*;
 import service.*;
 
 import java.time.LocalDate;
@@ -59,11 +56,14 @@ public class Main {
 
         DepartmentMenu departmentMenu = new DepartmentMenu(departmentCRUDService, departmentSearchService, facultySearchService,
                 teacherCRUDService.getRepository(), facultyCRUDService.getRepository());
+        UsersService usersService = new UsersService();
 
+        usersService.addUser(new Users("admin", "admin123", Role.ADMIN));
+        usersService.addUser(new Users("manDasha", "manager123", Role.MANAGER));
         StudentMenu studentMenu = new StudentMenu(studentService, searchStudent, studentCRUDService, studentSortingService, studentSearchService);
         TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchTeacher, teacherSortingService, teacherCRUDService, teacherSearchService);
-
-        MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu);
+        AdminMenu adminMenu=new AdminMenu(usersService);
+        MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu, adminMenu);
         AuthorizationMenu authorizationMenu=new AuthorizationMenu(mainMenu);
         authorizationMenu.showMenu();
     }
