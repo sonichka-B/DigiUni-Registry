@@ -35,7 +35,9 @@ public class AuthorizationMenu extends BaseMenu{
         String username = validation.readNotEmptyString("");
         System.out.println("Введіть пароль:");
         String password = validation.readNotEmptyString("");
-
-        mainMenu.showMenu();
+        boolean success = Authentication.getInstance().login(username, password);
+        if(success){
+            mainMenu.showMenu();
+        }
     }
 }

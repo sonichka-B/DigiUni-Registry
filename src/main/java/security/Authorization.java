@@ -2,14 +2,15 @@ package security;
 
 import domain.Role;
 import domain.Users;
+import lombok.Getter;
 
 import java.lang.reflect.Method;
+@Getter
 
 public class Authorization {
     //    what the user can do
     public static boolean access(Method method) {
-        if (method.isAnnotationPresent(RoleAnotation.class)) {
-            RoleAnotation annotation = method.getAnnotation(RoleAnotation.class);
+        if (!method.isAnnotationPresent(RoleAnotation.class)) {
             return true;
         }
         Users currentUser = Authentication.getInstance().checkCurrentUser();

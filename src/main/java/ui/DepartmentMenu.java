@@ -2,10 +2,15 @@ package ui;
 
 import domain.Department;
 import domain.Role;
+import lombok.SneakyThrows;
 import repository.TeacherRepository;
+import security.Authorization;
 import security.RoleAnotation;
 import service.*;
 import repository.FacultyRepository;
+
+import java.lang.reflect.Method;
+
 //DONE
 public class DepartmentMenu extends BaseMenu {
     private DepartmentCRUDService departmentCRUDService;
@@ -39,15 +44,22 @@ public class DepartmentMenu extends BaseMenu {
         return 4;
     }
 
+    @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                addDepartment();
+                Method addMethod = this.getClass().getDeclaredMethod("addDepartment");
+                if (Authorization.access(addMethod)) {
+                    addDepartment();
+                }
                 validation.waitZeroToExit();
                 break;
             case 2:
-                editDepartment();
+                Method editMethod = this.getClass().getDeclaredMethod("editDepartment");
+                if (Authorization.access(editMethod)) {
+                    editDepartment();
+                }
                 validation.waitZeroToExit();
                 break;
             case 3:

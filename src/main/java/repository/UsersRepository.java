@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UsersRepository extends  Repository<Users>{
-    private final List<Users> users = new ArrayList<>();
     @Override
     public void add(Users user) {
         super.add(user);
@@ -31,7 +30,7 @@ public class UsersRepository extends  Repository<Users>{
 
     @Override
     public Optional<Users> findByName(String username) {
-        for (Users user : users) {
+        for (Users user : super.findAll()) {
             if(user.getUsername().equals(username)){
                 return Optional.of(user);
             }
