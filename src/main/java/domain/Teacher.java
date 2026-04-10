@@ -1,17 +1,18 @@
 package domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor
 public class Teacher extends Person{
     private String position;
     private String academicDegree;
     private String academicTitle;
-    private final String dateOfEmployment;
-    private final String rate;
+    private  String dateOfEmployment;
+    private  String rate;
     private Department department;
 
     public Teacher(String id, String PIB,Department department, String position,

@@ -1,17 +1,9 @@
 package service;
 
-import domain.Department;
-import domain.Faculty;
-import domain.Student;
-import repository.CRUDRepository;
 import repository.DepartmentRepository;
 import repository.StudentRepository;
 
-import java.util.*;
-import java.util.function.Function;
-
 public class StudentService  {
-    private static final StudentRepository studentRepository = new StudentRepository();
     private final StudentCRUDService studentCRUDService;
     private final StudentSearchService studentSearchService;
     private final StudentSortingService studentSortingService;
@@ -20,18 +12,18 @@ public class StudentService  {
         this.studentCRUDService = new StudentCRUDService();
         this.studentSearchService = new StudentSearchService();
         this.studentSortingService = new StudentSortingService();
+
+        StudentRepository sharedRepo = this.studentCRUDService.getRepository();
+        this.studentSearchService.setStudentRepository(sharedRepo);
+        this.studentSortingService.setStudentRepository(sharedRepo);
     }
 
-    public StudentCRUDService crud(){
-        return studentCRUDService;
-    }
+    public StudentCRUDService crud() { return studentCRUDService; }
+    public StudentSearchService search() { return studentSearchService; }
+    public StudentSortingService sort() { return studentSortingService; }
 
-    public StudentSearchService search(){
-        return studentSearchService;
+    public void setSharedDepartmentRepository(DepartmentRepository deptRepo) {
+        this.studentCRUDService.setDepartmentRepository(deptRepo);
+        this.studentSortingService.setDepartmentRepository(deptRepo);
     }
-
-    public StudentSortingService sort(){
-        return studentSortingService;
-    }
-
 }

@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TeacherService {
-    private static final TeacherRepository teacherRepository = new TeacherRepository();
     private final TeacherCRUDService teacherCRUDService;
     private final TeacherSearchService teacherSearchService;
     private final TeacherSortingService teacherSortingService;
@@ -20,6 +19,10 @@ public class TeacherService {
         this.teacherCRUDService = new TeacherCRUDService();
         this.teacherSearchService = new TeacherSearchService();
         this.teacherSortingService = new TeacherSortingService();
+
+        TeacherRepository teacherRepository = new TeacherRepository();
+        this.teacherSearchService.setTeacherRepository(teacherRepository);
+        this.teacherSortingService.setTeacherRepository(teacherRepository);
     }
 
     public TeacherCRUDService crud() {

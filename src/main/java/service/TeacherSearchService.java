@@ -6,7 +6,7 @@ import repository.TeacherRepository;
 import java.util.Optional;
 
 public class TeacherSearchService {
-    private static TeacherRepository teacherRepository = new TeacherRepository();
+    private  TeacherRepository teacherRepository;
 
     public void showAllTeachers() {
         for (Teacher teacher : teacherRepository.findAll()) {
@@ -15,10 +15,10 @@ public class TeacherSearchService {
     }
 
     public void findTeacherByFullName(String fullName) {
-        System.out.println("--- Звіт: Викладач з ПІБ " + fullName + " " + " ---");
+        System.out.println("--- Звіт: Викладач з ПІБ " + fullName + " ---");
         Optional<Teacher> teacher = teacherRepository.findByName(fullName);
-        if (teacher != null) {
-            System.out.println(teacher);
+        if (teacher.isPresent()) {
+            System.out.println(teacher.get());
         } else {
             System.out.println("Викладача з таким ПІБ не знайдено");
         }
@@ -28,7 +28,7 @@ public class TeacherSearchService {
         System.out.println("--- Звіт: Викладач з id " + id + " " + " ---");
         Optional<Teacher> teacher = teacherRepository.findById(id);
         if (teacher.isPresent()) {
-            System.out.println(teacher);
+            System.out.println(teacher.get());
         } else {
             System.out.println("Викладача з таким id не знайдено");
         }

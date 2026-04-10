@@ -1,12 +1,13 @@
 package domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Getter@Setter
+@Getter@Setter@NoArgsConstructor
 public class Person {
     private  String id;
     private  String PIB;

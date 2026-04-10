@@ -17,12 +17,14 @@ import java.util.Optional;
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 @RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 public class FacultyCRUDService {
-    private static final FacultyRepository facultyRepository = new FacultyRepository();
-    private static final TeacherRepository teacherRepository = new TeacherRepository();
+    private FacultyRepository facultyRepository = new FacultyRepository();
+    private  TeacherRepository teacherRepository ;
 public FacultyRepository getRepository() {
         return facultyRepository;
     }
-
+public void setTeacherRepository(TeacherRepository teacherRepository) {
+    this.teacherRepository = teacherRepository;
+}
     public void addFaculty(Faculty faculty) {
         if(faculty == null) {
             throw new IncorrectDataException("Факультет не может быть null");

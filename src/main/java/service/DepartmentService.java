@@ -5,13 +5,15 @@ import domain.Teacher;
 import repository.DepartmentRepository;
 
 public class DepartmentService {
-    private  final DepartmentRepository departmentRepository = new DepartmentRepository();
     private final DepartmentCRUDService departmentCRUDService;
     private final DepartmentSearchService departmentSearchService;
 
     public DepartmentService() {
         this.departmentCRUDService = new DepartmentCRUDService();
         this.departmentSearchService = new DepartmentSearchService();
+
+        DepartmentRepository departmentRepository = new DepartmentRepository();
+        this.departmentSearchService.setDepartmentRepository(departmentRepository);
     }
 
     public DepartmentCRUDService crud() {

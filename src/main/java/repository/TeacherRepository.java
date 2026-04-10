@@ -42,4 +42,10 @@ public class TeacherRepository extends Repository<Teacher> {
             }
         }return Optional.empty();
     }
+
+    @Override
+    public void addAll(List<Teacher> entities) {
+        super.addAll(entities);
+    }
+
 }

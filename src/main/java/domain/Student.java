@@ -1,16 +1,17 @@
 package domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter @Setter@NoArgsConstructor
 public class Student extends Person{
     private int course;
     private int group;
-    private final int yearOfAdmission;
-    private final String formOfEducation;
+    private  int yearOfAdmission;
+    private  String formOfEducation;
     private String status;
     private String department;
 

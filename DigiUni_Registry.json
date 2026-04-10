@@ -1,0 +1,90 @@
+{
+  "students" : [ {
+    "id" : "1",
+    "dateOfBirth" : "2004-02-27",
+    "email" : "mariya@ukr.net",
+    "phoneNumber" : "+380991234567",
+    "course" : 2,
+    "group" : 1,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : "Біологія",
+    "pib" : "Марія Іванівна Козаченко"
+  }, {
+    "id" : "2",
+    "dateOfBirth" : "2003-05-15",
+    "email" : "ivan@ukr.net",
+    "phoneNumber" : "+380997654321",
+    "course" : 3,
+    "group" : 2,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : "Комп'ютерні науки",
+    "pib" : "Іван Сергійович Петренко"
+  } ],
+  "teachers" : [ {
+    "id" : "1",
+    "dateOfBirth" : "1980-03-10",
+    "email" : "alice@ukma.edu.ua",
+    "phoneNumber" : "+380951112233",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2010-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "201",
+      "name" : "Комп'ютерні науки",
+      "faculty" : "101",
+      "head" : "Alice Brown",
+      "location" : "Корпус 1"
+    },
+    "pib" : "Alice B. Brown"
+  }, {
+    "id" : "2",
+    "dateOfBirth" : "1975-07-20",
+    "email" : "bob@ukma.edu.ua",
+    "phoneNumber" : "+380952223344",
+    "position" : "професор",
+    "academicDegree" : "доктор наук",
+    "academicTitle" : "професор",
+    "dateOfEmployment" : "2005-02-15",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "202",
+      "name" : "Біологія",
+      "faculty" : "102",
+      "head" : "Bob Johnson",
+      "location" : "Корпус 2"
+    },
+    "pib" : "Bob J. Johnson"
+  } ],
+  "departments" : [ {
+    "id" : "201",
+    "name" : "Комп'ютерні науки",
+    "faculty" : "101",
+    "head" : "Alice Brown",
+    "location" : "Корпус 1"
+  }, {
+    "id" : "202",
+    "name" : "Біологія",
+    "faculty" : "102",
+    "head" : "Bob Johnson",
+    "location" : "Корпус 2"
+  } ],
+  "faculties" : [ {
+    "id" : "101",
+    "name" : "Інженерія",
+    "shortName" : "ІНЖ",
+    "dean" : "Alice Brown",
+    "phoneNumber" : "+380441112233"
+  }, {
+    "id" : "102",
+    "name" : "Наука",
+    "shortName" : "НАУК",
+    "dean" : "Bob Johnson",
+    "phoneNumber" : "+380449998877"
+  } ]
+}

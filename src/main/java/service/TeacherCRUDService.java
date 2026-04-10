@@ -15,12 +15,18 @@ import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 @RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
+
 public class TeacherCRUDService {
-    private static final TeacherRepository teacherRepository = new TeacherRepository();
-    private static final DepartmentRepository departmentRepository = new DepartmentRepository();
+    private TeacherRepository teacherRepository = new TeacherRepository();
+    private DepartmentRepository departmentRepository ;
+
     public TeacherRepository getRepository() {
         return teacherRepository;
     }
+    public void setDepartmentRepository(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
+
     public void addTeacher(Teacher teacher) {
         if (teacher == null) {
             throw new IncorrectDataException("Помилка: Викладач не может быть null");
@@ -41,10 +47,10 @@ public class TeacherCRUDService {
         if (teacher.getDepartment() == null || teacher.getDepartment().getName() == null) {
             throw new IncorrectDataException("Помилка: Викладач повинен бути прив'язаний до кафедри");
         }
-        /*String fakeName = teacher.getDepartment().getName();
+        String fakeName = teacher.getDepartment().getName();
         Department realDepartment = departmentRepository.findByName(fakeName)
                 .orElseThrow(() -> new NotFoundNameException("Кафедри", fakeName));
-        teacher.setDepartment(realDepartment);*/
+        teacher.setDepartment(realDepartment);
         teacherRepository.add(teacher);
     }
     public boolean deleteTeacher(String id) {

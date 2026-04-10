@@ -18,12 +18,17 @@ import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 @RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
-public class StudentCRUDService {
-    private static final StudentRepository studentRepository = new StudentRepository();
-        private static final DepartmentRepository departmentRepository = new DepartmentRepository();
 
-public StudentRepository getRepository() {
+public class StudentCRUDService {
+    private StudentRepository studentRepository = new StudentRepository();
+    private DepartmentRepository departmentRepository;
+
+    public StudentRepository getRepository() {
         return studentRepository;
+    }
+
+    public void setDepartmentRepository(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
     }
     public void addStudent(Student student) {
         if(student != null) {
@@ -59,9 +64,6 @@ public StudentRepository getRepository() {
             validateNotEmpty(student.getPIB(), "ПІБ студента");
             if (student.getYearOfAdmission() < 2015 || student.getYearOfAdmission() > 2025) {
                 throw new IncorrectDataException("Рік вступу повинен бути в межах від 2015 до 2025");
-            }
-            if(studentRepository.findById(student.getId()).isPresent()){
-                throw new IdAlreadyPresentException("Студент", student.getId());
             }
             studentRepository.add(student);
         }
@@ -134,16 +136,14 @@ public StudentRepository getRepository() {
         }
 
     public void transferToNewCourse(String id, int newCourse) {
-        Student student = studentRepository.findById(id).orElse(null);
-        if (student != null) {
-            student.setCourse(newCourse);
-        }
+        Student student = studentRepository.findById(id)
+        .orElseThrow(() -> new NotFoundIDException("Студента", id));
+        student.setCourse(newCourse);
     }
 
     public void transferToNewGroup(String id, int newGroup) {
-        Student student = studentRepository.findById(id).orElse(null);
-        if (student != null) {
-            student.setGroup(newGroup);
-        }
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundIDException("Студента", id));
+        student.setGroup(newGroup);
     }
 }

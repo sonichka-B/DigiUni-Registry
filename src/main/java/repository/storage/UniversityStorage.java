@@ -24,6 +24,4 @@ public class UniversityStorage {
         this.departments = departments;
         this.faculties = faculties;
     }
-
-
 }

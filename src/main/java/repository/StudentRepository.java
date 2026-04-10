@@ -46,7 +46,14 @@ public class StudentRepository extends Repository<Student> {
         return Optional.empty();
     }
 
-//    public List<StudentDTO> findByFullName(String pib){
+    @Override
+    public void addAll(List<Student> entities) {
+        super.addAll(entities);
+    }
+
+
+
+    //    public List<StudentDTO> findByFullName(String pib){
 //        return findAll().stream()
 //                .filter(student -> student.getPIB().equals(pib))
 //                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
