@@ -42,10 +42,10 @@ public class Main {
         JsonStorageManager storageManager = new JsonStorageManager();
         UniversityStorage data =  storageManager.loadData();
         if(data != null){
-            studentService.crud().getRepository().addAll(data.getStudents());
-            teacherService.crud().getRepository().addAll(data.getTeachers());
-            departmentService.crud().getRepository().addAll(data.getDepartments());
             facultyService.crud().getRepository().addAll(data.getFaculties());
+            departmentService.crud().getRepository().addAll(data.getDepartments());
+            teacherService.crud().getRepository().addAll(data.getTeachers());
+            studentService.crud().getRepository().addAll(data.getStudents());
         }else{
 
             facultyService.crud().addFaculty(new Faculty("101", "Інженерія", "ІНЖ", "Alice Brown", "+380441112233"));
