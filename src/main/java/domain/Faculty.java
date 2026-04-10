@@ -1,15 +1,16 @@
 package domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
 
-@Getter
+@Getter@NoArgsConstructor
 public class Faculty {
-    private final String id;
-    private final String name;
-    private final String shortName;
+    private  String id;
+    private  String name;
+    private  String shortName;
     @Setter
     private  String dean;
     @Setter

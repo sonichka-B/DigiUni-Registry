@@ -1,5 +1,6 @@
 package ui;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Department;
 import domain.Faculty;
 import domain.Student;
