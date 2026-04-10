@@ -1,11 +1,16 @@
 package ui;
 
+import domain.Role;
 import domain.Student;
+import lombok.SneakyThrows;
+import security.Authorization;
+import security.RoleAnotation;
 import service.*;
 import repository.DepartmentRepository;
 import exceptions.NotFoundIDException;
 import validation.*;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 
 
@@ -56,20 +61,30 @@ public class StudentMenu extends BaseMenu {
         return 10;
     }
 
+    @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                addStudent();
+                Method addMethod = this.getClass().getDeclaredMethod("addStudent");
+                if (Authorization.access(addMethod)) {
+                    addStudent();
+                }
                 validation.waitZeroToExit();
                 break;
             case 2:
-                editStudent();
+                Method editMethod = this.getClass().getDeclaredMethod("editStudent");
+                if (Authorization.access(editMethod)) {
+                    editStudent();
+                }
                 validation.waitZeroToExit();
                 break;
 
             case 3:
-                deleteStudent();
+                Method deleteMethod = this.getClass().getDeclaredMethod("deleteStudent");
+                if (Authorization.access(deleteMethod)) {
+                    deleteStudent();
+                }
                 validation.waitZeroToExit();
                 break;
             case 4:
@@ -90,11 +105,17 @@ public class StudentMenu extends BaseMenu {
                 validation.waitZeroToExit();
                 break;
             case 8:
-                transferStudentToAnotherGroup();
+                Method transferToAnotherGroupMethod = this.getClass().getDeclaredMethod("transferStudentToAnotherGroup");
+                if (Authorization.access(transferToAnotherGroupMethod)) {
+                    transferStudentToAnotherGroup();
+                }
                 validation.waitZeroToExit();
                 break;
             case 9:
-                transferStudentToNextCourse();
+                Method transferToNextCourseMethod = this.getClass().getDeclaredMethod("transferStudentToNextCourse");
+                if (Authorization.access(transferToNextCourseMethod)) {
+                    transferStudentToNextCourse();
+                }
                 validation.waitZeroToExit();
                 break;
             case 10:
@@ -102,7 +123,8 @@ public class StudentMenu extends BaseMenu {
                 break;
         }
     }
-private void editStudent() {
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
+    private void editStudent() {
         System.out.println("--- Редагування інформації про студента ---");
     String id= validation.readNotEmptyString("Введіть ID студента для редагування: ");
     String pib = validation.readNotEmptyString("Введіть нове ПІБ студента: ");
@@ -135,6 +157,7 @@ private void editStudent() {
         System.out.println("Помилка при створенні: " + e.getMessage());
     }
 }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addStudent() {
         System.out.println("--- ДОДАТИ СТУДЕНТА ---");
         String id = validation.readNotEmptyString("Введіть ID студента: ");
@@ -182,7 +205,7 @@ private void editStudent() {
             System.out.println("Помилка при створенні: " + e.getMessage());
         }
     }
-
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void deleteStudent() {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
         String id= validation.readNotEmptyString("Введіть ID студента для видалення: ");
@@ -206,6 +229,7 @@ private void editStudent() {
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
         studentSortingService.sortStudentsByCourseInDepartment(departmentName);
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToAnotherGroup() {
         String studentId = validation.readNotEmptyString("Введіть ID студента для переведення: ");
         int newGroup = validation.readInt("Введіть нову групу для студента: ", 1, 6);
@@ -216,6 +240,7 @@ private void editStudent() {
             System.out.println("Помилка: " + e.getMessage());
         }
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToNextCourse() {
         String studentId = validation.readNotEmptyString("Введіть ID студента для переведення на наступний курс: ");
         int currentCourse = validation.readInt("Введіть поточний курс студента: ", 1, 5);

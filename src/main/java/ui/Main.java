@@ -1,10 +1,6 @@
 package ui;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.Department;
-import domain.Faculty;
-import domain.Student;
-import domain.Teacher;
+import domain.*;
 import service.*;
 
 import java.time.LocalDate;
@@ -23,9 +19,9 @@ public class Main {
         studentSortingService.setStudentRepository(studentCRUDService.getRepository());
         studentSearchService.setStudentRepository(studentCRUDService.getRepository());
 
-        studentCRUDService.getRepository().add(new Student("1", "Марія Іванівна Козаченко",  2,
+        studentCRUDService.getRepository().add(new Student("1", "Марія", "Іванівна", "Козаченко", 2,
                 "Біологія", 1, 2022, "бюджет", "навчається", LocalDate.of(2004, 2, 27), "mariya@ukr.net", "+380991234567"));
-        studentCRUDService.getRepository().add(new Student("2", "Іван Сергійович Петренко", 3,
+        studentCRUDService.getRepository().add(new Student("2", "Іван", "Сергійович", "Петренко", 3,
                 "Комп'ютерні науки", 2, 2021, "контракт", "навчається", LocalDate.of(2003, 5, 15), "ivan@ukr.net", "+380997654321"));
 
         TeacherService teacherService = new TeacherService();
@@ -36,9 +32,9 @@ public class Main {
         Department compSci = new Department("201", "Комп'ютерні науки", "101", "Alice Brown", "Корпус 1");
         Department biology = new Department("202", "Біологія", "102", "Bob Johnson", "Корпус 2");
 
-        teacherCRUDService.getRepository().add(new Teacher("1", "Alice B. Brown",  compSci,
+        teacherCRUDService.getRepository().add(new Teacher("1", "Alice", "B.", "Brown", compSci,
                 "доцент", "кандидат наук", "доцент", "2010-09-01", "1.0", LocalDate.of(1980, 3, 10), "alice@ukma.edu.ua", "+380951112233"));
-        teacherCRUDService.getRepository().add(new Teacher("2", "Bob J. Johnson",  biology,
+        teacherCRUDService.getRepository().add(new Teacher("2", "Bob", "J.", "Johnson", biology,
                 "професор", "доктор наук", "професор", "2005-02-15", "1.0", LocalDate.of(1975, 7, 20), "bob@ukma.edu.ua", "+380952223344"));
 
         FacultyService facultyService = new FacultyService();
@@ -60,11 +56,14 @@ public class Main {
 
         DepartmentMenu departmentMenu = new DepartmentMenu(departmentCRUDService, departmentSearchService, facultySearchService,
                 teacherCRUDService.getRepository(), facultyCRUDService.getRepository());
+        UsersService usersService = new UsersService();
 
+        usersService.addUser(new Users("admin", "admin123", Role.ADMIN));
+        usersService.addUser(new Users("manDasha", "manager123", Role.MANAGER));
         StudentMenu studentMenu = new StudentMenu(studentService, searchStudent, studentCRUDService, studentSortingService, studentSearchService);
         TeacherMenu teacherMenu = new TeacherMenu(teacherService, searchTeacher, teacherSortingService, teacherCRUDService, teacherSearchService);
-
-        MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu);
+        AdminMenu adminMenu=new AdminMenu(usersService);
+        MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu, adminMenu);
         AuthorizationMenu authorizationMenu=new AuthorizationMenu(mainMenu);
         authorizationMenu.showMenu();
     }
