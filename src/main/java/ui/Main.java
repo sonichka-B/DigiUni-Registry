@@ -1,7 +1,6 @@
 package ui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import domain.*;
 import repository.DepartmentRepository;
 import repository.FacultyRepository;
@@ -10,11 +9,7 @@ import repository.storage.JsonStorageManager;
 import repository.storage.UniversityStorage;
 import service.*;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.time.LocalDate;
 
 public class Main {
