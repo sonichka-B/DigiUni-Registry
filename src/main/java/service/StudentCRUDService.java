@@ -2,6 +2,7 @@ package service;
 
 import domain.Department;
 import domain.Faculty;
+import domain.Role;
 import domain.Student;
 import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
@@ -9,19 +10,25 @@ import repository.StudentRepository;
 import exceptions.IncorrectDataException;
 import exceptions.IdAlreadyPresentException;
 import exceptions.NotFoundIDException;
+import security.RoleAnotation;
 
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
+@RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 
 public class StudentCRUDService {
-    private static final StudentRepository studentRepository = new StudentRepository();
-        private static final DepartmentRepository departmentRepository = new DepartmentRepository();
+    private StudentRepository studentRepository = new StudentRepository();
+    private DepartmentRepository departmentRepository;
 
-public StudentRepository getRepository() {
+    public StudentRepository getRepository() {
         return studentRepository;
+    }
+
+    public void setDepartmentRepository(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
     }
     public void addStudent(Student student) {
         if(student != null) {
@@ -54,14 +61,9 @@ public StudentRepository getRepository() {
             if(student.getDateOfBirth() == null || student.getDateOfBirth().isAfter(java.time.LocalDate.now())) {
                 throw new IncorrectDataException("Помилка: дата народження не может быть null");
             }
-            validateNotEmpty(student.getFirstName(), "Ім'я студента");
-            validateNotEmpty(student.getLastName(), "Прізвище студента");
-            validateNotEmpty(student.getMiddleName(), "По батькові студента");
+            validateNotEmpty(student.getPIB(), "ПІБ студента");
             if (student.getYearOfAdmission() < 2015 || student.getYearOfAdmission() > 2025) {
                 throw new IncorrectDataException("Рік вступу повинен бути в межах від 2015 до 2025");
-            }
-            if(studentRepository.findById(student.getId()).isPresent()){
-                throw new IdAlreadyPresentException("Студент", student.getId());
             }
             studentRepository.add(student);
         }
@@ -76,7 +78,7 @@ public StudentRepository getRepository() {
         studentRepository.delete(student);
     }
 
-    public boolean editStudent(String id, String firstName, String middleName, String lastName,
+    public boolean editStudent(String id, String pib,
                                int course, String department, int group,
                                String status, String email, String phoneNumber) {
         Optional<Student> oStudent = studentRepository.findById(id);
@@ -90,15 +92,15 @@ public StudentRepository getRepository() {
         if (email!= null && !email.trim().isEmpty()) {
             student.setEmail(email);
         }
-        if (firstName!=null&&!firstName.trim().isEmpty()){
-            student.setFirstName(firstName);
+        if (pib!=null&&!pib.trim().isEmpty()){
+            student.setPIB(pib);
         }
-        if (lastName!=null&&!lastName.trim().isEmpty()){
-            student.setLastName(lastName);
-        }
-        if (middleName!=null&&!middleName.trim().isEmpty()){
-            student.setMiddleName(middleName);
-        }
+//        if (lastName!=null&&!lastName.trim().isEmpty()){
+//            student.setLastName(lastName);
+//        }
+//        if (middleName!=null&&!middleName.trim().isEmpty()){
+//            student.setMiddleName(middleName);
+//        }
         if(status!=null&&!status.trim().isEmpty()){
             if(!status.equals("навчається") && !status.equals("відрахований") && !status.equals("академічна відпустка")){
                 throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
@@ -134,16 +136,14 @@ public StudentRepository getRepository() {
         }
 
     public void transferToNewCourse(String id, int newCourse) {
-        Student student = studentRepository.findById(id).orElse(null);
-        if (student != null) {
-            student.setCourse(newCourse);
-        }
+        Student student = studentRepository.findById(id)
+        .orElseThrow(() -> new NotFoundIDException("Студента", id));
+        student.setCourse(newCourse);
     }
 
     public void transferToNewGroup(String id, int newGroup) {
-        Student student = studentRepository.findById(id).orElse(null);
-        if (student != null) {
-            student.setGroup(newGroup);
-        }
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundIDException("Студента", id));
+        student.setGroup(newGroup);
     }
 }

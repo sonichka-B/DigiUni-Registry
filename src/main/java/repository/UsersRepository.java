@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UsersRepository extends  Repository<Users>{
-    private final List<Users> users = new ArrayList<>();
     @Override
     public void add(Users user) {
         super.add(user);
@@ -19,14 +18,24 @@ public class UsersRepository extends  Repository<Users>{
         super.delete(user);
     }
 
-    @Override
-    public Optional<Users> findById(String id) {
-        return super.findById(id);
-    }
+    //@Override
+    /*public Optional<Users> findById(String id) {
+        for (Users user : users) {
+            if(user.getId()equals(id)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }*/
 
     @Override
     public Optional<Users> findByName(String username) {
-        return super.findByName(username);
+        for (Users user : super.findAll()) {
+            if(user.getUsername().equals(username)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override

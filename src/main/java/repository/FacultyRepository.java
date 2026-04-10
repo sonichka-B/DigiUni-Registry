@@ -44,4 +44,9 @@ public class FacultyRepository extends Repository<Faculty>{
         }
         return Optional.empty();
     }
+
+    @Override
+    public void addAll(List<Faculty> entities) {
+        super.addAll(entities);
+    }
 }

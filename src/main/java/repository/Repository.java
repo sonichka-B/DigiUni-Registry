@@ -37,6 +37,12 @@ abstract class Repository<T> implements CRUDRepository<T>{
     }
     @Override
     public List<T> findAll() {
-        return generalDATA;
+        return new ArrayList<>(generalDATA);
     }
+
+    @Override
+    public void addAll(List<T> entities) {
+        generalDATA.addAll(entities);
+    }
+
 }

@@ -2,6 +2,7 @@ package service;
 
 import domain.Department;
 import domain.Faculty;
+import domain.Role;
 import domain.Teacher;
 import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
@@ -9,17 +10,21 @@ import exceptions.NotFoundIDException;
 import exceptions.NotFoundNameException;
 import repository.FacultyRepository;
 import repository.TeacherRepository;
+import security.RoleAnotation;
 
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
-
+@RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 public class FacultyCRUDService {
-    private static final FacultyRepository facultyRepository = new FacultyRepository();
-    private static final TeacherRepository teacherRepository = new TeacherRepository();
+    private FacultyRepository facultyRepository = new FacultyRepository();
+    private  TeacherRepository teacherRepository ;
 public FacultyRepository getRepository() {
         return facultyRepository;
     }
+public void setTeacherRepository(TeacherRepository teacherRepository) {
+    this.teacherRepository = teacherRepository;
+}
     public void addFaculty(Faculty faculty) {
         if(faculty == null) {
             throw new IncorrectDataException("Факультет не может быть null");

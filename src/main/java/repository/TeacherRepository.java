@@ -37,9 +37,15 @@ public class TeacherRepository extends Repository<Teacher> {
     @Override
     public Optional<Teacher> findByName(String name){
         for(Teacher teacher:findAll()){
-            if(teacher.getFullName().equals(name)){
+            if(teacher.getPIB().equals(name)){
                 return Optional.of(teacher);
             }
         }return Optional.empty();
     }
+
+    @Override
+    public void addAll(List<Teacher> entities) {
+        super.addAll(entities);
+    }
+
 }

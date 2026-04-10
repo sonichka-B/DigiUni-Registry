@@ -1,15 +1,16 @@
 package domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
-@Getter
+@Getter@NoArgsConstructor
 public class Department {
-    private final String id;
+    private  String id;
     @Setter
     private String name;
-    private final String faculty;
+    private  String faculty;
     @Setter
     private String head;
     @Setter

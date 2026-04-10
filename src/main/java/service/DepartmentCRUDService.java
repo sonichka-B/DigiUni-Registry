@@ -1,6 +1,7 @@
 package service;
 
 import domain.Department;
+import domain.Role;
 import domain.Teacher;
 import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
@@ -9,17 +10,27 @@ import exceptions.NotFoundNameException;
 import repository.DepartmentRepository;
 import repository.FacultyRepository;
 import repository.TeacherRepository;
+import security.RoleAnotation;
 
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
+@RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
 
 public class DepartmentCRUDService {
     private  final DepartmentRepository departmentRepository = new DepartmentRepository();
-    private static final FacultyRepository facultyRepository = new FacultyRepository();
-    private  final TeacherRepository teacherRepository = new TeacherRepository();
-public DepartmentRepository getRepository() {
+    private  FacultyRepository facultyRepository ;
+    private  TeacherRepository teacherRepository ;
+
+    public DepartmentRepository getRepository() {
         return departmentRepository;
+    }
+    public void setFacultyRepository(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+
+    public void setTeacherRepository(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
     }
     public void addDepartment(Department department){
         if (department == null) {
@@ -32,9 +43,6 @@ public DepartmentRepository getRepository() {
         validateNotEmpty(department.getName(), "Назва кафедри");
         validateNotEmpty(department.getFaculty(), "ID факультету");
         validateNotEmpty(department.getLocation(), "Розташування");
-        if (departmentRepository.findById(department.getId()).isPresent()) {
-            throw new IdAlreadyPresentException("Кафедра", department.getId());
-        }
           /*  facultyRepository.findById(department.getFaculty())
                     .orElseThrow(() -> new NotFoundIDException("Факультет ", department.getFaculty()));
         String head=department.getHead();
@@ -44,8 +52,6 @@ public DepartmentRepository getRepository() {
         }*/
         departmentRepository.add(department);
     }
-
-
     public boolean deleteDepartment(String id){
         Optional<Department> department = departmentRepository.findById(id);
         if (department.isPresent()) {
@@ -54,7 +60,6 @@ public DepartmentRepository getRepository() {
         }
         return false;
     }
-
     public boolean editDepartment(String id, String newHeadName,String newLocation) {
         Optional<Department> oDepartment = departmentRepository.findById(id);
         if (oDepartment.isEmpty()) {

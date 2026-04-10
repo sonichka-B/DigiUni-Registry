@@ -20,7 +20,7 @@ public class StudentServiceTest {
         StudentCRUDService service = new StudentCRUDService();
         LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
 
-        service.getRepository().add(new Student(id, "firstname", "middlename", "lastname", course,
+        service.getRepository().add(new Student(id, "pib",  course,
                 department, group, 4, "бюджет", "навчається",
                 dateOfBirth, "email", "1234567890"));
         assertTrue(service.getRepository().findById(id).isPresent());
@@ -33,7 +33,7 @@ public class StudentServiceTest {
         StudentCRUDService service = new StudentCRUDService();
         LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
         try {
-            service.getRepository().add(new Student(id, "firstname", "middlename", "lastname", course,
+            service.getRepository().add(new Student(id, "pib",  course,
                     department, group, 4, "бюджет", "навчається",
                     dateOfBirth, "email", "1234567890"));
         }
@@ -51,7 +51,7 @@ public class StudentServiceTest {
         public void deleteStudentTest(String id, String department) {
         StudentCRUDService service = new StudentCRUDService();
         LocalDate dateOfBirth = LocalDate.of(2000, 1, 1);
-        service.getRepository().add(new Student(id, "firstname", "middlename", "lastname", 2,
+        service.getRepository().add(new Student(id, "pib",  2,
                 department, 5, 4, "бюджет", "навчається",
                 dateOfBirth, "email", "1234567890"));
         service.deleteStudent(id);

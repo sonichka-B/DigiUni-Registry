@@ -9,5 +9,6 @@ public interface CRUDRepository<T> {
     Optional<T> findById(String id);
     Optional <T> findByName(String name);
     List<T> findAll();
+    void addAll(List<T> entities);
 
 }

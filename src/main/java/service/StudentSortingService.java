@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.StudentDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Student;
@@ -16,56 +17,72 @@ public class StudentSortingService {
     public void setStudentRepository(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
-
+    private DepartmentRepository departmentRepository;
+    public void setDepartmentRepository(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
     Comparator<Student> byCourse = Comparator.comparing(Student -> Student.getCourse());
     public void sortStudentsByCourse() {
         System.out.println("--- Звіт: Студенти, відсортовані за курсом ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        result.addAll(students);
-        result.sort(byCourse);
-        result.forEach(System.out::println);
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .sorted(byCourse)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
+        if (result.isEmpty()) {
+            System.out.println("Студентів не знайдено.");
+        } else {
+            result.forEach(System.out::println);
+        }
     }
     public void sortStudentsByCourseInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за курсом в межах кафедри ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        for(Student student: students){
-            if(student.getDepartment().equals(department)){
-                result.add(student);
-            }
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> student.getDepartment().equals(department))
+                .sorted(byCourse)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
+        if (result.isEmpty()) {
+            System.out.println("Студентів не знайдено.");
+        } else {
+            result.forEach(System.out::println);
         }
-        result.sort(byCourse);
-        result.forEach(System.out::println);
     }
 
-    Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getFullName());
+    Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getPIB());
 
     public void sortStudentsByAlphabetInFaculty(String faculty, String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        Department departments = new DepartmentRepository().findByFaculty(faculty)
-                .orElseThrow (()-> new NotFoundIDException("Кафедру",department));
-        for(Student student: students){
-            if(departments.equals(department)){
-                result.add(student);
-            }
+        List<String> validDepartments = departmentRepository.findAll().stream()
+                .filter(dep -> dep.getFaculty().trim().equalsIgnoreCase(faculty.trim()))
+                .map(Department::getName)
+                .toList();
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> validDepartments.contains(student.getDepartment()))
+                .sorted(byAlphabet)
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
+        if (result.isEmpty()) {
+            System.out.println("Студентів не знайдено.");
+        } else {
+            result.forEach(System.out::println);
         }
-        result.sort(byAlphabet);
-        result.forEach(System.out::println);
     }
 
     public void sortStudentsByAlphabetInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах кафедри ---");
-        List<Student> students = studentRepository.findAll();
-        List<Student> result = new ArrayList<>();
-        for(Student student: students){
-            if(student.getDepartment().equals(department)){
-                result.add(student);
-            }
+        List<StudentDTO> result = studentRepository.findAll().stream()
+                .filter(student -> student.getDepartment().equals(department))
+                .sorted(Comparator.comparing(Student::getPIB))
+                .map(student -> new StudentDTO(student.getId(), student.getPIB(),
+                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                .toList();
+        if (result.isEmpty()) {
+            System.out.println("Студентів не знайдено.");
+        } else {
+            result.forEach(System.out::println);
         }
-        result.sort(byAlphabet);
-        result.forEach(System.out::println);
     }
 }

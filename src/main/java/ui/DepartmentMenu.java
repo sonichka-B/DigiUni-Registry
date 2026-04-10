@@ -1,9 +1,16 @@
 package ui;
 
 import domain.Department;
+import domain.Role;
+import lombok.SneakyThrows;
 import repository.TeacherRepository;
+import security.Authorization;
+import security.RoleAnotation;
 import service.*;
 import repository.FacultyRepository;
+
+import java.lang.reflect.Method;
+
 //DONE
 public class DepartmentMenu extends BaseMenu {
     private DepartmentCRUDService departmentCRUDService;
@@ -37,19 +44,29 @@ public class DepartmentMenu extends BaseMenu {
         return 4;
     }
 
+    @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                addDepartment();
+                Method addMethod = this.getClass().getDeclaredMethod("addDepartment");
+                if (Authorization.access(addMethod)) {
+                    addDepartment();
+                }
                 validation.waitZeroToExit();
                 break;
             case 2:
-                editDepartment();
+                Method editMethod = this.getClass().getDeclaredMethod("editDepartment");
+                if (Authorization.access(editMethod)) {
+                    editDepartment();
+                }
                 validation.waitZeroToExit();
                 break;
             case 3:
-                deleteDepartment();
+                Method deleteMethod = this.getClass().getDeclaredMethod("deleteDepartment");
+                if (Authorization.access(deleteMethod)) {
+                    deleteDepartment();
+                }
                 validation.waitZeroToExit();
                 break;
             case 4:
@@ -59,6 +76,7 @@ public class DepartmentMenu extends BaseMenu {
                 break;
         }
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addDepartment() {
         System.out.println("--- Додавання кафедри ---");
         String id = validation.readNotEmptyString("ID кафедри: ");
@@ -74,6 +92,7 @@ public class DepartmentMenu extends BaseMenu {
             System.out.println(" Помилка: " + e.getMessage());
         }
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
         private void editDepartment() {
             System.out.println("--- Редагування інформації про кафедру ---");
             String idDepartment = validation.readNotEmptyString("Введіть ID кафедри для редагування: ");
@@ -90,6 +109,7 @@ public class DepartmentMenu extends BaseMenu {
                 System.out.println(" Помилка: " + e.getMessage());
             }
         }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
         private void deleteDepartment() {
             System.out.println("--- Видалення кафедри ---");
             String nameHead = validation.readNotEmptyString("Введіть ID для видалення: ");

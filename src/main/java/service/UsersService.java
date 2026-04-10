@@ -1,16 +1,16 @@
 package service;
 
+import domain.Role;
 import domain.Users;
 import repository.UsersRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class UsersService {
-    private final UsersRepository usersRepository = new UsersRepository();
+    private static UsersRepository usersRepository = new UsersRepository();
 
-  /*  public void addUser(Users user){
+   public void addUser(Users user){
         if(user!=null && user.getUsername() !=null && user.getPassword() !=null && user.getRole() !=null){
             usersRepository.add(user);
         }else{
@@ -20,17 +20,16 @@ public class UsersService {
 
     public void deleteUser(String username){
         Optional<Users> user = usersRepository.findByName(username);
-        if (user != null) {
-            usersRepository.delete(user);
+        if (user.isPresent()) {
+            usersRepository.delete(user.get());
         } else {
             System.out.println("Користувач з таким ім'ям не знайдений");
         }
     }
-
     public Users findUserByUsername(String username){
-        Users user = usersRepository.findByName(username);
-        if( user != null){
-            return usersRepository.findByName(username);
+        Optional<Users> user = usersRepository.findByName(username);
+        if(user.isPresent()){
+            return user.get();
         } else {
             System.out.println("Користувач з таким ім'ям не знайдений");
             return null;
@@ -39,5 +38,13 @@ public class UsersService {
 
     public List<Users> findAllUsers(){
         return usersRepository.findAll();
-    }*/
+    }
+    public boolean changeRole(String username, Role newRole){
+       Users user = findUserByUsername(username);
+       if(user!=null){
+           user.setRole(newRole);
+           return true;
+       }
+       else return false;
+    }
 }

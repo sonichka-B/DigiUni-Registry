@@ -1,8 +1,14 @@
 package ui;
 
 import domain.Faculty;
+import domain.Role;
+import lombok.SneakyThrows;
+import security.Authorization;
+import security.RoleAnotation;
 import service.*;
 import validation.*;
+
+import java.lang.reflect.Method;
 
 
 public class FacultyMenu extends BaseMenu{
@@ -33,19 +39,29 @@ public class FacultyMenu extends BaseMenu{
         return 4;
     }
 
+    @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                addFaculty();
+                Method addMethod = this.getClass().getDeclaredMethod("addFaculty");
+                if (Authorization.access(addMethod)) {
+                    addFaculty();
+                }
                 validation.waitZeroToExit();
                 break;
             case 2:
-                editFaculty();
+                Method editMethod = this.getClass().getDeclaredMethod("editFaculty");
+                if (Authorization.access(editMethod)) {
+                    editFaculty();
+                }
                 validation.waitZeroToExit();
                 break;
             case 3:
-                deleteFaculty();
+                Method deleteMethod = this.getClass().getDeclaredMethod("deleteFaculty");
+                if (Authorization.access(deleteMethod)) {
+                    deleteFaculty();
+                }
                 validation.waitZeroToExit();
                 break;
 
@@ -56,6 +72,7 @@ public class FacultyMenu extends BaseMenu{
                 break;
         }
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addFaculty() {
         System.out.println("--- Додавання факультету ---");
         String id = validation.readNotEmptyString("Введіть ID факультету: ");
@@ -70,6 +87,7 @@ public class FacultyMenu extends BaseMenu{
             System.out.println(" Помилка: " + e.getMessage());
         }
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editFaculty(){
         System.out.println("--- Редагування інформації про факультет ---");
         String idFaculty = validation.readNotEmptyString("Введіть ID факультету для редагування: ");
@@ -86,6 +104,7 @@ public class FacultyMenu extends BaseMenu{
             System.out.println(" Помилка: " + e.getMessage());
         }
     }
+    @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void deleteFaculty(){
         System.out.println("--- Видалення факультету ---");
         String nameDel = validation.readNotEmptyString("Введіть ID для видалення: ");

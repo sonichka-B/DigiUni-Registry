@@ -42,6 +42,11 @@ public class DepartmentRepository extends Repository<Department>{
         } return Optional.empty();
     }
 
+    @Override
+    public void addAll(List<Department> entities) {
+        super.addAll(entities);
+    }
+
     public Optional<Department> findByFaculty(String faculty){
         for(Department department:findAll()){
             if(department.getFaculty().equals(faculty)){
