@@ -3,6 +3,8 @@ package service;
 import domain.Department;
 import domain.Teacher;
 import repository.DepartmentRepository;
+import repository.FacultyRepository;
+import repository.TeacherRepository;
 
 public class DepartmentService {
     private final DepartmentCRUDService departmentCRUDService;
@@ -12,7 +14,7 @@ public class DepartmentService {
         this.departmentCRUDService = new DepartmentCRUDService();
         this.departmentSearchService = new DepartmentSearchService();
 
-        DepartmentRepository departmentRepository = new DepartmentRepository();
+        DepartmentRepository departmentRepository = this.departmentCRUDService.getRepository();
         this.departmentSearchService.setDepartmentRepository(departmentRepository);
     }
 
@@ -22,5 +24,9 @@ public class DepartmentService {
 
     public DepartmentSearchService search() {
         return departmentSearchService;
+    }
+
+    public void setSharedFacAndTeachRep(FacultyRepository facultyRepository, TeacherRepository teacherRepository){
+        this.departmentCRUDService.setFacultyAndTeacherRepository(facultyRepository,teacherRepository);
     }
 }

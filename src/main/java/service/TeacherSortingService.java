@@ -4,6 +4,7 @@ import domain.DTO.TeacherDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Teacher;
+import repository.DepartmentRepository;
 import repository.TeacherRepository;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class TeacherSortingService {
 
     Comparator<Teacher> byAlphabet = Comparator.comparing(Teacher -> Teacher.getPIB());
 
-    public void sortTeachersByAlphabetInFaculty(String faculty, String department) {
+    public void sortTeachersByAlphabetInFaculty(String faculty) {
         System.out.println("--- Звіт: Викладачі, відсортовані за алфавітом в межах факультету ---");
 
         List<TeacherDTO> result = teacherRepository.findAll().stream()
@@ -56,6 +57,9 @@ public class TeacherSortingService {
     }
 
     public void setTeacherRepository(TeacherRepository repository) {
-        teacherRepository = repository;
+        this.teacherRepository = repository;
+    }
+    public void setDepartmentRepository(DepartmentRepository deprepository) {
+        deprepository= deprepository;
     }
 }

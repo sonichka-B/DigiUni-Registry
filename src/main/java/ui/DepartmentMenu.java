@@ -13,16 +13,19 @@ import java.lang.reflect.Method;
 
 //DONE
 public class DepartmentMenu extends BaseMenu {
-    private DepartmentCRUDService departmentCRUDService;
-    private DepartmentSearchService departmentSearchService;
-    private FacultySearchService facultySearchService;
-    private TeacherRepository teacherRepository;
-    private FacultyRepository facultyRepository;
+    DepartmentService departmentService;
+    FacultyService facultyService;
+    TeacherRepository teacherRepository;
+    FacultyRepository facultyRepository;
+//    private DepartmentCRUDService departmentCRUDService;
+//    private DepartmentSearchService departmentSearchService;
+//    private FacultySearchService facultySearchService;
 
-    public DepartmentMenu(DepartmentCRUDService departmentCRUDService, DepartmentSearchService departmentSearchService, FacultySearchService facultySearchService, TeacherRepository teacherRepository, FacultyRepository facultyRepository) {
-        this.departmentCRUDService = departmentCRUDService;
-        this.departmentSearchService = departmentSearchService;
-        this.facultySearchService = facultySearchService;
+    public DepartmentMenu(DepartmentService departmentService, FacultyService facultyService, TeacherRepository teacherRepository, FacultyRepository facultyRepository) {
+        this.departmentService = departmentService;
+        this.facultyService = facultyService;
+        this.teacherRepository = teacherRepository;
+        this.facultyRepository = facultyRepository;
     }
 
     @Override
@@ -71,7 +74,8 @@ public class DepartmentMenu extends BaseMenu {
                 break;
             case 4:
                 System.out.println("--- Список кафедр ---");
-                departmentSearchService.showAllDepartments();
+//                departmentSearchService.showAllDepartments();
+                departmentService.search().showAllDepartments();
                 validation.waitZeroToExit();
                 break;
         }
@@ -86,7 +90,8 @@ public class DepartmentMenu extends BaseMenu {
         String location = validation.readNotEmptyString("Розташування кафедри: ");
         ////String id, String name, String faculty, String head, String location
         try {
-            departmentCRUDService.addDepartment(new Department(id, name, idFaculty, idHead, location));
+//            departmentCRUDService.addDepartment(new Department(id, name, idFaculty, idHead, location));
+            departmentService.crud().addDepartment(new Department(id, name, idFaculty, idHead, location));
             System.out.println(" Кафедру успішно додано.");
         } catch (Exception e) {
             System.out.println(" Помилка: " + e.getMessage());
@@ -99,7 +104,8 @@ public class DepartmentMenu extends BaseMenu {
             String newLocation = validation.readNotEmptyString("Введіть нове розташування кафедри: ");
             String newHeadName = validation.readNotEmptyString("Введіть імя нового завідувача кафедри: ");
             try {
-                boolean success = departmentCRUDService.editDepartment(idDepartment, newHeadName, newLocation);
+//                boolean success = departmentCRUDService.editDepartment(idDepartment, newHeadName, newLocation);
+                boolean success = departmentService.crud().editDepartment(idDepartment, newHeadName, newLocation);
                 if (success) {
                     System.out.println(" Інформацію про кафедру успішно оновлено.");
                 } else { /*можливо потрібно переробити*/
@@ -114,7 +120,8 @@ public class DepartmentMenu extends BaseMenu {
             System.out.println("--- Видалення кафедри ---");
             String nameHead = validation.readNotEmptyString("Введіть ID для видалення: ");
             try{
-                departmentCRUDService.deleteDepartment(nameHead);
+//                departmentCRUDService.deleteDepartment(nameHead);
+                departmentService.crud().deleteDepartment(nameHead);
                 System.out.println(" Команду видалення виконано.");
         }catch (Exception e){
             System.out.println(" Помилка: " + e.getMessage());}

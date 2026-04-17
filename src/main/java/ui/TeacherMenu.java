@@ -15,20 +15,17 @@ import java.time.LocalDate;
 public class TeacherMenu extends BaseMenu {
     private TeacherService teacherService;
     private SearchTeacher searchTeacher;
-    private TeacherSortingService teacherSortingService;
-    private TeacherCRUDService teacherCRUDService;
-    private TeacherSearchService teacherSearchService;
+//    private TeacherSortingService teacherSortingService;
+//    private TeacherCRUDService teacherCRUDService;
+//    private TeacherSearchService teacherSearchService;
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
     private ReadEmail readEmail = new ReadEmail();
     private ValidLocalDate validLocalDate = new ValidLocalDate();
 
 
-    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher, TeacherSortingService teacherSortingService, TeacherCRUDService teacherCRUDService, TeacherSearchService teacherSearchService) {
+    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher) {
         this.teacherService = teacherService;
         this.searchTeacher=searchTeacher;
-        this.teacherSortingService=teacherSortingService;
-        this.teacherCRUDService=teacherCRUDService;
-        this.teacherSearchService=teacherSearchService;
     }
     @Override
     protected void printTitle() {
@@ -49,7 +46,7 @@ public class TeacherMenu extends BaseMenu {
 //доробити
     @Override
     protected int getMaxOption() {
-        return 5;
+        return 7;
     }
 
     @SneakyThrows
@@ -78,7 +75,8 @@ public class TeacherMenu extends BaseMenu {
                 validation.waitZeroToExit();
                 break;
             case 4:
-                teacherSearchService.showAllTeachers();
+//                teacherSearchService.showAllTeachers();
+                teacherService.search().showAllTeachers();
                 validation.waitZeroToExit();
                 break;
             case 5:
@@ -159,7 +157,8 @@ public class TeacherMenu extends BaseMenu {
             Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
             fakeDepartment.setName(departmentName);
         //===================Запитати чи можна дописати пошук за назвою
-        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
+//        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
+            teacherService.crud().editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
             System.out.println(" Інформацію про студента успішно оновлено.");
         } catch (Exception e) {
             System.out.println("Помилка при створенні: " + e.getMessage());
@@ -236,7 +235,8 @@ public class TeacherMenu extends BaseMenu {
             Teacher newTeacher = new Teacher(id, pib,fakeDepartment, position,
                     degree, title, dateOfEmployment, rate, dateOfBirth,
                     email,  phoneNumber);
-            teacherCRUDService.addTeacher(newTeacher);
+//            teacherCRUDService.addTeacher(newTeacher);
+            teacherService.crud().addTeacher(newTeacher);
             System.out.println("Викладача додано");
 
         } catch (Exception e) {
@@ -248,7 +248,8 @@ public class TeacherMenu extends BaseMenu {
         System.out.println("--- ВИДАЛЕННЯ ВИКЛАДАЧА ---");
         String id= validation.readNotEmptyString("Введіть ID викладача: ");
         try{
-            teacherCRUDService.deleteTeacher(id);
+//            teacherCRUDService.deleteTeacher(id);
+            teacherService.crud().deleteTeacher(id);
         System.out.println("Команду виконано (викладача видалено, якщо він існував)");
          }catch (Exception e){
         System.out.println("Помилка: " + e.getMessage());}
@@ -256,12 +257,14 @@ public class TeacherMenu extends BaseMenu {
 
     private void sortTeachersByAlphabetInFaculty(){
         String faculty = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
-        String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-        teacherSortingService.sortTeachersByAlphabetInFaculty(faculty, department);
+        //String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
+//        teacherSortingService.sortTeachersByAlphabetInFaculty(faculty, department);
+        teacherService.sorting().sortTeachersByAlphabetInFaculty(faculty);
     }
     private void sortTeachersByAlphabetInDepartment(){
         String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-        teacherSortingService.sortTeachersByAlphabetInDepartment(department);
+//        teacherSortingService.sortTeachersByAlphabetInDepartment(department);
+        teacherService.sorting().sortTeachersByAlphabetInDepartment(department);
     }
 }
 

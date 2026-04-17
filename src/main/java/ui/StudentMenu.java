@@ -17,9 +17,9 @@ import java.time.LocalDate;
 public class StudentMenu extends BaseMenu {
     private StudentService studentService;
     private SearchStudent searchStudent;
-    private StudentCRUDService studentCRUDService;
-    private StudentSortingService studentSortingService;
-    private StudentSearchService studentSearchService;
+//    private StudentCRUDService studentCRUDService;
+//    private StudentSortingService studentSortingService;
+//    private StudentSearchService studentSearchService;
     private DepartmentRepository departmentRepository;
     private ValidLocalDate validLocalDate = new ValidLocalDate();
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
@@ -27,12 +27,12 @@ public class StudentMenu extends BaseMenu {
 
 
 
-    public StudentMenu(StudentService studentService, SearchStudent searchStudent, StudentCRUDService studentCRUDService, StudentSortingService studentSortingService, StudentSearchService studentSearchService) {
+    public StudentMenu(StudentService studentService, SearchStudent searchStudent) {
         this.studentService = studentService;
         this.searchStudent = searchStudent;
-        this.studentCRUDService=studentCRUDService;
-        this.studentSortingService=studentSortingService;
-        this.studentSearchService=studentSearchService;
+//        this.studentCRUDService=studentCRUDService;
+//        this.studentSortingService=studentSortingService;
+//        this.studentSearchService=studentSearchService;
        // this.departmentRepository=departmentRepository;
     }
 
@@ -97,7 +97,8 @@ public class StudentMenu extends BaseMenu {
                 break;
 
             case 6:
-                studentSortingService.sortStudentsByCourse();
+//                studentSortingService.sortStudentsByCourse();
+                studentService.sort().sortStudentsByCourse();
                 validation.waitZeroToExit();
                 break;
             case 7:
@@ -150,7 +151,8 @@ public class StudentMenu extends BaseMenu {
     String departmentName = validation.readNotEmptyString("Введіть назву кафедри: ");
     try {
         //МОЖНА ЗМІНИТИ І ШУКАТИ НЕ ЗА ІД
-        boolean editStudent=studentCRUDService.editStudent(id, pib, course, departmentName,group, status, email, phoneNumber);
+//        boolean editStudent=studentCRUDService.editStudent(id, pib, course, departmentName,group, status, email, phoneNumber);
+        boolean editStudent=studentService.crud().editStudent(id, pib, course, departmentName,group, status, email, phoneNumber);
         System.out.println("Інформацію про студента успішно оновлено.");
 
     } catch (Exception e) {
@@ -198,7 +200,8 @@ public class StudentMenu extends BaseMenu {
         try {
             Student newStudent = new Student(id, pib, course, departmentName, group,
              yearOfAdmission, formOfEducation, status, dateOfBirth,email,phoneNumber);
-            studentCRUDService.addStudent(newStudent);
+//            studentCRUDService.addStudent(newStudent);
+            studentService.crud().addStudent(newStudent);
             System.out.println("Студента додано");
 
         } catch (Exception e) {
@@ -210,7 +213,8 @@ public class StudentMenu extends BaseMenu {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
         String id= validation.readNotEmptyString("Введіть ID студента для видалення: ");
         try{
-        studentCRUDService.deleteStudent(id);
+        //studentCRUDService.deleteStudent(id);
+            studentService.crud().deleteStudent(id);
         System.out.println("Команду виконано (студента видалено, якщо він існував)");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());
@@ -218,23 +222,27 @@ public class StudentMenu extends BaseMenu {
     }
     private void sortStudentsByAlphabetInFaculty(){
         String facultyName = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
-        studentSortingService.sortStudentsByAlphabetInFaculty(facultyName, null);
+//        studentSortingService.sortStudentsByAlphabetInFaculty(facultyName, null);
+        studentService.sort().sortStudentsByAlphabetInFaculty(facultyName, null);
     }
     private void sortStudentsByAlphabetInDepartment(){
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-        studentSortingService.sortStudentsByAlphabetInDepartment(departmentName);
+//        studentSortingService.sortStudentsByAlphabetInDepartment(departmentName);
+        studentService.sort().sortStudentsByAlphabetInDepartment(departmentName);
     }
 
     private void sortStudentsByCourseInDepartment(){
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-        studentSortingService.sortStudentsByCourseInDepartment(departmentName);
+//        studentSortingService.sortStudentsByCourseInDepartment(departmentName);
+        studentService.sort().sortStudentsByCourseInDepartment(departmentName);
     }
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToAnotherGroup() {
         String studentId = validation.readNotEmptyString("Введіть ID студента для переведення: ");
         int newGroup = validation.readInt("Введіть нову групу для студента: ", 1, 6);
         try {
-            studentCRUDService.transferToNewGroup(studentId, newGroup);
+//            studentCRUDService.transferToNewGroup(studentId, newGroup);
+            studentService.crud().transferToNewGroup(studentId, newGroup);
             System.out.println("Студента успішно переведено до нової групи.");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());
@@ -246,7 +254,8 @@ public class StudentMenu extends BaseMenu {
         int currentCourse = validation.readInt("Введіть поточний курс студента: ", 1, 5);
         int nextCourse = currentCourse + 1;
         try {
-            studentCRUDService.transferToNewCourse(studentId, nextCourse);
+//            studentCRUDService.transferToNewCourse(studentId, nextCourse);
+            studentService.crud().transferToNewCourse(studentId, nextCourse);
             System.out.println("Студента успішно переведено на наступний курс.");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());

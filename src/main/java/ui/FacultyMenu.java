@@ -12,13 +12,14 @@ import java.lang.reflect.Method;
 
 
 public class FacultyMenu extends BaseMenu{
-    private FacultyCRUDService facultyCRUDService;
-    private FacultySearchService facultySearchService;
+    private FacultyService facultyService;
+
+//    private FacultyCRUDService facultyCRUDService;
+//    private FacultySearchService facultySearchService;
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
 
-    public FacultyMenu(FacultyCRUDService facultyCRUDService, FacultySearchService facultySearchService) {
-        this.facultyCRUDService = facultyCRUDService;
-        this.facultySearchService = facultySearchService;
+    public FacultyMenu(FacultyService facultyService) {
+        this.facultyService = facultyService;
     }
     @Override
     protected void printTitle() {
@@ -67,7 +68,8 @@ public class FacultyMenu extends BaseMenu{
 
             case 4:
                 System.out.println("--- Список факультетів ---");
-                facultySearchService.showAllFaculties();
+//                facultySearchService.showAllFaculties();
+                facultyService.search().showAllFaculties();
                 validation.waitZeroToExit();
                 break;
         }
@@ -81,7 +83,8 @@ public class FacultyMenu extends BaseMenu{
         String dean = validation.readNotEmptyString("Введіть декана: ");
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
         try {
-            facultyCRUDService.addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
+//            facultyCRUDService.addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
+            facultyService.crud().addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
             System.out.println(" Факультет успішно додано.");
         } catch (Exception e) {
             System.out.println(" Помилка: " + e.getMessage());
@@ -94,7 +97,8 @@ public class FacultyMenu extends BaseMenu{
         String newDean = validation.readNotEmptyString("Введіть ПІБ декана: ");
         String newPhoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть новий номер телефону: ");
         try{
-        boolean success = facultyCRUDService.editFaculty(idFaculty, newDean, newPhoneNumber);
+//        boolean success = facultyCRUDService.editFaculty(idFaculty, newDean, newPhoneNumber);
+            boolean success = facultyService.crud().editFaculty(idFaculty, newDean, newPhoneNumber);
         if (success) {
             System.out.println(" Інформацію про факультет успішно оновлено.");
         } else {
@@ -109,7 +113,8 @@ public class FacultyMenu extends BaseMenu{
         System.out.println("--- Видалення факультету ---");
         String nameDel = validation.readNotEmptyString("Введіть ID для видалення: ");
         try{
-        facultyCRUDService.deleteFaculty(nameDel);
+//        facultyCRUDService.deleteFaculty(nameDel);
+            facultyService.crud().deleteFaculty(nameDel);
         System.out.println(" Команду видалення виконано.");
     }catch (Exception e) {
         System.out.println(" Помилка: " + e.getMessage());}

@@ -4,6 +4,7 @@ import domain.Department;
 import domain.Faculty;
 import domain.Student;
 import domain.Teacher;
+import repository.DepartmentRepository;
 import repository.TeacherRepository;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class TeacherService {
         this.teacherSearchService = new TeacherSearchService();
         this.teacherSortingService = new TeacherSortingService();
 
-        TeacherRepository teacherRepository = new TeacherRepository();
+        TeacherRepository teacherRepository = this.teacherCRUDService.getRepository();
         this.teacherSearchService.setTeacherRepository(teacherRepository);
         this.teacherSortingService.setTeacherRepository(teacherRepository);
     }
@@ -35,5 +36,10 @@ public class TeacherService {
 
     public TeacherSortingService sorting() {
         return teacherSortingService;
+    }
+
+    public void setSharedDepartmentRepository(DepartmentRepository deptRepo) {
+        this.teacherCRUDService.setDepartmentRepository(deptRepo);
+        this.teacherSortingService.setDepartmentRepository(deptRepo);
     }
 }

@@ -25,11 +25,8 @@ public class DepartmentCRUDService {
     public DepartmentRepository getRepository() {
         return departmentRepository;
     }
-    public void setFacultyRepository(FacultyRepository facultyRepository) {
+    public void setFacultyAndTeacherRepository(FacultyRepository facultyRepository, TeacherRepository teacherRepository) {
         this.facultyRepository = facultyRepository;
-    }
-
-    public void setTeacherRepository(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
     public void addDepartment(Department department){

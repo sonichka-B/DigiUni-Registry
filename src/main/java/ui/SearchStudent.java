@@ -1,14 +1,15 @@
 package ui;
 import service.StudentSearchService;
+import service.StudentService;
 import validation.Validation;
 
 public class SearchStudent extends BaseMenu{
         private Validation validation = new Validation();
-        private StudentSearchService studentSearchService;
+//        private StudentSearchService studentSearchService;
+        StudentService studentService;
 
-        public SearchStudent(StudentSearchService studentSearchService) {
-
-            this.studentSearchService = studentSearchService;
+        public SearchStudent(StudentService studentService) {
+            this.studentService = studentService;
         }
 //для студентіков (за ПІБ, курсом, групою)
   @Override
@@ -47,15 +48,18 @@ protected void printTitle() {
         private void searchStudentByName() {
             System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
             String fullName = validation.readNotEmptyString("(через пробіл)");
-            studentSearchService.findStudentsByFullName(fullName);
+//            studentSearchService.findStudentsByFullName(fullName);
+            studentService.search().findStudentsByFullName(fullName);
         }
         private void searchStudentByCourse() {
             int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
-           studentSearchService.findStudentsByCourse(course);
+//           studentSearchService.findStudentsByCourse(course);
+            studentService.search().findStudentsByCourse(course);
         }
         private void searchStudentByGroup() {
             int group = validation.readInt("Введіть номер групи: ", 1, 6);
-            studentSearchService.findStudentsByGroup(group);
+//            studentSearchService.findStudentsByGroup(group);
+            studentService.search().findStudentsByGroup(group);
         }
 
     }

@@ -25,10 +25,9 @@ public class Main {
         DepartmentRepository sharedDeptRepo = departmentService.crud().getRepository();
 
         studentService.setSharedDepartmentRepository(sharedDeptRepo);
-        teacherService.crud().setDepartmentRepository(sharedDeptRepo);
-
-        departmentService.crud().setFacultyRepository(sharedFacultyRepo);
-        departmentService.crud().setTeacherRepository(sharedTeacherRepo);
+        teacherService.setSharedDepartmentRepository(sharedDeptRepo);
+        departmentService.setSharedFacAndTeachRep(sharedFacultyRepo, sharedTeacherRepo);
+        facultyService.setSharedTeacherRepository(sharedTeacherRepo);
         UsersService usersService = new UsersService();
 
         usersService.addUser(new Users("admin", "admin123", Role.ADMIN));
@@ -75,31 +74,24 @@ public class Main {
 
 
 
-        SearchTeacher searchTeacher = new SearchTeacher(teacherService.search());
-        SearchStudent searchStudent = new SearchStudent(studentService.search());
+        SearchTeacher searchTeacher = new SearchTeacher(teacherService);
+        SearchStudent searchStudent = new SearchStudent(studentService);
 
-        FacultyMenu facultyMenu = new FacultyMenu(facultyService.crud(), facultyService.search());
+        FacultyMenu facultyMenu = new FacultyMenu(facultyService);
 
         DepartmentMenu departmentMenu = new DepartmentMenu(
-                departmentService.crud(),
-                departmentService.search(),
-                facultyService.search(),
+                departmentService,
+                facultyService,
                 teacherService.crud().getRepository(),
                 facultyService.crud().getRepository());
 
         StudentMenu studentMenu = new StudentMenu(
                 studentService,
-                searchStudent,
-                studentService.crud(),
-                studentService.sort(),
-                studentService.search());
+                searchStudent);
 
         TeacherMenu teacherMenu = new TeacherMenu(
                 teacherService,
-                searchTeacher,
-                teacherService.sorting(),
-                teacherService.crud(),
-                teacherService.search());
+                searchTeacher);
 
         AdminMenu adminMenu=new AdminMenu(usersService);
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu, adminMenu);
