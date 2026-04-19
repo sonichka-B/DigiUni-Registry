@@ -2,22 +2,25 @@ package repository;
 
 import domain.Department;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 abstract class Repository<T> implements CRUDRepository<T>{
+    protected Map<String,T>generalDATA = new HashMap<>();
 
-    protected List<T> generalDATA = new ArrayList<>();
-    
+    protected abstract String getEntityId(T entity);
+
     @Override
     public void add(T entity) {
-        generalDATA.add(entity);
+        if(entity !=null) {
+            generalDATA.put(getEntityId(entity), entity);
+        }
     }
     
     @Override
     public void delete(T entity) {
-        generalDATA.remove(entity);
+        if(entity !=null) {
+            generalDATA.remove(getEntityId(entity));
+        }
     }
 
     @Override
@@ -25,7 +28,7 @@ abstract class Repository<T> implements CRUDRepository<T>{
         if(id == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
-        return null;
+        return Optional.ofNullable(generalDATA.get(id));
     }
 
     @Override
@@ -33,16 +36,20 @@ abstract class Repository<T> implements CRUDRepository<T>{
         if(name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
-        return null;
+        return Optional.empty();
     }
     @Override
     public List<T> findAll() {
-        return new ArrayList<>(generalDATA);
+        return new ArrayList<>(generalDATA.values());
     }
 
     @Override
     public void addAll(List<T> entities) {
-        generalDATA.addAll(entities);
+        if(entities !=null) {
+            for (T entity : entities) {
+                add(entity);
+            }
+        }
     }
 
 }

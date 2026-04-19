@@ -9,6 +9,11 @@ import java.util.Optional;
 
 public class UsersRepository extends  Repository<Users>{
     @Override
+    protected String getEntityId(Users entity) {
+        return "";
+    }
+
+    @Override
     public void add(Users user) {
         super.add(user);
     }
