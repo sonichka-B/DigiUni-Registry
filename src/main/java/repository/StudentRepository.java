@@ -1,5 +1,6 @@
 package repository;
 
+import domain.DTO.DepartmentDTO;
 import domain.DTO.StudentDTO;
 import domain.Department;
 import domain.Student;
@@ -65,7 +66,7 @@ public class StudentRepository extends Repository<Student> {
             return findAll().stream()
                     .filter(student -> student.getCourse() == course)
                     .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                            student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                            student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                     .toList();
         }
 
@@ -73,7 +74,7 @@ public class StudentRepository extends Repository<Student> {
             return findAll().stream()
                     .filter(student -> student.getGroup() == group)
                     .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                            student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                            student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                     .toList();
         }
 

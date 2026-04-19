@@ -49,7 +49,7 @@ public class DepartmentRepository extends Repository<Department>{
 
     public Optional<Department> findByFaculty(String faculty){
         for(Department department:findAll()){
-            if(department.getFaculty().equals(faculty)){
+            if(department.getFaculty().getName().equals(faculty)){
                 return Optional.of(department);
             }
         } return Optional.empty();

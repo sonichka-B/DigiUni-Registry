@@ -1,5 +1,6 @@
 package domain;
 
+import domain.DTO.DepartmentDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,11 +27,14 @@ public class Teacher extends Person{
         this.rate = rate;
         this.department = department;
     }
+    public Teacher(String PIB){
+        super(PIB);
+    }
 
     @Override
     public String toString() {
         return "Teacher{" + "id:'" + getId() + '\'' +
-                ", ПІБ:'" + getPIB() + '\'' + ", кафедра:'" + department.getName() + '\'' +
+                ", ПІБ:'" + getPIB() + '\'' + ", кафедра:'" + department + '\'' +
                 ", посада:'" + position + '\'' +
                 ", науковий ступінь:'" + academicDegree + '\'' +
                 ", вчене звання:'" + academicTitle + '\'' +

@@ -2,6 +2,7 @@ package ui;
 
 import domain.Faculty;
 import domain.Role;
+import domain.Teacher;
 import lombok.SneakyThrows;
 import security.Authorization;
 import security.RoleAnotation;
@@ -80,11 +81,13 @@ public class FacultyMenu extends BaseMenu{
         String id = validation.readNotEmptyString("Введіть ID факультету: ");
         String name = validation.readNotEmptyString("Введіть назву факультету: ");
         String shortName = validation.readNotEmptyString("Введіть коротку назву факультету: ");
-        String dean = validation.readNotEmptyString("Введіть декана: ");
+        String dean = validation.readNotEmptyString("Введіть ПІБ декана: ");
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
         try {
 //            facultyCRUDService.addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
-            facultyService.crud().addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
+            Teacher fakeT = new Teacher();
+            fakeT.setPIB(dean);
+            facultyService.crud().addFaculty(new Faculty(id, name, shortName, fakeT, phoneNumber));
             System.out.println(" Факультет успішно додано.");
         } catch (Exception e) {
             System.out.println(" Помилка: " + e.getMessage());

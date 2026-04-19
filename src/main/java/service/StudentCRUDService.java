@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.DepartmentDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Role;
@@ -43,15 +44,17 @@ public class StudentCRUDService {
                 throw new IncorrectDataException("Помилка: Номер групи повинен бути позитивним числом");
 
             }
-            if(student.getStatus() == null || (!student.getStatus().equals("навчається") && !student.getStatus().equals("відрахований") && !student.getStatus().equals("академічна відпустка"))){
-                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
-
-            }
-            if(student.getDepartment() == null || student.getDepartment().trim().isEmpty()){
+//            if(student.getStatus() == null || (!student.getStatus().equals("навчається") && !student.getStatus().equals("відрахований") && !student.getStatus().equals("академічна відпустка"))){
+//                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
+//
+//            }
+            if(student.getDepartment() == null || student.getDepartment().getName().trim().isEmpty()){
                 throw new IncorrectDataException("Помилка: Студент повинен бути прив'язаний до кафедри");
+            }if(departmentRepository!= null) {
+                Department department = departmentRepository.findByName(student.getDepartment().getName())
+                        .orElseThrow(() -> new NotFoundNameException("Кафедри", student.getDepartment().getName()));
+                student.setDepartment(department);
             }
-            Department department = departmentRepository.findByName(student.getDepartment())
-                    .orElseThrow(() -> new NotFoundNameException("Кафедри", student.getDepartment()));
             if (student.getEmail() == null || !student.getEmail().contains("@")) {
                 throw new IncorrectDataException("Помилка: Email має містити символ '@' та не може бути порожнім");
             }
@@ -59,7 +62,7 @@ public class StudentCRUDService {
                 throw new IncorrectDataException("Помилка: невірний формат номера телефону (повинен починаться с +380 и 9 цифр)");
             }
             if(student.getDateOfBirth() == null || student.getDateOfBirth().isAfter(java.time.LocalDate.now())) {
-                throw new IncorrectDataException("Помилка: дата народження не может быть null");
+                throw new IncorrectDataException("Помилка: дата народження не може бути null");
             }
             validateNotEmpty(student.getPIB(), "ПІБ студента");
             if (student.getYearOfAdmission() < 2015 || student.getYearOfAdmission() > 2025) {
@@ -102,9 +105,9 @@ public class StudentCRUDService {
 //            student.setMiddleName(middleName);
 //        }
         if(status!=null&&!status.trim().isEmpty()){
-            if(!status.equals("навчається") && !status.equals("відрахований") && !status.equals("академічна відпустка")){
-                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
-            }
+//            if(!status.equals("навчається") && !status.equals("відрахований") && !status.equals("академічна відпустка")){
+//                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
+//            }
             student.setStatus(status);
         }
         if(course>0&&course<7){
@@ -118,9 +121,9 @@ public class StudentCRUDService {
             throw new IncorrectDataException("Помилка: Номер групи повинен бути в межах від 1 до 6");
         }
         if (department != null && !department.trim().isEmpty()) {
-            departmentRepository.findByName(department)
+            Department found = departmentRepository.findByName(department)
                     .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
-            student.setDepartment(department);
+            student.setDepartment(found);
         }
         return true;
     }
@@ -130,9 +133,9 @@ public class StudentCRUDService {
     public void transferToNewDepartment(String id, String department) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundIDException("Студента", id));
-        departmentRepository.findByName(department)
+        Department real = departmentRepository.findByName(department)
                 .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
-        student.setDepartment(department);
+        student.setDepartment(real);
         }
 
     public void transferToNewCourse(String id, int newCourse) {

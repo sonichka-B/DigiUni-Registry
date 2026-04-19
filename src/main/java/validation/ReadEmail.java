@@ -14,7 +14,7 @@ public class ReadEmail {
             String input=readString.readString(email);
             try {
                 ValidEmail.isValidEmail(input);
-                return email;
+                return input;
             }catch(IncorrectDataException e){
                 System.out.println("Помилка: "+e.getMessage());
             }

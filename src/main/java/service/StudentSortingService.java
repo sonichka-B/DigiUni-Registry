@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.DepartmentDTO;
 import domain.DTO.StudentDTO;
 import domain.Department;
 import domain.Faculty;
@@ -27,7 +28,7 @@ public class StudentSortingService {
         List<StudentDTO> result = studentRepository.findAll().stream()
                 .sorted(byCourse)
                 .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                        student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
             System.out.println("Студентів не знайдено.");
@@ -38,10 +39,10 @@ public class StudentSortingService {
     public void sortStudentsByCourseInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за курсом в межах кафедри ---");
         List<StudentDTO> result = studentRepository.findAll().stream()
-                .filter(student -> student.getDepartment().equals(department))
+                .filter(student -> student.getDepartment().getName().equals(department))
                 .sorted(byCourse)
                 .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                        student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
             System.out.println("Студентів не знайдено.");
@@ -52,17 +53,17 @@ public class StudentSortingService {
 
     Comparator<Student>byAlphabet = Comparator.comparing(Student -> Student.getPIB());
 
-    public void sortStudentsByAlphabetInFaculty(String faculty, String department) {
+    public void sortStudentsByAlphabetInFaculty(String faculty) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах факультету ---");
         List<String> validDepartments = departmentRepository.findAll().stream()
-                .filter(dep -> dep.getFaculty().trim().equalsIgnoreCase(faculty.trim()))
+                .filter(dep -> dep.getFaculty().getName().trim().equalsIgnoreCase(faculty.trim()))
                 .map(Department::getName)
                 .toList();
         List<StudentDTO> result = studentRepository.findAll().stream()
-                .filter(student -> validDepartments.contains(student.getDepartment()))
+                .filter(student -> validDepartments.contains(student.getDepartment().getName()))
                 .sorted(byAlphabet)
                 .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                        student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
             System.out.println("Студентів не знайдено.");
@@ -74,10 +75,10 @@ public class StudentSortingService {
     public void sortStudentsByAlphabetInDepartment(String department) {
         System.out.println("--- Звіт: Студенти, відсортовані за алфавітом в межах кафедри ---");
         List<StudentDTO> result = studentRepository.findAll().stream()
-                .filter(student -> student.getDepartment().equals(department))
+                .filter(student -> student.getDepartment().getName().equals(department))
                 .sorted(Comparator.comparing(Student::getPIB))
                 .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                        student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
             System.out.println("Студентів не знайдено.");

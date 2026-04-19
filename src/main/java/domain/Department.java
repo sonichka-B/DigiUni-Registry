@@ -10,18 +10,22 @@ public class Department {
     private  String id;
     @Setter
     private String name;
-    private  String faculty;
     @Setter
-    private String head;
+    private Faculty faculty;
+    @Setter
+    private Teacher head;
     @Setter
     private String location;
 
-    public Department(String id, String name, String faculty, String head, String location) {
+    public Department(String id, String name, Faculty faculty, Teacher head, String location) {
         this.id = id;
         this.name = name;
         this.faculty = faculty;
         this.head = head;
         this.location = location;
+    }
+    public Department(String name){
+        this.name = name;
     }
 
     @Override

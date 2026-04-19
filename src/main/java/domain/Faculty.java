@@ -8,20 +8,24 @@ import java.util.Objects;
 
 @Getter@NoArgsConstructor
 public class Faculty {
+    @Setter
     private  String id;
     private  String name;
     private  String shortName;
     @Setter
-    private  String dean;
+    private Teacher dean;
     @Setter
     private String phoneNumber;
 
-    public Faculty(String id, String name, String shortName, String dean, String phoneNumber) {
+    public Faculty(String id, String name, String shortName, Teacher dean, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
         this.dean = dean;
         this.phoneNumber = phoneNumber;
+    }
+    public Faculty(String id){
+        this.id = id;
     }
     @Override
     public String toString() {

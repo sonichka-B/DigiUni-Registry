@@ -1,7 +1,9 @@
 package ui;
 
+import domain.Department;
 import domain.Role;
 import domain.Student;
+import domain.Teacher;
 import lombok.SneakyThrows;
 import security.Authorization;
 import security.RoleAnotation;
@@ -198,7 +200,9 @@ public class StudentMenu extends BaseMenu {
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри: ");
         try {
-            Student newStudent = new Student(id, pib, course, departmentName, group,
+            Department fakeD = new Department();
+            fakeD.setName(departmentName);
+            Student newStudent = new Student(id, pib, course, fakeD, group,
              yearOfAdmission, formOfEducation, status, dateOfBirth,email,phoneNumber);
 //            studentCRUDService.addStudent(newStudent);
             studentService.crud().addStudent(newStudent);
@@ -223,7 +227,7 @@ public class StudentMenu extends BaseMenu {
     private void sortStudentsByAlphabetInFaculty(){
         String facultyName = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
 //        studentSortingService.sortStudentsByAlphabetInFaculty(facultyName, null);
-        studentService.sort().sortStudentsByAlphabetInFaculty(facultyName, null);
+        studentService.sort().sortStudentsByAlphabetInFaculty(facultyName);
     }
     private void sortStudentsByAlphabetInDepartment(){
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");

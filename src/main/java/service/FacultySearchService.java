@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.FacultyDTO;
 import domain.Faculty;
 import repository.FacultyRepository;
 
@@ -9,10 +10,17 @@ public class FacultySearchService {
     private FacultyRepository facultyRepository ;
 
     public void showAllFaculties() {
-        for (Faculty faculty : facultyRepository.findAll()) {
-            System.out.println(faculty);
-        }
+        facultyRepository.findAll().stream()
+                .map(faculty -> new FacultyDTO(
+                        faculty.getId(),
+                        faculty.getName(),
+                        faculty.getShortName(),
+                        faculty.getDean() != null ? faculty.getDean().getPIB() : "не призначено",
+                        faculty.getPhoneNumber()
+                ))
+                .forEach(System.out::println);
     }
+
 
     public void findFacultyById(String id) {
         Optional<Faculty> faculty = facultyRepository.findById(id);

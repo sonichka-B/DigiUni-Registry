@@ -19,15 +19,18 @@ import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 public class FacultyCRUDService {
     private FacultyRepository facultyRepository = new FacultyRepository();
     private  TeacherRepository teacherRepository ;
-public FacultyRepository getRepository() {
+
+    public FacultyRepository getRepository() {
         return facultyRepository;
     }
-public void setTeacherRepository(TeacherRepository teacherRepository) {
+
+    public void setTeacherRepository(TeacherRepository teacherRepository) {
     this.teacherRepository = teacherRepository;
 }
+
     public void addFaculty(Faculty faculty) {
         if(faculty == null) {
-            throw new IncorrectDataException("Факультет не может быть null");
+            throw new IncorrectDataException("Факультет не може бути null");
         }
         if(facultyRepository.findById(faculty.getId()).isPresent()){
             throw new IdAlreadyPresentException("Факультет", faculty.getId());
@@ -35,11 +38,12 @@ public void setTeacherRepository(TeacherRepository teacherRepository) {
         validateNotEmpty(faculty.getName(), "Назва факультету");
         validateNotEmpty(faculty.getShortName(), "Скорочена назва факультету");
         validateNotEmpty(faculty.getPhoneNumber(), "Номер телефону факультету");
-       /* String dean=faculty.getDean();
+        String dean=faculty.getDean().getPIB();
         if(dean!=null && !dean.trim().isEmpty()) {
-            teacherRepository.findByName(faculty.getDean())
+            Teacher realT = teacherRepository.findByName(dean)
                     .orElseThrow(() -> new NotFoundNameException("Декана", dean));
-        }*/
+            faculty.setDean(realT);
+        }
 //String id, String name, String shortName, String dean, String phoneNumber
         facultyRepository.add(faculty);
     }
@@ -63,9 +67,9 @@ public void setTeacherRepository(TeacherRepository teacherRepository) {
             faculty.setPhoneNumber(newPhoneNumber);
         }
         if (newDeanName != null && !newDeanName.trim().isEmpty()) {
-            teacherRepository.findByName(newDeanName)
+            Teacher real = teacherRepository.findByName(newDeanName)
                     .orElseThrow(() -> new NotFoundNameException("Декана", newDeanName));
-            faculty.setDean(newDeanName);
+            faculty.setDean(real);
         }
         return true;
     }

@@ -63,7 +63,7 @@ public class TeacherCRUDService {
     }
 
 
-    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle,String pib, Department department) {
+    public boolean editTeacher(String id, String position, String academicDegree, String academicTitle,String pib, String department) {
         Optional<Teacher> oTeacher = teacherRepository.findById(id);
         if(oTeacher.isEmpty()) {
             return false;
@@ -87,9 +87,9 @@ public class TeacherCRUDService {
 //        if (middleName!=null&&!middleName.trim().isEmpty()){
 //            teacher.setMiddleName(middleName);
 //        }
-        if (department != null&& department.getName() != null && !department.getName().trim().isEmpty()) {
-            Department foundDepartment=departmentRepository.findByName(department.getName())
-                    .orElseThrow(() -> new NotFoundNameException("Кафедри", department.getName()));
+        if (department != null && !department.trim().isEmpty()) {
+            Department foundDepartment=departmentRepository.findByName(department)
+                    .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
             teacher.setDepartment(foundDepartment);
         }
         return true;

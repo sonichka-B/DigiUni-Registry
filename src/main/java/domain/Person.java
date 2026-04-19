@@ -23,6 +23,9 @@ public class Person {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+    public Person(String PIB){
+        this.PIB = PIB;
+    }
 
     @Override
     public String toString() {

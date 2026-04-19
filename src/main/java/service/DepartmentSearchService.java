@@ -1,5 +1,7 @@
 package service;
 
+import domain.DTO.DepartmentFullDTO;
+import domain.DTO.FacultyDTO;
 import domain.Department;
 import repository.DepartmentRepository;
 
@@ -12,9 +14,15 @@ public class DepartmentSearchService {
             System.out.println("Кафедр поки немає.");
             return;
         }
-        for(Department department: departmentRepository.findAll()){
-            System.out.println(department);
-        }
+        departmentRepository.findAll().stream()
+                .map(department -> new DepartmentFullDTO(
+                        department.getId(),
+                        department.getName(),
+                        department.getFaculty() != null ? department.getFaculty().getShortName() : "Немає",
+                        department.getHead() != null ? department.getHead().getPIB() : "не призначено",
+                        department.getLocation()
+                ))
+                .forEach(System.out::println);
     }
 
     public void findDepartmentById(String id){

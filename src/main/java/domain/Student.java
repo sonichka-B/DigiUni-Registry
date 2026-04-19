@@ -1,5 +1,6 @@
 package domain;
 
+import domain.DTO.DepartmentDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +14,9 @@ public class Student extends Person{
     private  int yearOfAdmission;
     private  String formOfEducation;
     private String status;
-    private String department;
+    private Department department;
 
-    public Student(String id, String PIB, int course, String department, int group,
+    public Student(String id, String PIB, int course, Department department, int group,
                    int yearOfAdmission, String formOfEducation, String status, LocalDate dateOfBirth, String email, String phoneNumber) {
         super(id, PIB, dateOfBirth, email, phoneNumber);
         this.course = course;

@@ -13,7 +13,7 @@ public class ReadPhoneNumber {
             String number=readString.readString(phoneNumber);
             try {
                 ValidPhoneNumber.isValidPhoneNumber(number);
-                return phoneNumber;
+                return number;
             }catch(IncorrectDataException e){
                 System.out.println("Помилка: "+e.getMessage());
             }

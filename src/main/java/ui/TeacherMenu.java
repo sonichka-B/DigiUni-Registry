@@ -154,11 +154,9 @@ public class TeacherMenu extends BaseMenu {
         }
         String departmentName = validation.readNotEmptyString("Введіть нову кафедру викладача: ");
         try{
-            Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
-            fakeDepartment.setName(departmentName);
         //===================Запитати чи можна дописати пошук за назвою
 //        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
-            teacherService.crud().editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
+            teacherService.crud().editTeacher(id, position, academicDegree,  academicTitle,pib, departmentName);
             System.out.println(" Інформацію про студента успішно оновлено.");
         } catch (Exception e) {
             System.out.println("Помилка при створенні: " + e.getMessage());
@@ -230,7 +228,7 @@ public class TeacherMenu extends BaseMenu {
         //Сонічка я не дуже розумію що таке rate тому залишила як є
         String rate = validation.readNotEmptyString("Ставка: ");
         try {
-            Department fakeDepartment = new Department("fakeId", departmentName, "fakeFaculty", "fakeHead", "fakeLocation");
+            Department fakeDepartment = new Department();
             fakeDepartment.setName(departmentName);
             Teacher newTeacher = new Teacher(id, pib,fakeDepartment, position,
                     degree, title, dateOfEmployment, rate, dateOfBirth,

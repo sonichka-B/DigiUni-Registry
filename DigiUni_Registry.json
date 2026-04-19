@@ -1,90 +1,2784 @@
 {
   "students" : [ {
-    "id" : "1",
-    "dateOfBirth" : "2004-02-27",
-    "email" : "mariya@ukr.net",
-    "phoneNumber" : "+380991234567",
+    "id" : "S-01",
+    "dateOfBirth" : "2003-05-10",
+    "email" : "kovalenko.i@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234501",
+    "course" : 3,
+    "group" : 1,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-101",
+      "name" : "Кафедра інформатики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Бублик Володимир Васильович"
+      },
+      "location" : "Корпус 3, ауд. 315"
+    },
+    "pib" : "Коваленко Ілля Максимович"
+  }, {
+    "id" : "S-02",
+    "dateOfBirth" : "2004-01-22",
+    "email" : "pavlenko.a@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234502",
+    "course" : 3,
+    "group" : 1,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-101",
+      "name" : "Кафедра інформатики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Бублик Володимир Васильович"
+      },
+      "location" : "Корпус 3, ауд. 315"
+    },
+    "pib" : "Павленко Анна Вікторівна"
+  }, {
+    "id" : "S-03",
+    "dateOfBirth" : "2005-08-15",
+    "email" : "hryhorenko.m@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234503",
+    "course" : 1,
+    "group" : 2,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-101",
+      "name" : "Кафедра інформатики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Бублик Володимир Васильович"
+      },
+      "location" : "Корпус 3, ауд. 315"
+    },
+    "pib" : "Григоренко Максим Олегович"
+  }, {
+    "id" : "S-04",
+    "dateOfBirth" : "2002-11-30",
+    "email" : "boyko.s@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234504",
+    "course" : 4,
+    "group" : 1,
+    "yearOfAdmission" : 2020,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-102",
+      "name" : "Кафедра мережних технологій",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Симоненко Валерій Павлович"
+      },
+      "location" : "Корпус 3, ауд. 311"
+    },
+    "pib" : "Бойко Софія Андріївна"
+  }, {
+    "id" : "S-05",
+    "dateOfBirth" : "2004-03-14",
+    "email" : "lysenko.a@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234505",
+    "course" : 2,
+    "group" : 2,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-102",
+      "name" : "Кафедра мережних технологій",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Симоненко Валерій Павлович"
+      },
+      "location" : "Корпус 3, ауд. 311"
+    },
+    "pib" : "Лисенко Артем Дмитрович"
+  }, {
+    "id" : "S-06",
+    "dateOfBirth" : "2004-07-08",
+    "email" : "sydorenko.m@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234506",
+    "course" : 2,
+    "group" : 2,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-102",
+      "name" : "Кафедра мережних технологій",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Симоненко Валерій Павлович"
+      },
+      "location" : "Корпус 3, ауд. 311"
+    },
+    "pib" : "Сидоренко Марія Іванівна"
+  }, {
+    "id" : "S-07",
+    "dateOfBirth" : "2006-02-18",
+    "email" : "tkachuk.o@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234507",
+    "course" : 1,
+    "group" : 1,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-103",
+      "name" : "Кафедра математики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Іванов Олександр Володимирович"
+      },
+      "location" : "Корпус 3, ауд. 314"
+    },
+    "pib" : "Ткачук Олександр Петрович"
+  }, {
+    "id" : "S-08",
+    "dateOfBirth" : "2003-09-25",
+    "email" : "shevchuk.v@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234508",
+    "course" : 3,
+    "group" : 1,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-103",
+      "name" : "Кафедра математики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Іванов Олександр Володимирович"
+      },
+      "location" : "Корпус 3, ауд. 314"
+    },
+    "pib" : "Шевчук Вікторія Сергіївна"
+  }, {
+    "id" : "S-09",
+    "dateOfBirth" : "2002-12-05",
+    "email" : "kravchenko.d@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234509",
+    "course" : 4,
+    "group" : 2,
+    "yearOfAdmission" : 2020,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-103",
+      "name" : "Кафедра математики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Іванов Олександр Володимирович"
+      },
+      "location" : "Корпус 3, ауд. 314"
+    },
+    "pib" : "Кравченко Денис Романович"
+  }, {
+    "id" : "S-10",
+    "dateOfBirth" : "2004-04-11",
+    "email" : "marchenko.d@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234510",
     "course" : 2,
     "group" : 1,
     "yearOfAdmission" : 2022,
     "formOfEducation" : "бюджет",
     "status" : "навчається",
-    "department" : "Біологія",
-    "pib" : "Марія Іванівна Козаченко"
+    "department" : {
+      "id" : "D-104",
+      "name" : "Кафедра мультимедійних систем",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Франчук Оксана Вікторівна"
+      },
+      "location" : "Корпус 1, ауд. 101"
+    },
+    "pib" : "Марченко Дарина Валеріївна"
   }, {
-    "id" : "2",
-    "dateOfBirth" : "2003-05-15",
-    "email" : "ivan@ukr.net",
-    "phoneNumber" : "+380997654321",
-    "course" : 3,
+    "id" : "S-11",
+    "dateOfBirth" : "2003-10-27",
+    "email" : "rudnytskyi.b@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234511",
+    "course" : 2,
+    "group" : 1,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-104",
+      "name" : "Кафедра мультимедійних систем",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Франчук Оксана Вікторівна"
+      },
+      "location" : "Корпус 1, ауд. 101"
+    },
+    "pib" : "Рудницький Богдан Юрійович"
+  }, {
+    "id" : "S-12",
+    "dateOfBirth" : "2005-06-09",
+    "email" : "savchuk.k@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234512",
+    "course" : 1,
     "group" : 2,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-104",
+      "name" : "Кафедра мультимедійних систем",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Франчук Оксана Вікторівна"
+      },
+      "location" : "Корпус 1, ауд. 101"
+    },
+    "pib" : "Савчук Катерина Миколаївна"
+  }, {
+    "id" : "S-13",
+    "dateOfBirth" : "2003-01-16",
+    "email" : "melnyk.a@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234513",
+    "course" : 3,
+    "group" : 1,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-201",
+      "name" : "Кафедра фінансів",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "location" : "Корпус 4, ауд. 412"
+    },
+    "pib" : "Мельник Анастасія Павлівна"
+  }, {
+    "id" : "S-14",
+    "dateOfBirth" : "2002-08-03",
+    "email" : "honcharenko.v@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234514",
+    "course" : 4,
+    "group" : 2,
+    "yearOfAdmission" : 2020,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-201",
+      "name" : "Кафедра фінансів",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "location" : "Корпус 4, ауд. 412"
+    },
+    "pib" : "Гончаренко Володимир Олегович"
+  }, {
+    "id" : "S-15",
+    "dateOfBirth" : "2004-11-20",
+    "email" : "romanchuk.y@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234515",
+    "course" : 2,
+    "group" : 1,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-201",
+      "name" : "Кафедра фінансів",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "location" : "Корпус 4, ауд. 412"
+    },
+    "pib" : "Романчук Єлизавета Андріївна"
+  }, {
+    "id" : "S-16",
+    "dateOfBirth" : "2005-03-29",
+    "email" : "oliynyk.t@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234516",
+    "course" : 1,
+    "group" : 1,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-202",
+      "name" : "Кафедра економічної теорії",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Юргелевич Сергій Володимирович"
+      },
+      "location" : "Корпус 4, ауд. 410"
+    },
+    "pib" : "Олійник Тарас Максимович"
+  }, {
+    "id" : "S-17",
+    "dateOfBirth" : "2003-07-14",
+    "email" : "kovalchuk.v@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234517",
+    "course" : 3,
+    "group" : 1,
     "yearOfAdmission" : 2021,
     "formOfEducation" : "контракт",
     "status" : "навчається",
-    "department" : "Комп'ютерні науки",
-    "pib" : "Іван Сергійович Петренко"
+    "department" : {
+      "id" : "D-202",
+      "name" : "Кафедра економічної теорії",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Юргелевич Сергій Володимирович"
+      },
+      "location" : "Корпус 4, ауд. 410"
+    },
+    "pib" : "Ковальчук Вероніка Дмитрівна"
+  }, {
+    "id" : "S-18",
+    "dateOfBirth" : "2002-05-06",
+    "email" : "polishchuk.v@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234518",
+    "course" : 4,
+    "group" : 2,
+    "yearOfAdmission" : 2020,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-202",
+      "name" : "Кафедра економічної теорії",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Юргелевич Сергій Володимирович"
+      },
+      "location" : "Корпус 4, ауд. 410"
+    },
+    "pib" : "Поліщук Владислав Сергійович"
+  }, {
+    "id" : "S-19",
+    "dateOfBirth" : "2004-09-17",
+    "email" : "kuzmenko.y@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234519",
+    "course" : 2,
+    "group" : 1,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-203",
+      "name" : "Кафедра маркетингу та управління бізнесом",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Пітцик Марія Володимирівна"
+      },
+      "location" : "Корпус 4, ауд. 415"
+    },
+    "pib" : "Кузьменко Юлія Віталіївна"
+  }, {
+    "id" : "S-20",
+    "dateOfBirth" : "2003-12-01",
+    "email" : "ilchenko.n@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234520",
+    "course" : 2,
+    "group" : 2,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-203",
+      "name" : "Кафедра маркетингу та управління бізнесом",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Пітцик Марія Володимирівна"
+      },
+      "location" : "Корпус 4, ауд. 415"
+    },
+    "pib" : "Ільченко Назар Ігорович"
+  }, {
+    "id" : "S-21",
+    "dateOfBirth" : "2005-02-24",
+    "email" : "zakharenko.o@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234521",
+    "course" : 1,
+    "group" : 1,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-203",
+      "name" : "Кафедра маркетингу та управління бізнесом",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Пітцик Марія Володимирівна"
+      },
+      "location" : "Корпус 4, ауд. 415"
+    },
+    "pib" : "Захаренко Олена Валентинівна"
+  }, {
+    "id" : "S-22",
+    "dateOfBirth" : "2003-06-13",
+    "email" : "pavliuk.r@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234522",
+    "course" : 3,
+    "group" : 1,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-301",
+      "name" : "Кафедра загальнотеоретичного правознавства та публічного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Козюбра Микола Іванович"
+      },
+      "location" : "Корпус 4, ауд. 320"
+    },
+    "pib" : "Павлюк Роман Михайлович"
+  }, {
+    "id" : "S-23",
+    "dateOfBirth" : "2002-04-08",
+    "email" : "bilous.d@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234523",
+    "course" : 4,
+    "group" : 2,
+    "yearOfAdmission" : 2020,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-301",
+      "name" : "Кафедра загальнотеоретичного правознавства та публічного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Козюбра Микола Іванович"
+      },
+      "location" : "Корпус 4, ауд. 320"
+    },
+    "pib" : "Білоус Діана Олександрівна"
+  }, {
+    "id" : "S-24",
+    "dateOfBirth" : "2004-10-31",
+    "email" : "klymenko.o@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234524",
+    "course" : 2,
+    "group" : 1,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-301",
+      "name" : "Кафедра загальнотеоретичного правознавства та публічного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Козюбра Микола Іванович"
+      },
+      "location" : "Корпус 4, ауд. 320"
+    },
+    "pib" : "Клименко Олег Борисович"
+  }, {
+    "id" : "S-25",
+    "dateOfBirth" : "2005-01-05",
+    "email" : "karpenko.s@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234525",
+    "course" : 1,
+    "group" : 1,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-302",
+      "name" : "Кафедра приватного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Безклубний Ігор Анатолійович"
+      },
+      "location" : "Корпус 4, ауд. 322"
+    },
+    "pib" : "Карпенко Соломія Вікторівна"
+  }, {
+    "id" : "S-26",
+    "dateOfBirth" : "2003-08-19",
+    "email" : "demchenko.a@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234526",
+    "course" : 3,
+    "group" : 1,
+    "yearOfAdmission" : 2021,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-302",
+      "name" : "Кафедра приватного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Безклубний Ігор Анатолійович"
+      },
+      "location" : "Корпус 4, ауд. 322"
+    },
+    "pib" : "Демченко Артур Анатолійович"
+  }, {
+    "id" : "S-27",
+    "dateOfBirth" : "2004-03-27",
+    "email" : "hrytsenko.y@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234527",
+    "course" : 2,
+    "group" : 2,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-302",
+      "name" : "Кафедра приватного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Безклубний Ігор Анатолійович"
+      },
+      "location" : "Корпус 4, ауд. 322"
+    },
+    "pib" : "Гриценко Яна Ростиславівна"
+  }, {
+    "id" : "S-28",
+    "dateOfBirth" : "2002-11-14",
+    "email" : "stepanenko.t@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234528",
+    "course" : 4,
+    "group" : 1,
+    "yearOfAdmission" : 2020,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-303",
+      "name" : "Кафедра кримінального та кримінального процесуального права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "location" : "Корпус 4, ауд. 324"
+    },
+    "pib" : "Степаненко Тимур Георгійович"
+  }, {
+    "id" : "S-29",
+    "dateOfBirth" : "2004-07-02",
+    "email" : "moroz.v@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234529",
+    "course" : 2,
+    "group" : 2,
+    "yearOfAdmission" : 2022,
+    "formOfEducation" : "контракт",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-303",
+      "name" : "Кафедра кримінального та кримінального процесуального права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "location" : "Корпус 4, ауд. 324"
+    },
+    "pib" : "Мороз Віталій Миколайович"
+  }, {
+    "id" : "S-30",
+    "dateOfBirth" : "2005-12-18",
+    "email" : "volkova.k@student.ukma.edu.ua",
+    "phoneNumber" : "+380991234530",
+    "course" : 1,
+    "group" : 1,
+    "yearOfAdmission" : 2023,
+    "formOfEducation" : "бюджет",
+    "status" : "навчається",
+    "department" : {
+      "id" : "D-303",
+      "name" : "Кафедра кримінального та кримінального процесуального права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "location" : "Корпус 4, ауд. 324"
+    },
+    "pib" : "Волкова Карина Станіславівна"
   } ],
   "teachers" : [ {
-    "id" : "1",
-    "dateOfBirth" : "1980-03-10",
-    "email" : "alice@ukma.edu.ua",
-    "phoneNumber" : "+380951112233",
+    "id" : "T-01",
+    "dateOfBirth" : "1965-05-12",
+    "email" : "bublyk@ukma.edu.ua",
+    "phoneNumber" : "+380671112201",
+    "position" : "завідувач",
+    "academicDegree" : "доктор наук",
+    "academicTitle" : "професор",
+    "dateOfEmployment" : "2001-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-101",
+      "name" : "Кафедра інформатики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Бублик Володимир Васильович"
+      },
+      "location" : "Корпус 3, ауд. 315"
+    },
+    "pib" : "Бублик Володимир Васильович"
+  }, {
+    "id" : "T-02",
+    "dateOfBirth" : "1980-08-24",
+    "email" : "hlybovets@ukma.edu.ua",
+    "phoneNumber" : "+380671112202",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2008-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-101",
+      "name" : "Кафедра інформатики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Бублик Володимир Васильович"
+      },
+      "location" : "Корпус 3, ауд. 315"
+    },
+    "pib" : "Глибовець Андрій Миколайович"
+  }, {
+    "id" : "T-03",
+    "dateOfBirth" : "1975-03-15",
+    "email" : "symonenko@ukma.edu.ua",
+    "phoneNumber" : "+380671112203",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2010-02-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-102",
+      "name" : "Кафедра мережних технологій",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Симоненко Валерій Павлович"
+      },
+      "location" : "Корпус 3, ауд. 311"
+    },
+    "pib" : "Симоненко Валерій Павлович"
+  }, {
+    "id" : "T-04",
+    "dateOfBirth" : "1990-11-02",
+    "email" : "boyko@ukma.edu.ua",
+    "phoneNumber" : "+380671112204",
+    "position" : "старший викладач",
+    "academicDegree" : "доктор філософії",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2018-09-01",
+    "rate" : "0.5",
+    "department" : {
+      "id" : "D-102",
+      "name" : "Кафедра мережних технологій",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Симоненко Валерій Павлович"
+      },
+      "location" : "Корпус 3, ауд. 311"
+    },
+    "pib" : "Бойко Тарас Андрійович"
+  }, {
+    "id" : "T-05",
+    "dateOfBirth" : "1960-01-10",
+    "email" : "ivanov@ukma.edu.ua",
+    "phoneNumber" : "+380671112205",
+    "position" : "професор",
+    "academicDegree" : "доктор наук",
+    "academicTitle" : "професор",
+    "dateOfEmployment" : "1999-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-103",
+      "name" : "Кафедра математики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Іванов Олександр Володимирович"
+      },
+      "location" : "Корпус 3, ауд. 314"
+    },
+    "pib" : "Іванов Олександр Володимирович"
+  }, {
+    "id" : "T-06",
+    "dateOfBirth" : "1995-07-18",
+    "email" : "petrenko.o@ukma.edu.ua",
+    "phoneNumber" : "+380671112206",
+    "position" : "асистент",
+    "academicDegree" : "немає",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2021-09-01",
+    "rate" : "0.5",
+    "department" : {
+      "id" : "D-103",
+      "name" : "Кафедра математики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Іванов Олександр Володимирович"
+      },
+      "location" : "Корпус 3, ауд. 314"
+    },
+    "pib" : "Петренко Олена Миколаївна"
+  }, {
+    "id" : "T-07",
+    "dateOfBirth" : "1982-04-30",
+    "email" : "franchuk@ukma.edu.ua",
+    "phoneNumber" : "+380671112207",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2012-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-104",
+      "name" : "Кафедра мультимедійних систем",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Франчук Оксана Вікторівна"
+      },
+      "location" : "Корпус 1, ауд. 101"
+    },
+    "pib" : "Франчук Оксана Вікторівна"
+  }, {
+    "id" : "T-08",
+    "dateOfBirth" : "1992-09-14",
+    "email" : "melnyk@ukma.edu.ua",
+    "phoneNumber" : "+380671112208",
+    "position" : "викладач",
+    "academicDegree" : "доктор філософії",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2020-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-104",
+      "name" : "Кафедра мультимедійних систем",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Франчук Оксана Вікторівна"
+      },
+      "location" : "Корпус 1, ауд. 101"
+    },
+    "pib" : "Мельник Дмитро Сергійович"
+  }, {
+    "id" : "T-09",
+    "dateOfBirth" : "1962-12-05",
+    "email" : "lukianenko@ukma.edu.ua",
+    "phoneNumber" : "+380671112209",
+    "position" : "професор",
+    "academicDegree" : "доктор наук",
+    "academicTitle" : "професор",
+    "dateOfEmployment" : "1995-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-201",
+      "name" : "Кафедра фінансів",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "location" : "Корпус 4, ауд. 412"
+    },
+    "pib" : "Лук'яненко Ірина Григорівна"
+  }, {
+    "id" : "T-10",
+    "dateOfBirth" : "1985-02-22",
+    "email" : "shevchenko@ukma.edu.ua",
+    "phoneNumber" : "+380671112210",
+    "position" : "старший викладач",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2015-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-201",
+      "name" : "Кафедра фінансів",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "location" : "Корпус 4, ауд. 412"
+    },
+    "pib" : "Шевченко Юлія Олегівна"
+  }, {
+    "id" : "T-11",
+    "dateOfBirth" : "1978-10-11",
+    "email" : "yurhelevych@ukma.edu.ua",
+    "phoneNumber" : "+380671112211",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2005-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-202",
+      "name" : "Кафедра економічної теорії",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Юргелевич Сергій Володимирович"
+      },
+      "location" : "Корпус 4, ауд. 410"
+    },
+    "pib" : "Юргелевич Сергій Володимирович"
+  }, {
+    "id" : "T-12",
+    "dateOfBirth" : "1991-06-08",
+    "email" : "kovalenko@ukma.edu.ua",
+    "phoneNumber" : "+380671112212",
+    "position" : "викладач",
+    "academicDegree" : "доктор філософії",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2019-09-01",
+    "rate" : "0.5",
+    "department" : {
+      "id" : "D-202",
+      "name" : "Кафедра економічної теорії",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Юргелевич Сергій Володимирович"
+      },
+      "location" : "Корпус 4, ауд. 410"
+    },
+    "pib" : "Коваленко Максим Петрович"
+  }, {
+    "id" : "T-13",
+    "dateOfBirth" : "1980-01-25",
+    "email" : "pitsyk@ukma.edu.ua",
+    "phoneNumber" : "+380671112213",
     "position" : "доцент",
     "academicDegree" : "кандидат наук",
     "academicTitle" : "доцент",
     "dateOfEmployment" : "2010-09-01",
     "rate" : "1.0",
     "department" : {
-      "id" : "201",
-      "name" : "Комп'ютерні науки",
-      "faculty" : "101",
-      "head" : "Alice Brown",
-      "location" : "Корпус 1"
+      "id" : "D-203",
+      "name" : "Кафедра маркетингу та управління бізнесом",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Пітцик Марія Володимирівна"
+      },
+      "location" : "Корпус 4, ауд. 415"
     },
-    "pib" : "Alice B. Brown"
+    "pib" : "Пітцик Марія Володимирівна"
   }, {
-    "id" : "2",
-    "dateOfBirth" : "1975-07-20",
-    "email" : "bob@ukma.edu.ua",
-    "phoneNumber" : "+380952223344",
+    "id" : "T-14",
+    "dateOfBirth" : "1996-04-12",
+    "email" : "savchenko@ukma.edu.ua",
+    "phoneNumber" : "+380671112214",
+    "position" : "асистент",
+    "academicDegree" : "немає",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2022-09-01",
+    "rate" : "0.5",
+    "department" : {
+      "id" : "D-203",
+      "name" : "Кафедра маркетингу та управління бізнесом",
+      "faculty" : {
+        "id" : "F-2",
+        "name" : "Факультет економічних наук",
+        "shortName" : "ФЕН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Лук'яненко Ірина Григорівна"
+        },
+        "phoneNumber" : "+380444256042"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Пітцик Марія Володимирівна"
+      },
+      "location" : "Корпус 4, ауд. 415"
+    },
+    "pib" : "Савченко Ірина Вікторівна"
+  }, {
+    "id" : "T-15",
+    "dateOfBirth" : "1955-11-08",
+    "email" : "koziubra@ukma.edu.ua",
+    "phoneNumber" : "+380671112215",
     "position" : "професор",
     "academicDegree" : "доктор наук",
     "academicTitle" : "професор",
-    "dateOfEmployment" : "2005-02-15",
+    "dateOfEmployment" : "1992-09-01",
     "rate" : "1.0",
     "department" : {
-      "id" : "202",
-      "name" : "Біологія",
-      "faculty" : "102",
-      "head" : "Bob Johnson",
-      "location" : "Корпус 2"
+      "id" : "D-301",
+      "name" : "Кафедра загальнотеоретичного правознавства та публічного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Козюбра Микола Іванович"
+      },
+      "location" : "Корпус 4, ауд. 320"
     },
-    "pib" : "Bob J. Johnson"
+    "pib" : "Козюбра Микола Іванович"
+  }, {
+    "id" : "T-16",
+    "dateOfBirth" : "1975-08-19",
+    "email" : "tkachuk@ukma.edu.ua",
+    "phoneNumber" : "+380671112216",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2007-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-301",
+      "name" : "Кафедра загальнотеоретичного правознавства та публічного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Козюбра Микола Іванович"
+      },
+      "location" : "Корпус 4, ауд. 320"
+    },
+    "pib" : "Ткачук Олег Степанович"
+  }, {
+    "id" : "T-17",
+    "dateOfBirth" : "1981-02-14",
+    "email" : "bezklubny@ukma.edu.ua",
+    "phoneNumber" : "+380671112217",
+    "position" : "доцент",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "2011-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-302",
+      "name" : "Кафедра приватного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Безклубний Ігор Анатолійович"
+      },
+      "location" : "Корпус 4, ауд. 322"
+    },
+    "pib" : "Безклубний Ігор Анатолійович"
+  }, {
+    "id" : "T-18",
+    "dateOfBirth" : "1993-10-05",
+    "email" : "moroz@ukma.edu.ua",
+    "phoneNumber" : "+380671112218",
+    "position" : "викладач",
+    "academicDegree" : "доктор філософії",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2020-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-302",
+      "name" : "Кафедра приватного права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Безклубний Ігор Анатолійович"
+      },
+      "location" : "Корпус 4, ауд. 322"
+    },
+    "pib" : "Мороз Анастасія Ігорівна"
+  }, {
+    "id" : "T-19",
+    "dateOfBirth" : "1972-07-30",
+    "email" : "azarov@ukma.edu.ua",
+    "phoneNumber" : "+380671112219",
+    "position" : "професор",
+    "academicDegree" : "доктор наук",
+    "academicTitle" : "професор",
+    "dateOfEmployment" : "2003-09-01",
+    "rate" : "1.0",
+    "department" : {
+      "id" : "D-303",
+      "name" : "Кафедра кримінального та кримінального процесуального права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "location" : "Корпус 4, ауд. 324"
+    },
+    "pib" : "Азаров Денис Сергійович"
+  }, {
+    "id" : "T-20",
+    "dateOfBirth" : "1986-05-21",
+    "email" : "romanenko@ukma.edu.ua",
+    "phoneNumber" : "+380671112220",
+    "position" : "старший викладач",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "немає",
+    "dateOfEmployment" : "2016-09-01",
+    "rate" : "0.5",
+    "department" : {
+      "id" : "D-303",
+      "name" : "Кафедра кримінального та кримінального процесуального права",
+      "faculty" : {
+        "id" : "F-3",
+        "name" : "Факультет правничих наук",
+        "shortName" : "ФПН",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Азаров Денис Сергійович"
+        },
+        "phoneNumber" : "+380444256073"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "location" : "Корпус 4, ауд. 324"
+    },
+    "pib" : "Романенко Віктор Павлович"
   } ],
   "departments" : [ {
-    "id" : "201",
-    "name" : "Комп'ютерні науки",
-    "faculty" : "101",
-    "head" : "Alice Brown",
-    "location" : "Корпус 1"
+    "id" : "D-101",
+    "name" : "Кафедра інформатики",
+    "faculty" : {
+      "id" : "F-1",
+      "name" : "Факультет інформатики",
+      "shortName" : "ФІ",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Глибовець Андрій Миколайович"
+      },
+      "phoneNumber" : "+380444256092"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Бублик Володимир Васильович"
+    },
+    "location" : "Корпус 3, ауд. 315"
   }, {
-    "id" : "202",
-    "name" : "Біологія",
-    "faculty" : "102",
-    "head" : "Bob Johnson",
-    "location" : "Корпус 2"
+    "id" : "D-103",
+    "name" : "Кафедра математики",
+    "faculty" : {
+      "id" : "F-1",
+      "name" : "Факультет інформатики",
+      "shortName" : "ФІ",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Глибовець Андрій Миколайович"
+      },
+      "phoneNumber" : "+380444256092"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Іванов Олександр Володимирович"
+    },
+    "location" : "Корпус 3, ауд. 314"
+  }, {
+    "id" : "D-104",
+    "name" : "Кафедра мультимедійних систем",
+    "faculty" : {
+      "id" : "F-1",
+      "name" : "Факультет інформатики",
+      "shortName" : "ФІ",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Глибовець Андрій Миколайович"
+      },
+      "phoneNumber" : "+380444256092"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Франчук Оксана Вікторівна"
+    },
+    "location" : "Корпус 1, ауд. 101"
+  }, {
+    "id" : "D-201",
+    "name" : "Кафедра фінансів",
+    "faculty" : {
+      "id" : "F-2",
+      "name" : "Факультет економічних наук",
+      "shortName" : "ФЕН",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "phoneNumber" : "+380444256042"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Лук'яненко Ірина Григорівна"
+    },
+    "location" : "Корпус 4, ауд. 412"
+  }, {
+    "id" : "D-202",
+    "name" : "Кафедра економічної теорії",
+    "faculty" : {
+      "id" : "F-2",
+      "name" : "Факультет економічних наук",
+      "shortName" : "ФЕН",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "phoneNumber" : "+380444256042"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Юргелевич Сергій Володимирович"
+    },
+    "location" : "Корпус 4, ауд. 410"
+  }, {
+    "id" : "D-203",
+    "name" : "Кафедра маркетингу та управління бізнесом",
+    "faculty" : {
+      "id" : "F-2",
+      "name" : "Факультет економічних наук",
+      "shortName" : "ФЕН",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Лук'яненко Ірина Григорівна"
+      },
+      "phoneNumber" : "+380444256042"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Пітцик Марія Володимирівна"
+    },
+    "location" : "Корпус 4, ауд. 415"
+  }, {
+    "id" : "D-301",
+    "name" : "Кафедра загальнотеоретичного правознавства та публічного права",
+    "faculty" : {
+      "id" : "F-3",
+      "name" : "Факультет правничих наук",
+      "shortName" : "ФПН",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "phoneNumber" : "+380444256073"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Козюбра Микола Іванович"
+    },
+    "location" : "Корпус 4, ауд. 320"
+  }, {
+    "id" : "D-302",
+    "name" : "Кафедра приватного права",
+    "faculty" : {
+      "id" : "F-3",
+      "name" : "Факультет правничих наук",
+      "shortName" : "ФПН",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "phoneNumber" : "+380444256073"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Безклубний Ігор Анатолійович"
+    },
+    "location" : "Корпус 4, ауд. 322"
+  }, {
+    "id" : "D-303",
+    "name" : "Кафедра кримінального та кримінального процесуального права",
+    "faculty" : {
+      "id" : "F-3",
+      "name" : "Факультет правничих наук",
+      "shortName" : "ФПН",
+      "dean" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Азаров Денис Сергійович"
+      },
+      "phoneNumber" : "+380444256073"
+    },
+    "head" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Азаров Денис Сергійович"
+    },
+    "location" : "Корпус 4, ауд. 324"
   } ],
   "faculties" : [ {
-    "id" : "101",
-    "name" : "Інженерія",
-    "shortName" : "ІНЖ",
-    "dean" : "Alice Brown",
-    "phoneNumber" : "+380441112233"
+    "id" : "F-1",
+    "name" : "Факультет інформатики",
+    "shortName" : "ФІ",
+    "dean" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Глибовець Андрій Миколайович"
+    },
+    "phoneNumber" : "+380444256092"
   }, {
-    "id" : "102",
-    "name" : "Наука",
-    "shortName" : "НАУК",
-    "dean" : "Bob Johnson",
-    "phoneNumber" : "+380449998877"
+    "id" : "F-2",
+    "name" : "Факультет економічних наук",
+    "shortName" : "ФЕН",
+    "dean" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Лук'яненко Ірина Григорівна"
+    },
+    "phoneNumber" : "+380444256042"
+  }, {
+    "id" : "F-3",
+    "name" : "Факультет правничих наук",
+    "shortName" : "ФПН",
+    "dean" : {
+      "id" : null,
+      "dateOfBirth" : null,
+      "email" : null,
+      "phoneNumber" : null,
+      "position" : null,
+      "academicDegree" : null,
+      "academicTitle" : null,
+      "dateOfEmployment" : null,
+      "rate" : null,
+      "department" : null,
+      "pib" : "Азаров Денис Сергійович"
+    },
+    "phoneNumber" : "+380444256073"
   } ]
 }

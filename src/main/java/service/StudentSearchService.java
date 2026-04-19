@@ -1,5 +1,6 @@
 package service;
 
+import domain.DTO.DepartmentDTO;
 import domain.DTO.StudentDTO;
 import domain.Student;
 import repository.StudentRepository;
@@ -23,7 +24,16 @@ public class StudentSearchService {
         System.out.println("--- Звіт: Студенти з ПІБ " + fullName + " "  + " ---");
         Optional<Student> student = studentRepository.findByName(fullName);
         if (student.isPresent()) {
-            System.out.println(student.get());
+            Student st = student.get();
+            StudentDTO ready = new StudentDTO(
+                    st.getId(),
+                    st.getPIB(),
+                    st.getCourse(),
+                    st.getDepartment() != null ? new DepartmentDTO(st.getDepartment().getName()) : null,
+                    st.getGroup(),
+                    st.getEmail()
+            );
+            System.out.println(ready);
         } else {
             System.out.println("Студента з таким ПІБ не знайдено");
         }
@@ -47,10 +57,10 @@ public class StudentSearchService {
         System.out.println("--- Звіт: Студенти " + course + " курсу в межах кафедри ---");
 
         List<StudentDTO> result = studentRepository.findAll().stream()
-                .filter(student -> student.getDepartment().equals(department))
+                .filter(student -> student.getDepartment().getName().equals(department))
                 .filter(student -> student.getCourse() == course)
                 .map(student -> new StudentDTO(student.getId(), student.getPIB(),
-                        student.getCourse(),  student.getDepartment(), student.getGroup(), student.getEmail()))
+                        student.getCourse(), new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
 
         if (result.isEmpty()) {
@@ -58,7 +68,7 @@ public class StudentSearchService {
         } else {
             result.forEach(System.out::println);
         }
-        }
+    }
 
 
     public void setStudentRepository(StudentRepository repository) {
