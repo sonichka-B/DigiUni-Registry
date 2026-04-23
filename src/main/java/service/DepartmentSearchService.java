@@ -9,6 +9,13 @@ import java.util.Optional;
 
 public class DepartmentSearchService {
     private  DepartmentRepository departmentRepository ;
+    public boolean existsById(String id) {
+        return departmentRepository.findById(id).isPresent();
+    }
+    public boolean existsByName(String name) {
+        return departmentRepository.findByName(name).isPresent();
+    }
+
     public void showAllDepartments(){
         if (departmentRepository.findAll().isEmpty()) {
             System.out.println("Кафедр поки немає.");

@@ -10,6 +10,9 @@ public class TeacherSearchService {
     public boolean existsById(String id) {
         return teacherRepository.findById(id).isPresent();
     }
+    public boolean existsByName(String name) {
+        return teacherRepository.findByName(name).isPresent();
+    }
     public void showAllTeachers() {
         for (Teacher teacher : teacherRepository.findAll()) {
             System.out.println(teacher);

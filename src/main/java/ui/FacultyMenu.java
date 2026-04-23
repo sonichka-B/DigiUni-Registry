@@ -13,17 +13,18 @@ import validation.*;
 
 import java.lang.reflect.Method;
 
-
-public class FacultyMenu extends BaseMenu{
+public class FacultyMenu extends BaseMenu {
     private FacultyService facultyService;
-
-//    private FacultyCRUDService facultyCRUDService;
-//    private FacultySearchService facultySearchService;
+    private TeacherService teacherService;
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
+    private ValidID validID = new ValidID();
+    private ValidName validName = new ValidName();
 
-    public FacultyMenu(FacultyService facultyService) {
+    public FacultyMenu(FacultyService facultyService, TeacherService teacherService) {
         this.facultyService = facultyService;
+        this.teacherService = teacherService;
     }
+
     @Override
     protected void printTitle() {
         System.out.println("--- МЕНЮ ФАКУЛЬТЕТІВ ---");
@@ -33,7 +34,7 @@ public class FacultyMenu extends BaseMenu{
     protected void printOptions() {
         System.out.println("1. Показати всі факультети");
         Users currentUser = Authentication.getInstance().checkCurrentUser();
-        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+        if (currentUser != null && currentUser.getRole() == Role.ADMIN || currentUser.getRole() == Role.MANAGER) {
             System.out.println("2. Додати факультет");
             System.out.println("3. Редагувати інформацію про факультет");
             System.out.println("4. Видалити факультет");
@@ -44,10 +45,9 @@ public class FacultyMenu extends BaseMenu{
     @Override
     protected int getMaxOption() {
         Users currentUser = Authentication.getInstance().checkCurrentUser();
-        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+        if (currentUser != null && currentUser.getRole() == Role.ADMIN || currentUser.getRole() == Role.MANAGER) {
             return 4;
-        }
-        else {
+        } else {
             return 1;
         }
     }
@@ -88,16 +88,32 @@ public class FacultyMenu extends BaseMenu{
                 break;
         }
     }
+
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addFaculty() {
         System.out.println("--- Додавання факультету ---");
-        String id = validation.readNotEmptyString("Введіть ID факультету: ");
+
+        String id = validID.idUni("Введіть ID факультету: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return facultyService.search().existsById(input);
+            }
+        });
+
         String name = validation.readNotEmptyString("Введіть назву факультету: ");
         String shortName = validation.readNotEmptyString("Введіть коротку назву факультету: ");
-        String dean = validation.readNotEmptyString("Введіть ПІБ декана: ");
+
+        teacherService.search().showAllTeachers();
+        String dean = validName.nameMustExist("Введіть ПІБ декана: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return teacherService.search().existsByName(input);
+            }
+        });
+
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
+
         try {
-//            facultyCRUDService.addFaculty(new Faculty(id, name, shortName, dean, phoneNumber));
             Teacher fakeT = new Teacher();
             fakeT.setPIB(dean);
             facultyService.crud().addFaculty(new Faculty(id, name, shortName, fakeT, phoneNumber));
@@ -106,33 +122,56 @@ public class FacultyMenu extends BaseMenu{
             System.out.println(" Помилка: " + e.getMessage());
         }
     }
+
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
-    private void editFaculty(){
+    private void editFaculty() {
         System.out.println("--- Редагування інформації про факультет ---");
-        String idFaculty = validation.readNotEmptyString("Введіть ID факультету для редагування: ");
-        String newDean = validation.readNotEmptyString("Введіть ПІБ декана: ");
+
+        String idFaculty = validID.idMustExist("Введіть ID факультету для редагування: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return facultyService.search().existsById(input);
+            }
+        });
+
+        teacherService.search().showAllTeachers();
+        String newDean = validName.nameMustExist("Введіть ПІБ декана: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return teacherService.search().existsByName(input);
+            }
+        });
+
         String newPhoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть новий номер телефону: ");
-        try{
-//        boolean success = facultyCRUDService.editFaculty(idFaculty, newDean, newPhoneNumber);
+
+        try {
             boolean success = facultyService.crud().editFaculty(idFaculty, newDean, newPhoneNumber);
-        if (success) {
-            System.out.println(" Інформацію про факультет успішно оновлено.");
-        } else {
-            System.out.println(" Помилка: Факультету з таким ID не знайдено.");
-        }
-        }catch (Exception e) {
+            if (success) {
+                System.out.println(" Інформацію про факультет успішно оновлено.");
+            } else {
+                System.out.println(" Помилка: Факультету з таким ID не знайдено.");
+            }
+        } catch (Exception e) {
             System.out.println(" Помилка: " + e.getMessage());
         }
     }
+
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
-    private void deleteFaculty(){
+    private void deleteFaculty() {
         System.out.println("--- Видалення факультету ---");
-        String nameDel = validation.readNotEmptyString("Введіть ID для видалення: ");
-        try{
-//        facultyCRUDService.deleteFaculty(nameDel);
+
+        String nameDel = validID.idMustExist("Введіть ID для видалення: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return facultyService.search().existsById(input);
+            }
+        });
+
+        try {
             facultyService.crud().deleteFaculty(nameDel);
-        System.out.println(" Команду видалення виконано.");
-    }catch (Exception e) {
-        System.out.println(" Помилка: " + e.getMessage());}
+            System.out.println(" Команду видалення виконано.");
+        } catch (Exception e) {
+            System.out.println(" Помилка: " + e.getMessage());
+        }
     }
 }

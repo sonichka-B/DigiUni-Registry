@@ -24,7 +24,7 @@ public class ValidID implements UniqueData {
             if (uniqueData.dubl(input)) {
                 return input;
             } else {
-                System.out.println("Помилка: Студента з таким ID не знайдено.");
+                System.out.println("Помилка: таке ID не знайдено.");
             }
         }
     }
