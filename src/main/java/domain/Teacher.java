@@ -12,12 +12,12 @@ public class Teacher extends Person{
     private String position;
     private String academicDegree;
     private String academicTitle;
-    private  String dateOfEmployment;
+    private  LocalDate dateOfEmployment;
     private  String rate;
     private Department department;
 
     public Teacher(String id, String PIB,Department department, String position,
-                   String academicDegree, String academicTitle, String dateOfEmployment, String rate, LocalDate dateOfBirth,
+                   String academicDegree, String academicTitle, LocalDate dateOfEmployment, String rate, LocalDate dateOfBirth,
                    String email, String phoneNumber) {
         super(id, PIB, dateOfBirth, email, phoneNumber);
         this.position = position;

@@ -6,6 +6,8 @@ import domain.Faculty;
 import domain.Role;
 import domain.Student;
 import exceptions.NotFoundNameException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.DepartmentRepository;
 import repository.StudentRepository;
 import exceptions.IncorrectDataException;
@@ -23,6 +25,7 @@ import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 public class StudentCRUDService {
     private StudentRepository studentRepository = new StudentRepository();
     private DepartmentRepository departmentRepository;
+    private static final Logger log = LoggerFactory.getLogger(StudentCRUDService.class);
 
     public StudentRepository getRepository() {
         return studentRepository;
@@ -34,10 +37,12 @@ public class StudentCRUDService {
     public void addStudent(Student student) {
         if(student != null) {
             if(student.getCourse() < 1 || student.getCourse() > 6){
+                log.warn("Спроба додати студента з некоректним курсом: {}", student.getCourse());
                 throw new IncorrectDataException("Помилка: Курс повинен бути в межах від 1 до 6");
 
             }
             if(studentRepository.findById(student.getId()).isPresent()){
+                log.warn("Студент з ID='{}' вже існує", student.getId());
                 throw new IdAlreadyPresentException("Студент", student.getId());
             }
             if(student.getGroup() < 1){
@@ -69,6 +74,7 @@ public class StudentCRUDService {
                 throw new IncorrectDataException("Рік вступу повинен бути в межах від 2015 до 2025");
             }
             studentRepository.add(student);
+
         }
 
         //id, firstName, middleName, lastName, dateOfBirth, email, phoneNumber, course, group, yearOfAdmission, formOfEducation, status
@@ -77,8 +83,13 @@ public class StudentCRUDService {
 
     public void deleteStudent(String id) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundIDException("Студента ", id));
+                .orElseThrow(() -> {
+                    log.warn("Спроба видалення: Студента з ID='{}' не знайдено", id);
+                    return new NotFoundIDException("Студента ", id);
+                });
         studentRepository.delete(student);
+        log.info("Студента з ID='{}' видалено", id);
+
     }
 
     public boolean editStudent(String id, String pib,
@@ -86,6 +97,7 @@ public class StudentCRUDService {
                                String status, String email, String phoneNumber) {
         Optional<Student> oStudent = studentRepository.findById(id);
         if(oStudent.isEmpty()) {
+            log.warn("Спроба редагування: Студента з ID='{}' не знайдено", id);
             return false;
         }
         Student student = oStudent.get();
@@ -122,9 +134,13 @@ public class StudentCRUDService {
         }
         if (department != null && !department.trim().isEmpty()) {
             Department found = departmentRepository.findByName(department)
-                    .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
+                    .orElseThrow(() -> {
+                        log.warn("Спроба редагування: Кафедри з назвою '{}' не знайдено", department);
+                         return new NotFoundNameException("Кафедри", department);
+                    });
             student.setDepartment(found);
         }
+        log.info("Дані студента з ID='{}' успішно оновлено", id);
         return true;
     }
 
@@ -136,17 +152,20 @@ public class StudentCRUDService {
         Department real = departmentRepository.findByName(department)
                 .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
         student.setDepartment(real);
+        log.info("Студента з ID='{}' переведено на кафедру '{}'", id, department);
         }
 
     public void transferToNewCourse(String id, int newCourse) {
         Student student = studentRepository.findById(id)
         .orElseThrow(() -> new NotFoundIDException("Студента", id));
         student.setCourse(newCourse);
+        log.info("Студента з ID='{}' переведено на курс '{}'", id, newCourse);
     }
 
     public void transferToNewGroup(String id, int newGroup) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundIDException("Студента", id));
         student.setGroup(newGroup);
+        log.info("Студента з ID='{}' переведено до групи '{}'", id, newGroup);
     }
 }

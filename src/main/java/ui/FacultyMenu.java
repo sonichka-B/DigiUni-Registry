@@ -104,6 +104,7 @@ public class FacultyMenu extends BaseMenu {
         String shortName = validation.readNotEmptyString("Введіть коротку назву факультету: ");
 
         teacherService.search().showAllTeachers();
+        System.out.println("Виберіть декана факультету зі списку вчителів (введіть ПІБ): ");
         String dean = validName.nameMustExist("Введіть ПІБ декана: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {
@@ -135,6 +136,7 @@ public class FacultyMenu extends BaseMenu {
         });
 
         teacherService.search().showAllTeachers();
+        System.out.println("Виберіть нового декана факультету зі списку вчителів (введіть ПІБ): ");
         String newDean = validName.nameMustExist("Введіть ПІБ декана: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {

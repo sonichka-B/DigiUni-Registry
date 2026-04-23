@@ -3,6 +3,8 @@ package service;
 import domain.DTO.DepartmentDTO;
 import domain.DTO.StudentDTO;
 import domain.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.StudentRepository;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 public class StudentSearchService {
     private  StudentRepository studentRepository;
+    private static final Logger log = LoggerFactory.getLogger(StudentSearchService.class);
 
     public boolean existsById(String id) {
         return studentRepository.findById(id).isPresent();
@@ -39,6 +42,7 @@ public class StudentSearchService {
             System.out.println(ready);
         } else {
             System.out.println("Студента з таким ПІБ не знайдено");
+            log.warn("Пошук: Студента з ПІБ '{}' не знайдено", fullName);
         }
     }
     public void findStudentById(String id) {
@@ -47,6 +51,7 @@ public class StudentSearchService {
             System.out.println(student);
         } else {
             System.out.println("Студента з таким id не знайдено");
+            log.warn("Пошук: Студента з ID '{}' не знайдено", id);
         }
     }
 
@@ -68,6 +73,7 @@ public class StudentSearchService {
 
         if (result.isEmpty()) {
             System.out.println("Студентів не знайдено.");
+            log.warn("Пошук: Студентів {} курсу на кафедрі '{}' не знайдено", course, department);
         } else {
             result.forEach(System.out::println);
         }

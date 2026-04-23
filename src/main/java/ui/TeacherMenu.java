@@ -171,7 +171,7 @@ public class TeacherMenu extends BaseMenu {
             academicTitle = "старший дослідник";
         }
         departmentService.search().showAllDepartments();
-
+                    System.out.println("Введіть назву кафедри до якої підв'язаний викладач: ");
                     String departmentName = validName.nameMustExist("Введіть назву кафедри до якої підв'язаний викладач: ", new UniqueData() {
                         @Override
                         public boolean dubl(String departmentName) {
@@ -253,13 +253,14 @@ public class TeacherMenu extends BaseMenu {
                     title = "старший дослідник";
                 }
                 departmentService.search().showAllDepartments();
+                System.out.println("Введіть назву кафедри до якої підв'язаний викладач: ");
                 String departmentName = validName.nameMustExist("Введіть назву кафедри до якої підв'язаний викладач: ", new UniqueData() {
                     @Override
                     public boolean dubl(String departmentName) {
                         return departmentService.search().existsByName(departmentName);
                     }
                 });
-                    String dateOfEmployment = validation.readNotEmptyString("Дата прийняття на роботу: ");
+                    LocalDate dateOfEmployment = validLocalDate.readLocalDate("Дата прийняття на роботу: ");
                     //Сонічка я не дуже розумію що таке rate тому залишила як є
                     String rate = validation.readNotEmptyString("Ставка: ");
                     try {

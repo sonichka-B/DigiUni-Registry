@@ -106,6 +106,7 @@ public class DepartmentMenu extends BaseMenu {
         });
         String name = validation.readNotEmptyString("Назва кафедри: ");
         facultyService.search().showAllFaculties();
+        System.out.println("Виберіть факультет для кафедри зі списку факультетів (введіть ID): ");
         String idFaculty = validID.idMustExist("Введіть ID факультету: ", new UniqueData() {
             @Override
             public boolean dubl(String idFaculty) {
@@ -114,6 +115,7 @@ public class DepartmentMenu extends BaseMenu {
         });
 
         teacherService.search().showAllTeachers();
+        System.out.println("Виберіть завідувача кафедри зі списку вчителів (введіть ПІБ): ");
         String pibHead = validName.nameMustExist("ПІБ завідувача кафедри: ", new UniqueData() {
             @Override
             public boolean dubl(String pibHead) {
@@ -147,6 +149,7 @@ public class DepartmentMenu extends BaseMenu {
         });
             String newLocation = validation.readNotEmptyString("Введіть нове розташування кафедри: ");
         teacherService.search().showAllTeachers();
+        System.out.println("Виберіть нового завідувача кафедри зі списку вчителів (введіть ПІБ): ");
         String newHeadName = validName.nameMustExist("ПІБ завідувача кафедри: ", new UniqueData() {
             @Override
             public boolean dubl(String newHeadName) {

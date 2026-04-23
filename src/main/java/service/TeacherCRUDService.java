@@ -7,6 +7,8 @@ import domain.Teacher;
 import exceptions.IdAlreadyPresentException;
 import exceptions.IncorrectDataException;
 import exceptions.NotFoundNameException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.DepartmentRepository;
 import repository.TeacherRepository;
 import security.RoleAnotation;
@@ -19,6 +21,7 @@ import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
 public class TeacherCRUDService {
     private TeacherRepository teacherRepository = new TeacherRepository();
     private DepartmentRepository departmentRepository ;
+    private static final Logger log = LoggerFactory.getLogger(TeacherCRUDService.class);
 
     public TeacherRepository getRepository() {
         return teacherRepository;
@@ -36,8 +39,6 @@ public class TeacherCRUDService {
             throw new IdAlreadyPresentException("Викладач", teacher.getId());
         }
         validateNotEmpty(teacher.getPIB(), "ПІБ викладача");
-//        validateNotEmpty(teacher.getLastName(), "Прізвище викладача");
-//        validateNotEmpty(teacher.getMiddleName(), "По батькові викладача");
         validateNotEmpty(teacher.getPosition(), "Посада викладача");
         validateNotEmpty(teacher.getAcademicDegree(), "Науковий ступінь викладача");
         validateNotEmpty(teacher.getAcademicTitle(), "Вчене звання викладача");
@@ -52,13 +53,16 @@ public class TeacherCRUDService {
                 .orElseThrow(() -> new NotFoundNameException("Кафедри", fakeName));
         teacher.setDepartment(realDepartment);
         teacherRepository.add(teacher);
+        log.info("Створено нового викладача");
     }
     public boolean deleteTeacher(String id) {
         Optional<Teacher> teacher = teacherRepository.findById(id);
         if (teacher.isPresent()) {
             teacherRepository.delete(teacher.get());
+            log.info("Викладача з id {} видалено", id);
             return true;
         }
+        log.warn("Викладача з таким ID не знайдено");
         return false;
     }
 
@@ -66,6 +70,7 @@ public class TeacherCRUDService {
     public boolean editTeacher(String id, String position, String academicDegree, String academicTitle,String pib, String department) {
         Optional<Teacher> oTeacher = teacherRepository.findById(id);
         if(oTeacher.isEmpty()) {
+            log.warn("Викладача з таким ID не знайдено");
             return false;
         }
         Teacher teacher = oTeacher.get();
@@ -92,6 +97,7 @@ public class TeacherCRUDService {
                     .orElseThrow(() -> new NotFoundNameException("Кафедри", department));
             teacher.setDepartment(foundDepartment);
         }
+        log.info("Викладача з id {} відредаговано", id);
         return true;
     }
 }

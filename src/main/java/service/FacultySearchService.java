@@ -2,11 +2,14 @@ package service;
 
 import domain.DTO.FacultyDTO;
 import domain.Faculty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.FacultyRepository;
 
 import java.util.Optional;
 
 public class FacultySearchService {
+    private static final Logger log = LoggerFactory.getLogger(FacultySearchService.class);
     private FacultyRepository facultyRepository ;
     public boolean existsById(String id) {
         return facultyRepository.findById(id).isPresent();
@@ -30,6 +33,7 @@ public class FacultySearchService {
         if (faculty.isPresent()) {
             System.out.println(faculty.get());
         } else {
+            log.warn("Факультет з таким id не знайдено");
             System.out.println("Факультет з таким id не знайдено");
         }
     }

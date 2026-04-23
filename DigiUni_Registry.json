@@ -2763,6 +2763,60 @@
     },
     "phoneNumber" : "+380444256092"
   }, {
+    "id" : "F-4",
+    "name" : "uhgerughe",
+    "shortName" : "rehguehg",
+    "dean" : {
+      "id" : "T-04",
+      "dateOfBirth" : "1990-11-02",
+      "email" : "boyko@ukma.edu.ua",
+      "phoneNumber" : "+380671112204",
+      "position" : "старший викладач",
+      "academicDegree" : "доктор філософії",
+      "academicTitle" : "немає",
+      "dateOfEmployment" : "2018-09-01",
+      "rate" : "0.5",
+      "department" : {
+        "id" : "D-102",
+        "name" : "Кафедра мережних технологій",
+        "faculty" : {
+          "id" : "F-1",
+          "name" : "Факультет інформатики",
+          "shortName" : "ФІ",
+          "dean" : {
+            "id" : null,
+            "dateOfBirth" : null,
+            "email" : null,
+            "phoneNumber" : null,
+            "position" : null,
+            "academicDegree" : null,
+            "academicTitle" : null,
+            "dateOfEmployment" : null,
+            "rate" : null,
+            "department" : null,
+            "pib" : "Глибовець Андрій Миколайович"
+          },
+          "phoneNumber" : "+380444256092"
+        },
+        "head" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Симоненко Валерій Павлович"
+        },
+        "location" : "Корпус 3, ауд. 311"
+      },
+      "pib" : "Бойко Тарас Андрійович"
+    },
+    "phoneNumber" : "+380993670589"
+  }, {
     "id" : "F-3",
     "name" : "Факультет правничих наук",
     "shortName" : "ФПН",

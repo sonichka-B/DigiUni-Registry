@@ -6,6 +6,8 @@ import domain.Department;
 import domain.Faculty;
 import domain.Student;
 import exceptions.NotFoundIDException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.DepartmentRepository;
 import repository.StudentRepository;
 
@@ -15,6 +17,8 @@ import java.util.List;
 
 public class StudentSortingService {
     private static StudentRepository studentRepository;
+    private static final Logger log = LoggerFactory.getLogger(StudentSortingService.class);
+
     public void setStudentRepository(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -31,7 +35,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            log.warn("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
@@ -45,7 +49,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            log.warn("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
@@ -66,7 +70,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            log.warn("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
@@ -81,7 +85,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            log.warn("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }

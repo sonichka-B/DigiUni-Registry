@@ -5,6 +5,8 @@ import domain.DTO.TeacherDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Teacher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.DepartmentRepository;
 import repository.TeacherRepository;
 
@@ -16,7 +18,7 @@ public class TeacherSortingService {
     private TeacherRepository teacherRepository;
 
     Comparator<Teacher> byAlphabet = Comparator.comparing(Teacher -> Teacher.getPIB());
-
+    private static final Logger log = LoggerFactory.getLogger(TeacherSortingService.class);
     public void sortTeachersByAlphabetInFaculty(String faculty) {
         System.out.println("--- Звіт: Викладачі, відсортовані за алфавітом в межах факультету ---");
 
@@ -51,7 +53,7 @@ public class TeacherSortingService {
                 .toList();
 
         if (result.isEmpty()) {
-            System.out.println("Викладачів на цій кафедрі не знайдено.");
+            log.warn("Викладачів на цій кафедрі не знайдено.");
         } else {
             result.forEach(System.out::println);
         }

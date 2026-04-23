@@ -1,12 +1,16 @@
 package service;
 
 import domain.Teacher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.TeacherRepository;
 
 import java.util.Optional;
 
 public class TeacherSearchService {
     private  TeacherRepository teacherRepository;
+    private static final Logger log = LoggerFactory.getLogger(TeacherSearchService.class);
+
     public boolean existsById(String id) {
         return teacherRepository.findById(id).isPresent();
     }
@@ -25,7 +29,7 @@ public class TeacherSearchService {
         if (teacher.isPresent()) {
             System.out.println(teacher.get());
         } else {
-            System.out.println("Викладача з таким ПІБ не знайдено");
+            log.warn("Викладача з таким ПІБ не знайдено");
         }
     }
 
@@ -35,7 +39,7 @@ public class TeacherSearchService {
         if (teacher.isPresent()) {
             System.out.println(teacher.get());
         } else {
-            System.out.println("Викладача з таким id не знайдено");
+            log.warn("Викладача з таким id не знайдено");
         }
     }
     public void setTeacherRepository(TeacherRepository repository) {

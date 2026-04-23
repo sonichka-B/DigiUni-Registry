@@ -3,12 +3,15 @@ package service;
 import domain.DTO.DepartmentFullDTO;
 import domain.DTO.FacultyDTO;
 import domain.Department;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.DepartmentRepository;
 
 import java.util.Optional;
 
 public class DepartmentSearchService {
     private  DepartmentRepository departmentRepository ;
+    private static final Logger log = LoggerFactory.getLogger(DepartmentSearchService.class);
     public boolean existsById(String id) {
         return departmentRepository.findById(id).isPresent();
     }
@@ -18,6 +21,7 @@ public class DepartmentSearchService {
 
     public void showAllDepartments(){
         if (departmentRepository.findAll().isEmpty()) {
+            log.warn("Кафедр немає");
             System.out.println("Кафедр поки немає.");
             return;
         }
@@ -38,6 +42,7 @@ public class DepartmentSearchService {
             System.out.println(department.get());
         } else {
             System.out.println("Кафедра з таким id не знайдена");
+            log.warn("Пошук: Кафедру з ID '{}' не знайдено", id);
         }
     }
 
