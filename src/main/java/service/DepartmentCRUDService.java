@@ -47,11 +47,15 @@ public class DepartmentCRUDService {
         Faculty real = facultyRepository.findById(department.getFaculty().getId())
                     .orElseThrow(() -> new NotFoundIDException("Факультет ", department.getFaculty().getId()));
         department.setFaculty(real);
-        String head=department.getHead().getPIB();
-        if(head!=null && !head.trim().isEmpty()) {
-            Teacher realT = teacherRepository.findByName(department.getHead().getPIB())
-                    .orElseThrow(() -> new NotFoundNameException("Завідувача", department.getHead().getPIB()));
-            department.setHead(realT);
+        if(department.getHead()!=null){
+            String head=department.getHead().getPIB();
+            if(head!=null && !head.trim().isEmpty()) {
+                Teacher realT = teacherRepository.findByName(department.getHead().getPIB())
+                        .orElseThrow(() -> new NotFoundNameException("Завідувача", department.getHead().getPIB()));
+                department.setHead(realT);
+            }else {
+                throw new NotFoundNameException("Завідувача з таким ПІБ немає",  department.getHead().getPIB());
+            }
         }
         departmentRepository.add(department);
     }

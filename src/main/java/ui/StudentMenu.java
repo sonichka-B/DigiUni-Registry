@@ -17,9 +17,6 @@ import java.time.LocalDate;
 public class StudentMenu extends BaseMenu {
     private StudentService studentService;
     private SearchStudent searchStudent;
-//    private StudentCRUDService studentCRUDService;
-//    private StudentSortingService studentSortingService;
-//    private StudentSearchService studentSearchService;
     private DepartmentRepository departmentRepository;
     private ValidLocalDate validLocalDate = new ValidLocalDate();
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
@@ -31,10 +28,6 @@ public class StudentMenu extends BaseMenu {
     public StudentMenu(StudentService studentService, SearchStudent searchStudent) {
         this.studentService = studentService;
         this.searchStudent = searchStudent;
-//        this.studentCRUDService=studentCRUDService;
-//        this.studentSortingService=studentSortingService;
-//        this.studentSearchService=studentSearchService;
-       // this.departmentRepository=departmentRepository;
     }
 
     @Override
@@ -55,7 +48,7 @@ public class StudentMenu extends BaseMenu {
             System.out.println("7. Редагувати інформацію про студента");
             System.out.println("8. Видалити студента");
             System.out.println("9. Перевести в іншу групу студента");
-            System.out.println("10. Перевести на наступний курс");
+            System.out.println("10. Перевести на інший курс");
         }
         System.out.println("0. Повернутися назад");
     }
@@ -148,8 +141,6 @@ public class StudentMenu extends BaseMenu {
             }
         });
     String pib = validation.readNotEmptyString("Введіть нове ПІБ студента: ");
-//    String middleName = validation.readNotEmptyString("Введіть нове по-батькові студента: ");
-//    String lastName = validation.readNotEmptyString("Введіть нове прізвище студента: ");
     int course = validation.readInt("Введіть новий курс студента: " , 1, 6);
     int group = validation.readInt("Введіть нову групу студента: ", 1, 6);
     System.out.println("Оберіть новий статус студента:");
@@ -188,8 +179,6 @@ public class StudentMenu extends BaseMenu {
             }
         });
         String pib = validation.readNotEmptyString("Введіть ПІБ: ");
-//        String firstName = validation.readNotEmptyString("Введіть Ім'я: ");
-//        String middleName = validation.readNotEmptyString("Введіть По-батькові: ");
         int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
         int group = validation.readInt("Введіть групу (1-6): ", 1, 6);
         int yearOfAdmission = validation.readInt("Введіть рік вступу : ", 2015, 2025);
@@ -227,7 +216,6 @@ public class StudentMenu extends BaseMenu {
             fakeD.setName(departmentName);
             Student newStudent = new Student(id, pib, course, fakeD, group,
              yearOfAdmission, formOfEducation, status, dateOfBirth,email,phoneNumber);
-//            studentCRUDService.addStudent(newStudent);
             studentService.crud().addStudent(newStudent);
             System.out.println("Студента додано");
 
@@ -253,18 +241,15 @@ public class StudentMenu extends BaseMenu {
     }
     private void sortStudentsByAlphabetInFaculty(){
         String facultyName = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
-//        studentSortingService.sortStudentsByAlphabetInFaculty(facultyName, null);
         studentService.sort().sortStudentsByAlphabetInFaculty(facultyName);
     }
     private void sortStudentsByAlphabetInDepartment(){
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-//        studentSortingService.sortStudentsByAlphabetInDepartment(departmentName);
         studentService.sort().sortStudentsByAlphabetInDepartment(departmentName);
     }
 
     private void sortStudentsByCourseInDepartment(){
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-//        studentSortingService.sortStudentsByCourseInDepartment(departmentName);
         studentService.sort().sortStudentsByCourseInDepartment(departmentName);
     }
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
@@ -272,7 +257,6 @@ public class StudentMenu extends BaseMenu {
         String studentId = validation.readNotEmptyString("Введіть ID студента для переведення: ");
         int newGroup = validation.readInt("Введіть нову групу для студента: ", 1, 6);
         try {
-//            studentCRUDService.transferToNewGroup(studentId, newGroup);
             studentService.crud().transferToNewGroup(studentId, newGroup);
             System.out.println("Студента успішно переведено до нової групи.");
         } catch (NotFoundIDException e) {
@@ -281,13 +265,12 @@ public class StudentMenu extends BaseMenu {
     }
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToNextCourse() {
-        String studentId = validation.readNotEmptyString("Введіть ID студента для переведення на наступний курс: ");
-        int currentCourse = validation.readInt("Введіть поточний курс студента: ", 1, 5);
-        int nextCourse = currentCourse + 1;
+        String studentId = validation.readNotEmptyString("Введіть ID студента для переведення на інший курс: ");
+        int newCourse = validation.readInt("Введіть новий курс студента: ", 1, 6);
         try {
-//            studentCRUDService.transferToNewCourse(studentId, nextCourse);
-            studentService.crud().transferToNewCourse(studentId, nextCourse);
-            System.out.println("Студента успішно переведено на наступний курс.");
+
+            studentService.crud().transferToNewCourse(studentId, newCourse);
+            System.out.println("Студента успішно переведено на інший курс.");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());
         }

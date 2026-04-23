@@ -5,6 +5,7 @@ import domain.DTO.StudentDTO;
 import domain.Department;
 import domain.Faculty;
 import domain.Student;
+import exceptions.IncorrectDataException;
 import exceptions.NotFoundIDException;
 import repository.DepartmentRepository;
 import repository.StudentRepository;
@@ -31,7 +32,8 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+//            System.out.println("Студентів не знайдено.");
+            throw new IncorrectDataException("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
@@ -45,7 +47,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            throw new IncorrectDataException("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
@@ -66,7 +68,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            throw new IncorrectDataException("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
@@ -81,7 +83,7 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            System.out.println("Студентів не знайдено.");
+            throw new IncorrectDataException("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
