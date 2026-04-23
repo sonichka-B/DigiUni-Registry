@@ -25,9 +25,9 @@ public class TeacherMenu extends BaseMenu {
     private ValidLocalDate validLocalDate = new ValidLocalDate();
     private DepartmentService departmentService;
     private ValidID validID = new ValidID();
+    private ValidName validName = new ValidName();
 
-
-    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher) {
+    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher, DepartmentService departmentService) {
         this.teacherService = teacherService;
         this.searchTeacher=searchTeacher;
         this.departmentService = departmentService;
@@ -112,7 +112,7 @@ public class TeacherMenu extends BaseMenu {
                 @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editTeacher() {
         System.out.println("--- Редагування інформації про викладача ---");
-        String id = validID.idUni("Введіть ID викладача: ", new UniqueData() {
+        String id = validID.idMustExist("Введіть ID викладача: ", new UniqueData() {
             @Override
             public boolean dubl(String id) {
                 return teacherService.search().existsById(id);
@@ -171,7 +171,13 @@ public class TeacherMenu extends BaseMenu {
             academicTitle = "старший дослідник";
         }
         departmentService.search().showAllDepartments();
-        String departmentName = validation.readNotEmptyString("Введіть нову кафедру викладача: ");
+
+                    String departmentName = validName.nameMustExist("Введіть назву кафедри до якої підв'язаний викладач: ", new UniqueData() {
+                        @Override
+                        public boolean dubl(String departmentName) {
+                            return departmentService.search().existsByName(departmentName);
+                        }
+                    });
         try{
         //===================Запитати чи можна дописати пошук за назвою
 //        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
@@ -183,93 +189,97 @@ public class TeacherMenu extends BaseMenu {
     }
             @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addTeacher() {
-        System.out.println("--- ДОДАТИ ВИКЛАДАЧА ---");
+                System.out.println("--- ДОДАТИ ВИКЛАДАЧА ---");
                 String id = validID.idUni("Введіть ID викладача: ", new UniqueData() {
                     @Override
                     public boolean dubl(String id) {
                         return teacherService.search().existsById(id);
                     }
                 });
-        String pib = validation.readNotEmptyString("ПІБ: ");
-//        String firstName = validation.readNotEmptyString("Ім'я: ");
-//        String middleName = validation.readNotEmptyString("По-батькові: ");
-        LocalDate dateOfBirth = validLocalDate.readLocalDate("Введіть дату народження (формат: ДД.ММ.РРРР): ");
-        String email = readEmail.isValidEmail("Введіть email викладача: ");
-        String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону викладача: ");
-        System.out.println("Оберіть посаду:");
-        System.out.println("1-лаборант");
-        System.out.println("2-асистент");
-        System.out.println("3-викладач");
-        System.out.println("4-старший викладач");
-        System.out.println("5-доцент");
-        System.out.println("6-професор");
-        System.out.println("7-декан");
-        int positionChoice = validation.readInt("Ваш вибір: ", 1, 7);
-        String position = "";
-        if (positionChoice == 1) {
-            position = "лаборант";
-        } else if (positionChoice == 2) {
-            position = "асистент";
-        } else if (positionChoice == 3) {
-            position = "викладач";
-        } else if (positionChoice == 4) {
-            position = "старший викладач";
-        } else if (positionChoice == 5) {
-            position = "доцент";
-        } else if (positionChoice == 6) {
-            position = "професор";
-        } else if (positionChoice == 7) {
-            position = "декан";
-        }
-        System.out.println("Оберіть науковий ступінь:");
-        System.out.println("1-кандидат наук");
-        System.out.println("2-доктор наук");
-        System.out.println("3-доктор філософії");
-        int degreeChoice = validation.readInt("Ваш вибір: ", 1, 3);
-        String degree = "";
-        if (degreeChoice == 1) {
-            degree = "кандидат наук";
-        } else if (degreeChoice == 2) {
-            degree = "доктор наук";
-        } else if (degreeChoice == 3) {
-            degree = "доктор філософії";
-        }
-        System.out.println("Оберіть звання:");
-        System.out.println("1-доцент");
-        System.out.println("2-професор");
-        System.out.println("3-старший дослідник");
-        int titleChoice = validation.readInt("Ваш вибір: ", 1, 3);
-        String title = "";
-        if (titleChoice == 1) {
-            title = "доцент";
-        } else if (titleChoice == 2) {
-            title = "професор";
-        } else if (titleChoice == 3) {
-            title = "старший дослідник";
-        }
-        departmentService.search().showAllDepartments();
-        String departmentName = validation.readNotEmptyString("Введіть назву кафедри до якої підв'язаний викладач: ");
-        String dateOfEmployment = validation.readNotEmptyString("Дата прийняття на роботу: ");
-        //Сонічка я не дуже розумію що таке rate тому залишила як є
-        String rate = validation.readNotEmptyString("Ставка: ");
-        try {
-            Department fakeDepartment = new Department();
-            fakeDepartment.setName(departmentName);
-            Teacher newTeacher = new Teacher(id, pib,fakeDepartment, position,
-                    degree, title, dateOfEmployment, rate, dateOfBirth,
-                    email,  phoneNumber);
-//            teacherCRUDService.addTeacher(newTeacher);
-            teacherService.crud().addTeacher(newTeacher);
-            System.out.println("Викладача додано");
+                String pib = validation.readNotEmptyString("ПІБ: ");
 
-        } catch (Exception e) {
-            System.out.println("Помилка при створенні: " + e.getMessage());
-        }
-    }
+                LocalDate dateOfBirth = validLocalDate.readLocalDate("Введіть дату народження: ");
+                String email = readEmail.isValidEmail("Введіть email викладача: ");
+                String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону викладача: ");
+                System.out.println("Оберіть посаду:");
+                System.out.println("1-лаборант");
+                System.out.println("2-асистент");
+                System.out.println("3-викладач");
+                System.out.println("4-старший викладач");
+                System.out.println("5-доцент");
+                System.out.println("6-професор");
+                System.out.println("7-декан");
+                int positionChoice = validation.readInt("Ваш вибір: ", 1, 7);
+                String position = "";
+                if (positionChoice == 1) {
+                    position = "лаборант";
+                } else if (positionChoice == 2) {
+                    position = "асистент";
+                } else if (positionChoice == 3) {
+                    position = "викладач";
+                } else if (positionChoice == 4) {
+                    position = "старший викладач";
+                } else if (positionChoice == 5) {
+                    position = "доцент";
+                } else if (positionChoice == 6) {
+                    position = "професор";
+                } else if (positionChoice == 7) {
+                    position = "декан";
+                }
+                System.out.println("Оберіть науковий ступінь:");
+                System.out.println("1-кандидат наук");
+                System.out.println("2-доктор наук");
+                System.out.println("3-доктор філософії");
+                int degreeChoice = validation.readInt("Ваш вибір: ", 1, 3);
+                String degree = "";
+                if (degreeChoice == 1) {
+                    degree = "кандидат наук";
+                } else if (degreeChoice == 2) {
+                    degree = "доктор наук";
+                } else if (degreeChoice == 3) {
+                    degree = "доктор філософії";
+                }
+                System.out.println("Оберіть звання:");
+                System.out.println("1-доцент");
+                System.out.println("2-професор");
+                System.out.println("3-старший дослідник");
+                int titleChoice = validation.readInt("Ваш вибір: ", 1, 3);
+                String title = "";
+                if (titleChoice == 1) {
+                    title = "доцент";
+                } else if (titleChoice == 2) {
+                    title = "професор";
+                } else if (titleChoice == 3) {
+                    title = "старший дослідник";
+                }
+                departmentService.search().showAllDepartments();
+                String departmentName = validName.nameMustExist("Введіть назву кафедри до якої підв'язаний викладач: ", new UniqueData() {
+                    @Override
+                    public boolean dubl(String departmentName) {
+                        return departmentService.search().existsByName(departmentName);
+                    }
+                });
+                    String dateOfEmployment = validation.readNotEmptyString("Дата прийняття на роботу: ");
+                    //Сонічка я не дуже розумію що таке rate тому залишила як є
+                    String rate = validation.readNotEmptyString("Ставка: ");
+                    try {
+                        Department fakeDepartment = new Department();
+                        fakeDepartment.setName(departmentName);
+                        Teacher newTeacher = new Teacher(id, pib, fakeDepartment, position,
+                                degree, title, dateOfEmployment, rate, dateOfBirth,
+                                email, phoneNumber);
+//            teacherCRUDService.addTeacher(newTeacher);
+                        teacherService.crud().addTeacher(newTeacher);
+                        System.out.println("Викладача додано");
+
+                    } catch (Exception e) {
+                        System.out.println("Помилка при створенні: " + e.getMessage());
+                    }
+                }
             @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void deleteTeacher() {
         System.out.println("--- ВИДАЛЕННЯ ВИКЛАДАЧА ---");
-                String id = validID.idUni("Введіть ID викладача: ", new UniqueData() {
+                String id = validID.idMustExist("Введіть ID викладача: ", new UniqueData() {
                     @Override
                     public boolean dubl(String id) {
                         return teacherService.search().existsById(id);

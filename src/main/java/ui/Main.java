@@ -60,21 +60,27 @@ public class Main {
         SearchTeacher searchTeacher = new SearchTeacher(teacherService);
         SearchStudent searchStudent = new SearchStudent(studentService);
 
-        FacultyMenu facultyMenu = new FacultyMenu(facultyService);
+        FacultyMenu facultyMenu = new FacultyMenu(facultyService, teacherService);
 
         DepartmentMenu departmentMenu = new DepartmentMenu(
                 departmentService,
                 facultyService,
                 teacherService.crud().getRepository(),
-                facultyService.crud().getRepository());
+                facultyService.crud().getRepository(),
+                teacherService
+                );
 
         StudentMenu studentMenu = new StudentMenu(
                 studentService,
-                searchStudent);
+                searchStudent,
+                departmentService
+                );
 
         TeacherMenu teacherMenu = new TeacherMenu(
                 teacherService,
-                searchTeacher);
+                searchTeacher,
+                departmentService
+        );
 
         AdminMenu adminMenu=new AdminMenu(usersService);
         MainMenu mainMenu = new MainMenu(studentMenu, teacherMenu, departmentMenu, facultyMenu, adminMenu);

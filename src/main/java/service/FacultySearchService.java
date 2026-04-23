@@ -8,6 +8,9 @@ import java.util.Optional;
 
 public class FacultySearchService {
     private FacultyRepository facultyRepository ;
+    public boolean existsById(String id) {
+        return facultyRepository.findById(id).isPresent();
+    }
 
     public void showAllFaculties() {
         facultyRepository.findAll().stream()
