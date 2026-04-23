@@ -7,7 +7,7 @@ import service.UsersService;
 public class Authentication {
 //    who is the user
     private static Authentication instance;
-    private final UsersService usersService = new UsersService();
+    private UsersService usersService;
     private Users currentUser;
     private Authentication() {
     }
@@ -47,5 +47,9 @@ public class Authentication {
 
     public Users checkCurrentUser(){
         return currentUser;
+    }
+
+    public void setUsersService(UsersService usersService) {
+        this.usersService = usersService;
     }
 }

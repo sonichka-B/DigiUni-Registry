@@ -3,7 +3,9 @@ package ui;
 import domain.Faculty;
 import domain.Role;
 import domain.Teacher;
+import domain.Users;
 import lombok.SneakyThrows;
+import security.Authentication;
 import security.Authorization;
 import security.RoleAnotation;
 import service.*;
@@ -29,37 +31,49 @@ public class FacultyMenu extends BaseMenu{
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Додати факультет");
-        System.out.println("2. Редагувати інформацію про факультет");
-        System.out.println("3. Видалити факультет");
-        System.out.println("4. Показати всі факультети");
+        System.out.println("1. Показати всі факультети");
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            System.out.println("2. Додати факультет");
+            System.out.println("3. Редагувати інформацію про факультет");
+            System.out.println("4. Видалити факультет");
+        }
         System.out.println("0. Назад");
     }
 
     @Override
     protected int getMaxOption() {
-        return 4;
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            return 4;
+        }
+        else {
+            return 1;
+        }
     }
 
     @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
-            case 1:
+            case 2:
+                facultyService.search().showAllFaculties();
                 Method addMethod = this.getClass().getDeclaredMethod("addFaculty");
                 if (Authorization.access(addMethod)) {
                     addFaculty();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 2:
+            case 3:
+                facultyService.search().showAllFaculties();
                 Method editMethod = this.getClass().getDeclaredMethod("editFaculty");
                 if (Authorization.access(editMethod)) {
                     editFaculty();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 3:
+            case 4:
+                facultyService.search().showAllFaculties();
                 Method deleteMethod = this.getClass().getDeclaredMethod("deleteFaculty");
                 if (Authorization.access(deleteMethod)) {
                     deleteFaculty();
@@ -67,9 +81,8 @@ public class FacultyMenu extends BaseMenu{
                 validation.waitZeroToExit();
                 break;
 
-            case 4:
+            case 1:
                 System.out.println("--- Список факультетів ---");
-//                facultySearchService.showAllFaculties();
                 facultyService.search().showAllFaculties();
                 validation.waitZeroToExit();
                 break;

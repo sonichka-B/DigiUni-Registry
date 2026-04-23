@@ -1,11 +1,9 @@
 package ui;
 
-import domain.Department;
-import domain.Faculty;
-import domain.Role;
-import domain.Teacher;
+import domain.*;
 import lombok.SneakyThrows;
 import repository.TeacherRepository;
+import security.Authentication;
 import security.Authorization;
 import security.RoleAnotation;
 import service.*;
@@ -34,46 +32,57 @@ public class DepartmentMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Додати кафедру");
-        System.out.println("2. Редагувати інформацію про кафедру");
-        System.out.println("3. Видалити кафедру");
-        System.out.println("4. Показати всі кафедри");
+        System.out.println("1. Показати всі кафедри");
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            System.out.println("2. Додати кафедру");
+            System.out.println("3. Редагувати інформацію про кафедру");
+            System.out.println("4. Видалити кафедру");
+        }
         System.out.println("0. Назад");
     }
 
     @Override
     protected int getMaxOption() {
-        return 4;
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            return 4;
+        }
+        else{
+            return 1;
+        }
     }
 
     @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
-            case 1:
+            case 2:
+                departmentService.search().showAllDepartments();
                 Method addMethod = this.getClass().getDeclaredMethod("addDepartment");
                 if (Authorization.access(addMethod)) {
                     addDepartment();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 2:
+            case 3:
+                departmentService.search().showAllDepartments();
                 Method editMethod = this.getClass().getDeclaredMethod("editDepartment");
                 if (Authorization.access(editMethod)) {
                     editDepartment();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 3:
+            case 4:
+                departmentService.search().showAllDepartments();
                 Method deleteMethod = this.getClass().getDeclaredMethod("deleteDepartment");
                 if (Authorization.access(deleteMethod)) {
                     deleteDepartment();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 4:
+            case 1:
                 System.out.println("--- Список кафедр ---");
-//                departmentSearchService.showAllDepartments();
                 departmentService.search().showAllDepartments();
                 validation.waitZeroToExit();
                 break;

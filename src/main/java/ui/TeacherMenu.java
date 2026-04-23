@@ -3,7 +3,9 @@ package ui;
 import domain.Department;
 import domain.Role;
 import domain.Teacher;
+import domain.Users;
 import lombok.SneakyThrows;
+import security.Authentication;
 import security.Authorization;
 import security.RoleAnotation;
 import service.*;
@@ -21,11 +23,14 @@ public class TeacherMenu extends BaseMenu {
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
     private ReadEmail readEmail = new ReadEmail();
     private ValidLocalDate validLocalDate = new ValidLocalDate();
+    private DepartmentService departmentService;
+    private ValidID validID = new ValidID();
 
 
     public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher) {
         this.teacherService = teacherService;
         this.searchTeacher=searchTeacher;
+        this.departmentService = departmentService;
     }
     @Override
     protected void printTitle() {
@@ -34,61 +39,71 @@ public class TeacherMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Додати викладача");
-        System.out.println("2. Редагувати інформацію про викладача");
-        System.out.println("3. Видалити викладача");
-        System.out.println("4. Вивести всіх викладачів");
-        System.out.println("5. Вивести всіх викладачів, відсортованих за алфавітом в межах факультету");
-        System.out.println("6. Вивести всіх викладачів, відсортованих за алфавітом в межах кафедри");
-        System.out.println("7. Скористатися пошуком, щоб знайти викладача за ПІБ");
+        System.out.println("1. Скористатися пошуком, щоб знайти викладача за ПІБ");
+        System.out.println("2. Вивести всіх викладачів");
+        System.out.println("3. Вивести всіх викладачів, відсортованих за алфавітом в межах факультету");
+        System.out.println("4. Вивести всіх викладачів, відсортованих за алфавітом в межах кафедри");
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            System.out.println("5. Додати викладача");
+            System.out.println("6. Редагувати інформацію про викладача");
+            System.out.println("7. Видалити викладача");
+        }
         System.out.println("0. Повернутися назад");
     }
 //доробити
     @Override
     protected int getMaxOption() {
-        return 7;
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            return 7;
+        }
+        else{
+            return 4;
+        }
     }
 
     @SneakyThrows
     @Override
     protected void handleChoice(int choice) {
         switch (choice) {
-            case 1:
+            case 5:
+                teacherService.search().showAllTeachers();
                 Method addMethod = this.getClass().getDeclaredMethod("addTeacher");
                 if (Authorization.access(addMethod)) {
                     addTeacher();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 2:
+            case 6:
+                teacherService.search().showAllTeachers();
                 Method editMethod = this.getClass().getDeclaredMethod("editTeacher");
                 if (Authorization.access(editMethod)) {
                     editTeacher();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 3:
+            case 7:
+                teacherService.search().showAllTeachers();
                 Method deleteMethod = this.getClass().getDeclaredMethod("deleteTeacher");
                 if (Authorization.access(deleteMethod)) {
                     deleteTeacher();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 4:
-//                teacherSearchService.showAllTeachers();
+            case 2:
                 teacherService.search().showAllTeachers();
                 validation.waitZeroToExit();
                 break;
-            case 5:
+            case 3:
                 sortTeachersByAlphabetInFaculty();
                 validation.waitZeroToExit();
                 break;
-            case 6:
+            case 4:
                 sortTeachersByAlphabetInDepartment();
                 validation.waitZeroToExit();
                 break;
-            case 7:
-                //Пошук викладача за ПІБ
+            case 1:
                 searchTeacher.showMenu();
                 break;
 
@@ -97,10 +112,13 @@ public class TeacherMenu extends BaseMenu {
                 @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editTeacher() {
         System.out.println("--- Редагування інформації про викладача ---");
-        String id = validation.readNotEmptyString("Введіть ID викладача для редагування: ");
+        String id = validID.idUni("Введіть ID викладача: ", new UniqueData() {
+            @Override
+            public boolean dubl(String id) {
+                return teacherService.search().existsById(id);
+            }
+        });
         String pib = validation.readNotEmptyString("Введіть нове ПІБ викладача: ");
-//        String middleName = validation.readNotEmptyString("Введіть нове по-батькові викладача: ");
-//        String lastName = validation.readNotEmptyString("Введіть нове прізвище викладача: ");
         System.out.println("Оберіть нову посаду:");
         System.out.println("1-лаборант");
         System.out.println("2-асистент");
@@ -152,6 +170,7 @@ public class TeacherMenu extends BaseMenu {
         } else if (titleChoice == 3) {
             academicTitle = "старший дослідник";
         }
+        departmentService.search().showAllDepartments();
         String departmentName = validation.readNotEmptyString("Введіть нову кафедру викладача: ");
         try{
         //===================Запитати чи можна дописати пошук за назвою
@@ -165,7 +184,12 @@ public class TeacherMenu extends BaseMenu {
             @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addTeacher() {
         System.out.println("--- ДОДАТИ ВИКЛАДАЧА ---");
-        String id = validation.readNotEmptyString("ID викладача: ");
+                String id = validID.idUni("Введіть ID викладача: ", new UniqueData() {
+                    @Override
+                    public boolean dubl(String id) {
+                        return teacherService.search().existsById(id);
+                    }
+                });
         String pib = validation.readNotEmptyString("ПІБ: ");
 //        String firstName = validation.readNotEmptyString("Ім'я: ");
 //        String middleName = validation.readNotEmptyString("По-батькові: ");
@@ -223,6 +247,7 @@ public class TeacherMenu extends BaseMenu {
         } else if (titleChoice == 3) {
             title = "старший дослідник";
         }
+        departmentService.search().showAllDepartments();
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри до якої підв'язаний викладач: ");
         String dateOfEmployment = validation.readNotEmptyString("Дата прийняття на роботу: ");
         //Сонічка я не дуже розумію що таке rate тому залишила як є
@@ -244,9 +269,13 @@ public class TeacherMenu extends BaseMenu {
             @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void deleteTeacher() {
         System.out.println("--- ВИДАЛЕННЯ ВИКЛАДАЧА ---");
-        String id= validation.readNotEmptyString("Введіть ID викладача: ");
+                String id = validID.idUni("Введіть ID викладача: ", new UniqueData() {
+                    @Override
+                    public boolean dubl(String id) {
+                        return teacherService.search().existsById(id);
+                    }
+                });
         try{
-//            teacherCRUDService.deleteTeacher(id);
             teacherService.crud().deleteTeacher(id);
         System.out.println("Команду виконано (викладача видалено, якщо він існував)");
          }catch (Exception e){

@@ -8,6 +8,7 @@ import repository.TeacherRepository;
 import repository.storage.Data;
 import repository.storage.JsonStorageManager;
 import repository.storage.UniversityStorage;
+import security.Authentication;
 import service.*;
 
 
@@ -31,9 +32,11 @@ public class Main {
         facultyService.setSharedTeacherRepository(sharedTeacherRepo);
         UsersService usersService = new UsersService();
 
-        usersService.addUser(new Users("admin", "admin123", Role.ADMIN));
-        usersService.addUser(new Users("manDasha", "manager123", Role.MANAGER));
-
+        usersService.addUser(new Users("admin", "admin12", Role.ADMIN));
+        usersService.addUser(new Users("Dasha", "567", Role.MANAGER));
+        usersService.addUser(new Users("Sofia", "123", Role.MANAGER));
+        usersService.addUser(new Users("Oleg", "user123", Role.USER));
+        Authentication.getInstance().setUsersService(usersService);
         JsonStorageManager storageManager = new JsonStorageManager();
         UniversityStorage data =  storageManager.loadData();
         if(data != null){

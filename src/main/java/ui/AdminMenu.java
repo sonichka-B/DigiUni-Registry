@@ -35,10 +35,12 @@ public class AdminMenu extends BaseMenu {
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
+                showAllUsers();
                 changeUserRole();
                 validation.waitZeroToExit();
                 break;
             case 2:
+                showAllUsers();
                 deleteUser();
                 validation.waitZeroToExit();
                 break;
@@ -61,7 +63,6 @@ public class AdminMenu extends BaseMenu {
         String username = validation.readNotEmptyString("");
         Users user = usersService.findUserByUsername(username);
         if (user == null) {
-            System.out.println("Користувача з таким логіном не знайдено.");
             return;
         }
         System.out.println("Поточна роль користувача: " + user.getRole());
@@ -90,7 +91,6 @@ public class AdminMenu extends BaseMenu {
         String username = validation.readNotEmptyString("");
         Users user = usersService.findUserByUsername(username);
         if (user == null) {
-            System.out.println("Користувача з таким логіном не знайдено.");
             return;
         }
         if (user.getUsername().equals(Authentication.getInstance().checkCurrentUser().getUsername())) {

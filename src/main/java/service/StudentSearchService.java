@@ -12,6 +12,9 @@ import java.util.Optional;
 public class StudentSearchService {
     private  StudentRepository studentRepository;
 
+    public boolean existsById(String id) {
+        return studentRepository.findById(id).isPresent();
+    }
     public void findStudentsByCourse(int course) {
         System.out.println("--- Звіт: Студенти " + course + " курсу ---");
         studentRepository.findByCourse(course).forEach(System.out::println);
@@ -75,3 +78,4 @@ public class StudentSearchService {
         this.studentRepository = repository;
     }
 }
+

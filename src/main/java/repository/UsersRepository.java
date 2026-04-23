@@ -10,7 +10,7 @@ import java.util.Optional;
 public class UsersRepository extends  Repository<Users>{
     @Override
     protected String getEntityId(Users entity) {
-        return "";
+        return entity.getUsername();
     }
 
     @Override

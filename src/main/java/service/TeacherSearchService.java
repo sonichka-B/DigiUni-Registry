@@ -7,7 +7,9 @@ import java.util.Optional;
 
 public class TeacherSearchService {
     private  TeacherRepository teacherRepository;
-
+    public boolean existsById(String id) {
+        return teacherRepository.findById(id).isPresent();
+    }
     public void showAllTeachers() {
         for (Teacher teacher : teacherRepository.findAll()) {
             System.out.println(teacher);

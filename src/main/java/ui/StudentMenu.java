@@ -1,10 +1,8 @@
 package ui;
 
-import domain.Department;
-import domain.Role;
-import domain.Student;
-import domain.Teacher;
+import domain.*;
 import lombok.SneakyThrows;
+import security.Authentication;
 import security.Authorization;
 import security.RoleAnotation;
 import service.*;
@@ -26,7 +24,8 @@ public class StudentMenu extends BaseMenu {
     private ValidLocalDate validLocalDate = new ValidLocalDate();
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
     private ReadEmail readEmail = new ReadEmail();
-
+    private ValidID validID = new ValidID();
+    private DepartmentService departmentService;
 
 
     public StudentMenu(StudentService studentService, SearchStudent searchStudent) {
@@ -45,22 +44,31 @@ public class StudentMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-        System.out.println("1. Додати студента");
-        System.out.println("2. Редагувати інформацію про студента");
-        System.out.println("3. Видалити студента");
-        System.out.println("4. Вивести всіх студентів, відсортованих за алфавітом в межах кафедри");
-        System.out.println("5. Вивести всіх студентів, відсортованих за алфавітом в межах факультету");
-        System.out.println("6. Вивести всіх студентів, відсортованих за курсами");
-        System.out.println("7. Вивести всіх студентів, відсортованих за курсом в межах кафедри");
-        System.out.println("8. Перевести в іншу групу студента");
-        System.out.println("9. Перевести на наступний курс");
-        System.out.println("10.Скористатися пошуком, щоб знайти студента");
+        System.out.println("1.Скористатися пошуком, щоб знайти студента");
+        System.out.println("2. Вивести всіх студентів, відсортованих за алфавітом в межах кафедри");
+        System.out.println("3. Вивести всіх студентів, відсортованих за алфавітом в межах факультету");
+        System.out.println("4. Вивести всіх студентів, відсортованих за курсами");
+        System.out.println("5. Вивести всіх студентів, відсортованих за курсом в межах кафедри");
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            System.out.println("6. Додати студента");
+            System.out.println("7. Редагувати інформацію про студента");
+            System.out.println("8. Видалити студента");
+            System.out.println("9. Перевести в іншу групу студента");
+            System.out.println("10. Перевести на наступний курс");
+        }
         System.out.println("0. Повернутися назад");
     }
 
     @Override
     protected int getMaxOption() {
-        return 10;
+        Users currentUser = Authentication.getInstance().checkCurrentUser();
+        if(currentUser!=null&&currentUser.getRole()==Role.ADMIN||currentUser.getRole()==Role.MANAGER) {
+            return 10;
+        }
+        else {
+            return 5;
+        }
     }
 
     @SneakyThrows
@@ -68,13 +76,35 @@ public class StudentMenu extends BaseMenu {
     protected void handleChoice(int choice) {
         switch (choice) {
             case 1:
+                searchStudent.showMenu();
+                break;
+            case 2:
+                sortStudentsByAlphabetInDepartment();
+                validation.waitZeroToExit();
+                break;
+            case 3:
+                sortStudentsByAlphabetInFaculty();
+                validation.waitZeroToExit();
+                break;
+
+            case 4:
+                studentService.sort().sortStudentsByCourse();
+                validation.waitZeroToExit();
+                break;
+            case 5:
+                sortStudentsByCourseInDepartment();
+                validation.waitZeroToExit();
+                break;
+            case 6:
+                studentService.sort().sortStudentsByCourse();
                 Method addMethod = this.getClass().getDeclaredMethod("addStudent");
                 if (Authorization.access(addMethod)) {
                     addStudent();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 2:
+            case 7:
+                studentService.sort().sortStudentsByCourse();
                 Method editMethod = this.getClass().getDeclaredMethod("editStudent");
                 if (Authorization.access(editMethod)) {
                     editStudent();
@@ -82,54 +112,41 @@ public class StudentMenu extends BaseMenu {
                 validation.waitZeroToExit();
                 break;
 
-            case 3:
+            case 8:
+                studentService.sort().sortStudentsByCourse();
                 Method deleteMethod = this.getClass().getDeclaredMethod("deleteStudent");
                 if (Authorization.access(deleteMethod)) {
                     deleteStudent();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 4:
-                sortStudentsByAlphabetInDepartment();
-                validation.waitZeroToExit();
-                break;
-            case 5:
-                sortStudentsByAlphabetInFaculty();
-                validation.waitZeroToExit();
-                break;
 
-            case 6:
-//                studentSortingService.sortStudentsByCourse();
-                studentService.sort().sortStudentsByCourse();
-                validation.waitZeroToExit();
-                break;
-            case 7:
-                sortStudentsByCourseInDepartment();
-                validation.waitZeroToExit();
-                break;
-            case 8:
+            case 9:
                 Method transferToAnotherGroupMethod = this.getClass().getDeclaredMethod("transferStudentToAnotherGroup");
                 if (Authorization.access(transferToAnotherGroupMethod)) {
                     transferStudentToAnotherGroup();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 9:
+            case 10:
                 Method transferToNextCourseMethod = this.getClass().getDeclaredMethod("transferStudentToNextCourse");
                 if (Authorization.access(transferToNextCourseMethod)) {
                     transferStudentToNextCourse();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 10:
-                searchStudent.showMenu();
-                break;
+
         }
     }
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editStudent() {
         System.out.println("--- Редагування інформації про студента ---");
-    String id= validation.readNotEmptyString("Введіть ID студента для редагування: ");
+        String id = validID.idUni("Введіть ID студента: ", new UniqueData() {
+            @Override
+            public boolean dubl(String id) {
+                return studentService.search().existsById(id);
+            }
+        });
     String pib = validation.readNotEmptyString("Введіть нове ПІБ студента: ");
 //    String middleName = validation.readNotEmptyString("Введіть нове по-батькові студента: ");
 //    String lastName = validation.readNotEmptyString("Введіть нове прізвище студента: ");
@@ -150,10 +167,10 @@ public class StudentMenu extends BaseMenu {
     }
     String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть новий номер телефону студента: ");
     String email = readEmail.isValidEmail("Введіть новий email студента: ");
+        departmentService.search().showAllDepartments();
     String departmentName = validation.readNotEmptyString("Введіть назву кафедри: ");
+
     try {
-        //МОЖНА ЗМІНИТИ І ШУКАТИ НЕ ЗА ІД
-//        boolean editStudent=studentCRUDService.editStudent(id, pib, course, departmentName,group, status, email, phoneNumber);
         boolean editStudent=studentService.crud().editStudent(id, pib, course, departmentName,group, status, email, phoneNumber);
         System.out.println("Інформацію про студента успішно оновлено.");
 
@@ -164,7 +181,12 @@ public class StudentMenu extends BaseMenu {
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void addStudent() {
         System.out.println("--- ДОДАТИ СТУДЕНТА ---");
-        String id = validation.readNotEmptyString("Введіть ID студента: ");
+        String id = validID.idUni("Введіть ID студента: ", new UniqueData() {
+            @Override
+            public boolean dubl(String id) {
+                return studentService.search().existsById(id);
+            }
+        });
         String pib = validation.readNotEmptyString("Введіть ПІБ: ");
 //        String firstName = validation.readNotEmptyString("Введіть Ім'я: ");
 //        String middleName = validation.readNotEmptyString("Введіть По-батькові: ");
@@ -198,6 +220,7 @@ public class StudentMenu extends BaseMenu {
         LocalDate dateOfBirth = validLocalDate.readLocalDate("Введіть дату народження (формат: ДД.ММ.РРРР): ");
         String email = readEmail.isValidEmail("Введіть email: ");
         String phoneNumber = readPhoneNumber.isValidPhoneNumber("Введіть номер телефону: ");
+        departmentService.search().showAllDepartments();
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри: ");
         try {
             Department fakeD = new Department();
@@ -215,11 +238,15 @@ public class StudentMenu extends BaseMenu {
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void deleteStudent() {
         System.out.println("--- ВИДАЛЕННЯ СТУДЕНТА ---");
-        String id= validation.readNotEmptyString("Введіть ID студента для видалення: ");
+        String id = validID.idUni("Введіть ID студента: ", new UniqueData() {
+            @Override
+            public boolean dubl(String id) {
+                return studentService.search().existsById(id);
+            }
+        });
         try{
-        //studentCRUDService.deleteStudent(id);
             studentService.crud().deleteStudent(id);
-        System.out.println("Команду виконано (студента видалено, якщо він існував)");
+        System.out.println("Студента видалено.");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());
         }
