@@ -86,12 +86,6 @@ public class TeacherCRUDService {
         if (pib!=null&&!pib.trim().isEmpty()){
             teacher.setPIB(pib);
         }
-//        if (lastName!=null&&!lastName.trim().isEmpty()){
-//            teacher.setLastName(lastName);
-//        }
-//        if (middleName!=null&&!middleName.trim().isEmpty()){
-//            teacher.setMiddleName(middleName);
-//        }
         if (department != null && !department.trim().isEmpty()) {
             Department foundDepartment=departmentRepository.findByName(department)
                     .orElseThrow(() -> new NotFoundNameException("Кафедри", department));

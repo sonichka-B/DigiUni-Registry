@@ -18,8 +18,8 @@ import security.RoleAnotation;
 import java.util.Optional;
 
 import static validation.ValidNotEmptyBlankForService.validateNotEmpty;
-
 @RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
+
 public class DepartmentCRUDService {
     private final DepartmentRepository departmentRepository = new DepartmentRepository();
     private FacultyRepository facultyRepository;
@@ -34,14 +34,11 @@ public class DepartmentCRUDService {
         this.facultyRepository = facultyRepository;
         this.teacherRepository = teacherRepository;
     }
-
     public void addDepartment(Department department){
         if (department == null) {
-            log.warn("Спроба додати кафедру: передано null");
             throw new IncorrectDataException("Кафедри не може бути null");
         }
         if(departmentRepository.findById(department.getId()).isPresent()){
-            log.warn("Кафедра з ID='{}' вже існує", department.getId());
             throw new IdAlreadyPresentException("Кафедра", department.getId());
         }
 
@@ -51,20 +48,21 @@ public class DepartmentCRUDService {
         validateNotEmpty(department.getHead().getPIB(),"Ім'я завідувача кафедри");
 
         Faculty real = facultyRepository.findById(department.getFaculty().getId())
-                .orElseThrow(() -> new NotFoundIDException("Факультет ", department.getFaculty().getId()));
+                    .orElseThrow(() -> new NotFoundIDException("Факультет ", department.getFaculty().getId()));
         department.setFaculty(real);
-
-        String head = department.getHead().getPIB();
-        if(head != null && !head.trim().isEmpty()) {
-            Teacher realT = teacherRepository.findByName(department.getHead().getPIB())
-                    .orElseThrow(() -> new NotFoundNameException("Завідувача", department.getHead().getPIB()));
-            department.setHead(realT);
+        if(department.getHead()!=null){
+            String head=department.getHead().getPIB();
+            if(head!=null && !head.trim().isEmpty()) {
+                Teacher realT = teacherRepository.findByName(department.getHead().getPIB())
+                        .orElseThrow(() -> new NotFoundNameException("Завідувача", department.getHead().getPIB()));
+                department.setHead(realT);
+            }else {
+                throw new NotFoundNameException("Завідувача з таким ПІБ немає",  department.getHead().getPIB());
+            }
         }
-
         departmentRepository.add(department);
         log.info("Створено нову кафедру: ID={}, Назва={}", department.getId(), department.getName());
     }
-
     public boolean deleteDepartment(String id){
         Optional<Department> department = departmentRepository.findById(id);
         if (department.isPresent()) {
@@ -75,8 +73,7 @@ public class DepartmentCRUDService {
         log.warn("Спроба видалення: Кафедру з ID='{}' не знайдено", id);
         throw new IncorrectDataException("кафедри з таким id немає");
     }
-
-    public boolean editDepartment(String id, String newHeadName, String newLocation) {
+    public boolean editDepartment(String id, String newHeadName,String newLocation) {
         Optional<Department> oDepartment = departmentRepository.findById(id);
         if (oDepartment.isEmpty()) {
             log.warn("Спроба редагування: Кафедру з ID='{}' не знайдено", id);
@@ -94,4 +91,5 @@ public class DepartmentCRUDService {
         log.info("Дані кафедри з ID='{}' відредаговано", id);
         return true;
     }
+
 }

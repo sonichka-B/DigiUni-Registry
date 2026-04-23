@@ -49,10 +49,6 @@ public class StudentCRUDService {
                 throw new IncorrectDataException("Помилка: Номер групи повинен бути позитивним числом");
 
             }
-//            if(student.getStatus() == null || (!student.getStatus().equals("навчається") && !student.getStatus().equals("відрахований") && !student.getStatus().equals("академічна відпустка"))){
-//                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
-//
-//            }
             if(student.getDepartment() == null || student.getDepartment().getName().trim().isEmpty()){
                 throw new IncorrectDataException("Помилка: Студент повинен бути прив'язаний до кафедри");
             }if(departmentRepository!= null) {
@@ -110,16 +106,8 @@ public class StudentCRUDService {
         if (pib!=null&&!pib.trim().isEmpty()){
             student.setPIB(pib);
         }
-//        if (lastName!=null&&!lastName.trim().isEmpty()){
-//            student.setLastName(lastName);
-//        }
-//        if (middleName!=null&&!middleName.trim().isEmpty()){
-//            student.setMiddleName(middleName);
-//        }
+
         if(status!=null&&!status.trim().isEmpty()){
-//            if(!status.equals("навчається") && !status.equals("відрахований") && !status.equals("академічна відпустка")){
-//                throw new IncorrectDataException("Помилка: Статус повинен бути 'навчається', 'відрахований' або 'академічна відпустка'");
-//            }
             student.setStatus(status);
         }
         if(course>0&&course<7){
@@ -156,6 +144,9 @@ public class StudentCRUDService {
         }
 
     public void transferToNewCourse(String id, int newCourse) {
+        if(newCourse>6 || newCourse<1){
+            throw new IncorrectDataException("Неправильний номер курсу (1-6)");
+        }
         Student student = studentRepository.findById(id)
         .orElseThrow(() -> new NotFoundIDException("Студента", id));
         student.setCourse(newCourse);
@@ -163,6 +154,9 @@ public class StudentCRUDService {
     }
 
     public void transferToNewGroup(String id, int newGroup) {
+        if(newGroup>6 || newGroup<1){
+            throw new IncorrectDataException("Неправильний номер групи (1-6)");
+        }
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundIDException("Студента", id));
         student.setGroup(newGroup);
