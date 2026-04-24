@@ -52,8 +52,8 @@ public class StudentSortingService {
                         student.getCourse(),  new DepartmentDTO(student.getDepartment().getName()), student.getGroup(), student.getEmail()))
                 .toList();
         if (result.isEmpty()) {
-            throw new IncorrectDataException("Студентів не знайдено.");
             log.warn("Студентів не знайдено.");
+            throw new IncorrectDataException("Студентів не знайдено.");
         } else {
             result.forEach(System.out::println);
         }
