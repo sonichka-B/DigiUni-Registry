@@ -76,13 +76,15 @@ public class Main {
         StudentMenu studentMenu = new StudentMenu(
                 studentService,
                 searchStudent,
-                departmentService
+                departmentService,
+                facultyService
                 );
 
         TeacherMenu teacherMenu = new TeacherMenu(
                 teacherService,
                 searchTeacher,
-                departmentService
+                departmentService,
+                facultyService
         );
 
         AdminMenu adminMenu=new AdminMenu(usersService);

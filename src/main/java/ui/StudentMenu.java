@@ -12,7 +12,7 @@ import validation.*;
 
 import java.lang.reflect.Method;
 import java.time.LocalDate;
-
+//DONE
 public class StudentMenu extends BaseMenu {
     private StudentService studentService;
     private SearchStudent searchStudent;
@@ -24,11 +24,13 @@ public class StudentMenu extends BaseMenu {
     private DepartmentService departmentService;
     private ValidName validName = new ValidName();
     private ValidPIB validPIB = new ValidPIB();
+    private FacultyService facultyService;
 
-    public StudentMenu(StudentService studentService, SearchStudent searchStudent, DepartmentService departmentService) {
+    public StudentMenu(StudentService studentService, SearchStudent searchStudent, DepartmentService departmentService, FacultyService facultyService) {
         this.studentService = studentService;
         this.searchStudent = searchStudent;
         this.departmentService = departmentService;
+        this.facultyService = facultyService;
     }
 
     @Override
@@ -38,18 +40,20 @@ public class StudentMenu extends BaseMenu {
 
     @Override
     protected void printOptions() {
-        System.out.println("1.Скористатися пошуком, щоб знайти студента");
-        System.out.println("2. Вивести всіх студентів, відсортованих за алфавітом в межах кафедри");
-        System.out.println("3. Вивести всіх студентів, відсортованих за алфавітом в межах факультету");
-        System.out.println("4. Вивести всіх студентів, відсортованих за курсами");
-        System.out.println("5. Вивести всіх студентів, відсортованих за курсом в межах кафедри");
+        System.out.println("1. Скористатися пошуком, щоб знайти студента");
+        System.out.println("2. Вивести всіх студентів");
+        System.out.println("3. Вивести всіх студентів, відсортованих за алфавітом в межах кафедри");
+        System.out.println("4. Вивести всіх студентів, відсортованих за алфавітом в межах факультету");
+        System.out.println("5. Вивести всіх студентів, відсортованих за курсами");
+        System.out.println("6. Вивести всіх студентів, відсортованих за курсами в межах кафедри");
         Users currentUser = Authentication.getInstance().checkCurrentUser();
         if (currentUser != null && currentUser.getRole() == Role.ADMIN || currentUser.getRole() == Role.MANAGER) {
-            System.out.println("6. Додати студента");
-            System.out.println("7. Редагувати інформацію про студента");
-            System.out.println("8. Видалити студента");
-            System.out.println("9. Перевести в іншу групу студента");
-            System.out.println("10. Перевести на наступний курс");
+            System.out.println("7. Додати студента");
+            System.out.println("8. Редагувати інформацію про студента");
+            System.out.println("9. Видалити студента");
+            System.out.println("10. Перевести в іншу групу студента");
+            System.out.println("11. Перевести на наступний курс");
+            System.out.println("12. Перевести на іншу кафедру");
         }
         System.out.println("0. Повернутися назад");
     }
@@ -58,9 +62,9 @@ public class StudentMenu extends BaseMenu {
     protected int getMaxOption() {
         Users currentUser = Authentication.getInstance().checkCurrentUser();
         if (currentUser != null && currentUser.getRole() == Role.ADMIN || currentUser.getRole() == Role.MANAGER) {
-            return 10;
+            return 12;
         } else {
-            return 5;
+            return 6;
         }
     }
 
@@ -72,22 +76,26 @@ public class StudentMenu extends BaseMenu {
                 searchStudent.showMenu();
                 break;
             case 2:
-                sortStudentsByAlphabetInDepartment();
+                studentService.search().showAllStudents();
                 validation.waitZeroToExit();
                 break;
             case 3:
-                sortStudentsByAlphabetInFaculty();
+                sortStudentsByAlphabetInDepartment();
                 validation.waitZeroToExit();
                 break;
             case 4:
-                studentService.sort().sortStudentsByCourse();
+                sortStudentsByAlphabetInFaculty();
                 validation.waitZeroToExit();
                 break;
             case 5:
-                sortStudentsByCourseInDepartment();
+                studentService.sort().sortStudentsByCourse();
                 validation.waitZeroToExit();
                 break;
             case 6:
+                sortStudentsByCourseInDepartment();
+                validation.waitZeroToExit();
+                break;
+            case 7:
                 studentService.sort().sortStudentsByCourse();
                 Method addMethod = this.getClass().getDeclaredMethod("addStudent");
                 if (Authorization.access(addMethod)) {
@@ -95,7 +103,7 @@ public class StudentMenu extends BaseMenu {
                 }
                 validation.waitZeroToExit();
                 break;
-            case 7:
+            case 8:
                 studentService.sort().sortStudentsByCourse();
                 Method editMethod = this.getClass().getDeclaredMethod("editStudent");
                 if (Authorization.access(editMethod)) {
@@ -103,7 +111,7 @@ public class StudentMenu extends BaseMenu {
                 }
                 validation.waitZeroToExit();
                 break;
-            case 8:
+            case 9:
                 studentService.sort().sortStudentsByCourse();
                 Method deleteMethod = this.getClass().getDeclaredMethod("deleteStudent");
                 if (Authorization.access(deleteMethod)) {
@@ -111,17 +119,27 @@ public class StudentMenu extends BaseMenu {
                 }
                 validation.waitZeroToExit();
                 break;
-            case 9:
+            case 10:
+                studentService.sort().sortStudentsByCourse();
                 Method transferToAnotherGroupMethod = this.getClass().getDeclaredMethod("transferStudentToAnotherGroup");
                 if (Authorization.access(transferToAnotherGroupMethod)) {
                     transferStudentToAnotherGroup();
                 }
                 validation.waitZeroToExit();
                 break;
-            case 10:
+            case 11:
+                studentService.sort().sortStudentsByCourse();
                 Method transferToNextCourseMethod = this.getClass().getDeclaredMethod("transferStudentToNextCourse");
                 if (Authorization.access(transferToNextCourseMethod)) {
                     transferStudentToNextCourse();
+                }
+                validation.waitZeroToExit();
+                break;
+            case 12:
+                studentService.sort().sortStudentsByCourse();
+                Method transferToAnotherDepartmentMethod = this.getClass().getDeclaredMethod("transferStudentToAnotherDepartment");
+                if (Authorization.access(transferToAnotherDepartmentMethod)) {
+                    transferStudentToAnotherDepartment();
                 }
                 validation.waitZeroToExit();
                 break;
@@ -130,7 +148,7 @@ public class StudentMenu extends BaseMenu {
 
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editStudent() {
-        System.out.println("--- Редагування інформації про студента ---");
+        System.out.println("--- РЕДАГУВАННЯ ІНФОРМАЦІЇ ПРО СТУДЕНТА ---");
         String id = validID.idMustExist("Введіть ID студента: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {
@@ -253,22 +271,44 @@ public class StudentMenu extends BaseMenu {
     }
 
     private void sortStudentsByAlphabetInFaculty() {
-        String facultyName = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
+        facultyService.search().showAllFaculties();
+        System.out.println("---СТУДЕНТИ, ВІДСОРТОВАНІ ЗА АЛФАВІТОМ В МЕЖАХ ФАКУЛЬТЕТУ---");
+        String facultyName = validName.nameMustExist("Введіть назву факультету для сортування: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return facultyService.search().existsByName(input);
+            }
+        });
         studentService.sort().sortStudentsByAlphabetInFaculty(facultyName);
     }
 
     private void sortStudentsByAlphabetInDepartment() {
-        String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
+        departmentService.search().showAllDepartments();
+        System.out.println("---СТУДЕНТИ, ВІДСОРТОВАНІ ЗА АЛФАВІТОМ В МЕЖАХ КАФЕДРИ---");
+        String departmentName = validName.nameMustExist("Введіть назву кафедри для сортування: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return departmentService.search().existsByName(input);
+            }
+        });
         studentService.sort().sortStudentsByAlphabetInDepartment(departmentName);
     }
 
     private void sortStudentsByCourseInDepartment() {
-        String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
+        departmentService.search().showAllDepartments();
+        System.out.println("---СТУДЕНТИ, ВІДСОРТОВАНІ ЗА КУРСАМИ В МЕЖАХ КАФЕДРИ---");
+        String departmentName = validName.nameMustExist("Введіть назву кафедри для сортування: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return departmentService.search().existsByName(input);
+            }
+        });
         studentService.sort().sortStudentsByCourseInDepartment(departmentName);
     }
 
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToAnotherGroup() {
+        System.out.println("--- ПЕРЕВЕДЕННЯ СТУДЕНТА В ІНШУ ГРУПУ ---");
         String studentId = validID.idMustExist("Введіть ID студента для переведення: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {
@@ -283,9 +323,32 @@ public class StudentMenu extends BaseMenu {
             System.out.println("Помилка: " + e.getMessage());
         }
     }
-
+    @RoleAnotation(requireRole={Role.ADMIN, Role.MANAGER})
+    private void transferStudentToAnotherDepartment() {
+        System.out.println("--- ПЕРЕВЕДЕННЯ СТУДЕНТА НА ІНШУ КАФЕДРУ ---");
+        String studentId = validID.idMustExist("Введіть ID студента для переведення: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return studentService.search().existsById(input);
+            }
+        });
+        departmentService.search().showAllDepartments();
+        String newDepartmentName = validName.nameMustExist("Введіть назву нової кафедри для студента: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return departmentService.search().existsByName(input);
+            }
+        });
+        try {
+            studentService.crud().transferToNewDepartment(studentId, newDepartmentName);
+            System.out.println("Студента успішно переведено до нової кафедри.");
+        } catch (NotFoundIDException e) {
+            System.out.println("Помилка: " + e.getMessage());
+        }
+    }
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToNextCourse() {
+        System.out.println("--- ПЕРЕВЕДЕННЯ СТУДЕНТА НА НАСТУПНИЙ КУРС ---");
         String studentId = validID.idMustExist("Введіть ID студента для переведення на наступний курс: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {

@@ -17,9 +17,7 @@ import java.time.LocalDate;
 public class TeacherMenu extends BaseMenu {
     private TeacherService teacherService;
     private SearchTeacher searchTeacher;
-//    private TeacherSortingService teacherSortingService;
-//    private TeacherCRUDService teacherCRUDService;
-//    private TeacherSearchService teacherSearchService;
+private FacultyService facultyService;
     private ReadPhoneNumber readPhoneNumber = new ReadPhoneNumber();
     private ReadEmail readEmail = new ReadEmail();
     private ValidLocalDate validLocalDate = new ValidLocalDate();
@@ -28,10 +26,11 @@ public class TeacherMenu extends BaseMenu {
     private ValidName validName = new ValidName();
     private ValidPIB validPIB = new ValidPIB();
 
-    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher, DepartmentService departmentService) {
+    public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher, DepartmentService departmentService, FacultyService facultyService) {
         this.teacherService = teacherService;
         this.searchTeacher=searchTeacher;
         this.departmentService = departmentService;
+        this.facultyService = facultyService;
     }
     @Override
     protected void printTitle() {
@@ -112,7 +111,7 @@ public class TeacherMenu extends BaseMenu {
     }
                 @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void editTeacher() {
-        System.out.println("--- Редагування інформації про викладача ---");
+        System.out.println("--- РЕДАГУВАННЯ ІНФОРМАЦІЇ ПРО ВИКЛАДАЧА ---");
         String id = validID.idMustExist("Введіть ID викладача: ", new UniqueData() {
             @Override
             public boolean dubl(String id) {
@@ -270,7 +269,6 @@ public class TeacherMenu extends BaseMenu {
                         Teacher newTeacher = new Teacher(id, pib, fakeDepartment, position,
                                 degree, title, dateOfEmployment, rate, dateOfBirth,
                                 email, phoneNumber);
-//            teacherCRUDService.addTeacher(newTeacher);
                         teacherService.crud().addTeacher(newTeacher);
                         System.out.println("Викладача додано");
 
@@ -295,14 +293,26 @@ public class TeacherMenu extends BaseMenu {
     }
 
     private void sortTeachersByAlphabetInFaculty(){
-        String faculty = validation.readNotEmptyString("Введіть назву факультету для сортування: ");
-        //String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-//        teacherSortingService.sortTeachersByAlphabetInFaculty(faculty, department);
+        facultyService.search().showAllFaculties();
+        System.out.println("--- СОРТУВАННЯ ВИКЛАДАЧІВ ЗА АЛФАВІТОМ В МЕЖАХ ФАКУЛЬТЕТУ ---");
+        String faculty = validName.nameMustExist("Введіть назву факультету для сортування: ",  new UniqueData() {
+            @Override
+            public boolean dubl(String id) {
+                return facultyService.search().existsByName(id);
+            }
+        });
+
         teacherService.sorting().sortTeachersByAlphabetInFaculty(faculty);
     }
     private void sortTeachersByAlphabetInDepartment(){
-        String department = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-//        teacherSortingService.sortTeachersByAlphabetInDepartment(department);
+        departmentService.search().showAllDepartments();
+        System.out.println("--- СОРТУВАННЯ ВИКЛАДАЧІВ ЗА АЛФАВІТОМ В МЕЖАХ КАФЕДРИ ---");
+        String department = validName.nameMustExist("Введіть назву кафедри для сортування: ",  new UniqueData() {
+            @Override
+            public boolean dubl(String id) {
+                return departmentService.search().existsByName(id);
+            }
+        });
         teacherService.sorting().sortTeachersByAlphabetInDepartment(department);
     }
 }

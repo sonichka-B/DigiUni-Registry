@@ -14,6 +14,9 @@ public class FacultySearchService {
     public boolean existsById(String id) {
         return facultyRepository.findById(id).isPresent();
     }
+    public boolean existsByName(String name) {
+        return facultyRepository.findByName(name).isPresent();
+    }
 
     public void showAllFaculties() {
         facultyRepository.findAll().stream()

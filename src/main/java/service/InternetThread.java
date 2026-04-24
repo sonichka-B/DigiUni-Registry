@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class InternetThread extends Thread {
+    public InternetThread() {
+        this.setDaemon(true);
+    }
    public void run(){
        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
        while (true) {

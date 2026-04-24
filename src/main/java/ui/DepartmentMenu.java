@@ -104,7 +104,12 @@ public class DepartmentMenu extends BaseMenu {
                 return departmentService.search().existsById(id);
             }
         });
-        String name = validation.readNotEmptyString("Назва кафедри: ");
+        String name = validName.nameUni("Назва кафедри: ",  new UniqueData() {
+            @Override
+            public boolean dubl(String name) {
+                return departmentService.search().existsByName(name);
+            }
+        });
         facultyService.search().showAllFaculties();
         System.out.println("Виберіть факультет для кафедри зі списку факультетів (введіть ID): ");
         String idFaculty = validID.idMustExist("Введіть ID факультету: ", new UniqueData() {
@@ -123,9 +128,8 @@ public class DepartmentMenu extends BaseMenu {
             }
         });
         String location = validation.readNotEmptyString("Розташування кафедри: ");
-        ////String id, String name, String faculty, String head, String location
+
         try {
-//            departmentCRUDService.addDepartment(new Department(id, name, idFaculty, idHead, location));
             Faculty fakeF = new Faculty();
             fakeF.setId(idFaculty);
 
@@ -157,11 +161,11 @@ public class DepartmentMenu extends BaseMenu {
             }
         });
             try {
-//                boolean success = departmentCRUDService.editDepartment(idDepartment, newHeadName, newLocation);
+
                 boolean success = departmentService.crud().editDepartment(id, newHeadName, newLocation);
                 if (success) {
                     System.out.println(" Інформацію про кафедру успішно оновлено.");
-                } else { /*можливо потрібно переробити*/
+                } else {
                     System.out.println(" Помилка: Кафедру з таким ID не знайдено.");
                 }
             } catch (Exception e) {
@@ -178,7 +182,7 @@ public class DepartmentMenu extends BaseMenu {
             }
         });
             try{
-//                departmentCRUDService.deleteDepartment(nameHead);
+
                 departmentService.crud().deleteDepartment(id);
         }catch (Exception e){
             System.out.println(" Помилка: " + e.getMessage());}

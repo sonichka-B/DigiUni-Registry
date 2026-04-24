@@ -100,8 +100,18 @@ public class FacultyMenu extends BaseMenu {
             }
         });
 
-        String name = validation.readNotEmptyString("Введіть назву факультету: ");
-        String shortName = validation.readNotEmptyString("Введіть коротку назву факультету: ");
+        String name = validName.nameUni("Введіть назву факультету: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return facultyService.search().existsByName(input);
+            }
+        });
+        String shortName = validName.nameUni("Введіть коротку назву факультету: ", new UniqueData() {
+            @Override
+            public boolean dubl(String input) {
+                return facultyService.search().existsByName(input);
+            }
+        });
 
         teacherService.search().showAllTeachers();
         System.out.println("Виберіть декана факультету зі списку вчителів (введіть ПІБ): ");
