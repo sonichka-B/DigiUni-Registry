@@ -26,6 +26,7 @@ public class TeacherMenu extends BaseMenu {
     private DepartmentService departmentService;
     private ValidID validID = new ValidID();
     private ValidName validName = new ValidName();
+    private ValidPIB validPIB = new ValidPIB();
 
     public TeacherMenu(TeacherService teacherService, SearchTeacher searchTeacher, DepartmentService departmentService) {
         this.teacherService = teacherService;
@@ -118,7 +119,7 @@ public class TeacherMenu extends BaseMenu {
                 return teacherService.search().existsById(id);
             }
         });
-        String pib = validation.readNotEmptyString("Введіть нове ПІБ викладача: ");
+        String pib = validPIB.validPIB("Введіть нове ПІБ викладача: ");
         System.out.println("Оберіть нову посаду:");
         System.out.println("1-лаборант");
         System.out.println("2-асистент");
@@ -196,7 +197,7 @@ public class TeacherMenu extends BaseMenu {
                         return teacherService.search().existsById(id);
                     }
                 });
-                String pib = validation.readNotEmptyString("ПІБ: ");
+                String pib = validPIB.validPIB("ПІБ: ");
 
                 LocalDate dateOfBirth = validLocalDate.readLocalDate("Введіть дату народження: ");
                 String email = readEmail.isValidEmail("Введіть email викладача: ");

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class ValidID implements UniqueData {
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private Validation validation = new Validation();
 
     public String idUni(String message,UniqueData uniqueData) {

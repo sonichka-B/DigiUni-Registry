@@ -23,6 +23,7 @@ public class StudentMenu extends BaseMenu {
     private ValidID validID = new ValidID();
     private DepartmentService departmentService;
     private ValidName validName = new ValidName();
+    private ValidPIB validPIB = new ValidPIB();
 
     public StudentMenu(StudentService studentService, SearchStudent searchStudent, DepartmentService departmentService) {
         this.studentService = studentService;
@@ -136,7 +137,7 @@ public class StudentMenu extends BaseMenu {
                 return studentService.search().existsById(input);
             }
         });
-        String pib = validation.readNotEmptyString("Введіть нове ПІБ студента: ");
+        String pib = validPIB.validPIB("Введіть нове ПІБ студента: ");
         int course = validation.readInt("Введіть новий курс студента: ", 1, 6);
         int group = validation.readInt("Введіть нову групу студента: ", 1, 6);
         System.out.println("Оберіть новий статус студента:");
@@ -180,7 +181,7 @@ public class StudentMenu extends BaseMenu {
                 return studentService.search().existsById(input);
             }
         });
-        String pib = validation.readNotEmptyString("Введіть ПІБ: ");
+        String pib = validPIB.validPIB("Введіть ПІБ: ");
         int course = validation.readInt("Введіть курс (1-6): ", 1, 6);
         int group = validation.readInt("Введіть групу (1-6): ", 1, 6);
         int yearOfAdmission = validation.readInt("Введіть рік вступу : ", 2015, 2025);

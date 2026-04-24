@@ -1,12 +1,14 @@
 package ui;
 import service.StudentSearchService;
 import service.StudentService;
+import validation.ValidPIB;
 import validation.Validation;
 
 public class SearchStudent extends BaseMenu{
         private Validation validation = new Validation();
 //        private StudentSearchService studentSearchService;
         StudentService studentService;
+        private ValidPIB validPIB = new ValidPIB();
 
         public SearchStudent(StudentService studentService) {
             this.studentService = studentService;
@@ -47,7 +49,7 @@ protected void printTitle() {
     }
         private void searchStudentByName() {
             System.out.println("Введіть ІМ'Я ПРІЗВИЩЕ ПО-БАТЬКОВІ:");
-            String fullName = validation.readNotEmptyString("(через пробіл)");
+            String fullName = validPIB.validPIB("(через пробіл)");
 //            studentSearchService.findStudentsByFullName(fullName);
             studentService.search().findStudentsByFullName(fullName);
         }

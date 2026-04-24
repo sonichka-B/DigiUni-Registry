@@ -2017,6 +2017,54 @@
     },
     "pib" : "Савченко Ірина Вікторівна"
   }, {
+    "id" : "vver",
+    "dateOfBirth" : "1212-12-12",
+    "email" : "eeve@efwf.df",
+    "phoneNumber" : "+380993670589",
+    "position" : "лаборант",
+    "academicDegree" : "кандидат наук",
+    "academicTitle" : "доцент",
+    "dateOfEmployment" : "1111-11-13",
+    "rate" : "1.1",
+    "department" : {
+      "id" : "D-103",
+      "name" : "Кафедра математики",
+      "faculty" : {
+        "id" : "F-1",
+        "name" : "Факультет інформатики",
+        "shortName" : "ФІ",
+        "dean" : {
+          "id" : null,
+          "dateOfBirth" : null,
+          "email" : null,
+          "phoneNumber" : null,
+          "position" : null,
+          "academicDegree" : null,
+          "academicTitle" : null,
+          "dateOfEmployment" : null,
+          "rate" : null,
+          "department" : null,
+          "pib" : "Глибовець Андрій Миколайович"
+        },
+        "phoneNumber" : "+380444256092"
+      },
+      "head" : {
+        "id" : null,
+        "dateOfBirth" : null,
+        "email" : null,
+        "phoneNumber" : null,
+        "position" : null,
+        "academicDegree" : null,
+        "academicTitle" : null,
+        "dateOfEmployment" : null,
+        "rate" : null,
+        "department" : null,
+        "pib" : "Іванов Олександр Володимирович"
+      },
+      "location" : "Корпус 3, ауд. 314"
+    },
+    "pib" : "rferer rgrtbrt tgrtrb"
+  }, {
     "id" : "T-04",
     "dateOfBirth" : "1990-11-02",
     "email" : "boyko@ukma.edu.ua",

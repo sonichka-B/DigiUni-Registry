@@ -17,6 +17,9 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
+        InternetThread internetThread = new InternetThread();
+        internetThread.start();
+
         StudentService studentService = new StudentService();
         TeacherService teacherService = new TeacherService();
         FacultyService facultyService = new FacultyService();
@@ -95,5 +98,6 @@ public class Main {
                 facultyService.crud().getRepository().findAll()
         );
         storageManager.saveData(finalStorage);
+
     }
 }
