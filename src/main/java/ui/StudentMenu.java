@@ -1,6 +1,7 @@
 package ui;
 
 import domain.*;
+import exceptions.IncorrectDataException;
 import lombok.SneakyThrows;
 import security.Authentication;
 import security.Authorization;
@@ -12,7 +13,7 @@ import validation.*;
 
 import java.lang.reflect.Method;
 import java.time.LocalDate;
-//DONE
+
 public class StudentMenu extends BaseMenu {
     private StudentService studentService;
     private SearchStudent searchStudent;
@@ -355,11 +356,10 @@ public class StudentMenu extends BaseMenu {
                 return studentService.search().existsById(input);
             }
         });
-        int currentCourse = validation.readInt("Введіть поточний курс студента: ", 1, 5);
-        int nextCourse = currentCourse + 1;
+        int currentCourse = validation.readInt("Введіть новий курс студента: ", 1, 5);
         try {
-            studentService.crud().transferToNewCourse(studentId, nextCourse);
-            System.out.println("Студента успішно переведено на наступний курс.");
+            studentService.crud().transferToNewCourse(studentId, currentCourse);
+            System.out.println("Студента успішно переведено на інший курс.");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());
         }
