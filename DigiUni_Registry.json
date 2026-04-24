@@ -916,7 +916,7 @@
     "dateOfBirth" : "2002-11-14",
     "email" : "stepanenko.t@student.ukma.edu.ua",
     "phoneNumber" : "+380991234528",
-    "course" : 5,
+    "course" : 6,
     "group" : 1,
     "yearOfAdmission" : 2020,
     "formOfEducation" : "бюджет",
@@ -2352,102 +2352,6 @@
       "location" : "Корпус 4, ауд. 415"
     },
     "pib" : "Пітцик Марія Володимирівна"
-  }, {
-    "id" : "T-10",
-    "dateOfBirth" : "1985-02-22",
-    "email" : "shevchenko@ukma.edu.ua",
-    "phoneNumber" : "+380671112210",
-    "position" : "старший викладач",
-    "academicDegree" : "кандидат наук",
-    "academicTitle" : "немає",
-    "dateOfEmployment" : "2015-09-01",
-    "rate" : "1.0",
-    "department" : {
-      "id" : "D-201",
-      "name" : "Кафедра фінансів",
-      "faculty" : {
-        "id" : "F-2",
-        "name" : "Факультет економічних наук",
-        "shortName" : "ФЕН",
-        "dean" : {
-          "id" : null,
-          "dateOfBirth" : null,
-          "email" : null,
-          "phoneNumber" : null,
-          "position" : null,
-          "academicDegree" : null,
-          "academicTitle" : null,
-          "dateOfEmployment" : null,
-          "rate" : null,
-          "department" : null,
-          "pib" : "Лук'яненко Ірина Григорівна"
-        },
-        "phoneNumber" : "+380444256042"
-      },
-      "head" : {
-        "id" : null,
-        "dateOfBirth" : null,
-        "email" : null,
-        "phoneNumber" : null,
-        "position" : null,
-        "academicDegree" : null,
-        "academicTitle" : null,
-        "dateOfEmployment" : null,
-        "rate" : null,
-        "department" : null,
-        "pib" : "Лук'яненко Ірина Григорівна"
-      },
-      "location" : "Корпус 4, ауд. 412"
-    },
-    "pib" : "Шевченко Юлія Олегівна"
-  }, {
-    "id" : "T-11",
-    "dateOfBirth" : "1978-10-11",
-    "email" : "yurhelevych@ukma.edu.ua",
-    "phoneNumber" : "+380671112211",
-    "position" : "доцент",
-    "academicDegree" : "кандидат наук",
-    "academicTitle" : "доцент",
-    "dateOfEmployment" : "2005-09-01",
-    "rate" : "1.0",
-    "department" : {
-      "id" : "D-202",
-      "name" : "Кафедра економічної теорії",
-      "faculty" : {
-        "id" : "F-2",
-        "name" : "Факультет економічних наук",
-        "shortName" : "ФЕН",
-        "dean" : {
-          "id" : null,
-          "dateOfBirth" : null,
-          "email" : null,
-          "phoneNumber" : null,
-          "position" : null,
-          "academicDegree" : null,
-          "academicTitle" : null,
-          "dateOfEmployment" : null,
-          "rate" : null,
-          "department" : null,
-          "pib" : "Лук'яненко Ірина Григорівна"
-        },
-        "phoneNumber" : "+380444256042"
-      },
-      "head" : {
-        "id" : null,
-        "dateOfBirth" : null,
-        "email" : null,
-        "phoneNumber" : null,
-        "position" : null,
-        "academicDegree" : null,
-        "academicTitle" : null,
-        "dateOfEmployment" : null,
-        "rate" : null,
-        "department" : null,
-        "pib" : "Юргелевич Сергій Володимирович"
-      },
-      "location" : "Корпус 4, ауд. 410"
-    },
-    "pib" : "Юргелевич Сергій Володимирович"
   } ],
   "departments" : [ {
     "id" : "D-103",

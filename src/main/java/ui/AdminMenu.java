@@ -63,6 +63,7 @@ public class AdminMenu extends BaseMenu {
         String username = validation.readNotEmptyString("");
         Users user = usersService.findUserByUsername(username);
         if (user == null) {
+            System.out.println("користувача не знайдено");
             return;
         }
         System.out.println("Поточна роль користувача: " + user.getRole());
@@ -91,6 +92,7 @@ public class AdminMenu extends BaseMenu {
         String username = validation.readNotEmptyString("");
         Users user = usersService.findUserByUsername(username);
         if (user == null) {
+            System.out.println("користувача не знайдено");
             return;
         }
         if (user.getUsername().equals(Authentication.getInstance().checkCurrentUser().getUsername())) {

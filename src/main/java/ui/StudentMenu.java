@@ -1,6 +1,7 @@
 package ui;
 
 import domain.*;
+import exceptions.IncorrectDataException;
 import lombok.SneakyThrows;
 import security.Authentication;
 import security.Authorization;
@@ -49,7 +50,7 @@ public class StudentMenu extends BaseMenu {
             System.out.println("7. Редагувати інформацію про студента");
             System.out.println("8. Видалити студента");
             System.out.println("9. Перевести в іншу групу студента");
-            System.out.println("10. Перевести на наступний курс");
+            System.out.println("10. Перевести на інший курс");
         }
         System.out.println("0. Повернутися назад");
     }
@@ -264,7 +265,11 @@ public class StudentMenu extends BaseMenu {
 
     private void sortStudentsByCourseInDepartment() {
         String departmentName = validation.readNotEmptyString("Введіть назву кафедри для сортування: ");
-        studentService.sort().sortStudentsByCourseInDepartment(departmentName);
+        try {
+            studentService.sort().sortStudentsByCourseInDepartment(departmentName);
+        }catch (IncorrectDataException e){
+            System.out.println("Помилка: " + e.getMessage());
+        }
     }
 
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
@@ -286,17 +291,16 @@ public class StudentMenu extends BaseMenu {
 
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToNextCourse() {
-        String studentId = validID.idMustExist("Введіть ID студента для переведення на наступний курс: ", new UniqueData() {
+        String studentId = validID.idMustExist("Введіть ID студента для переведення на інший курс: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {
                 return studentService.search().existsById(input);
             }
         });
-        int currentCourse = validation.readInt("Введіть поточний курс студента: ", 1, 5);
-        int nextCourse = currentCourse + 1;
+        int currentCourse = validation.readInt("Введіть новий курс студента: ", 1, 5);
         try {
-            studentService.crud().transferToNewCourse(studentId, nextCourse);
-            System.out.println("Студента успішно переведено на наступний курс.");
+            studentService.crud().transferToNewCourse(studentId, currentCourse);
+            System.out.println("Студента успішно переведено на інший курс.");
         } catch (NotFoundIDException e) {
             System.out.println("Помилка: " + e.getMessage());
         }

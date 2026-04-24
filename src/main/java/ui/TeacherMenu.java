@@ -183,7 +183,7 @@ public class TeacherMenu extends BaseMenu {
         //===================Запитати чи можна дописати пошук за назвою
 //        teacherCRUDService.editTeacher(id, position, academicDegree,  academicTitle,pib, fakeDepartment);
             teacherService.crud().editTeacher(id, position, academicDegree,  academicTitle,pib, departmentName);
-            System.out.println(" Інформацію про студента успішно оновлено.");
+            System.out.println(" Інформацію про викладача успішно оновлено.");
         } catch (Exception e) {
             System.out.println("Помилка при створенні: " + e.getMessage());
         }
