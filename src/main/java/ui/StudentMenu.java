@@ -53,7 +53,7 @@ public class StudentMenu extends BaseMenu {
             System.out.println("8. Редагувати інформацію про студента");
             System.out.println("9. Видалити студента");
             System.out.println("10. Перевести в іншу групу студента");
-            System.out.println("11. Перевести на наступний курс");
+            System.out.println("11. Перевести на інший курс");
             System.out.println("12. Перевести на іншу кафедру");
         }
         System.out.println("0. Повернутися назад");
@@ -77,6 +77,7 @@ public class StudentMenu extends BaseMenu {
                 searchStudent.showMenu();
                 break;
             case 2:
+                System.out.println("--- ВИВІД ВСІХ СТУДЕНТІВ ---");
                 studentService.search().showAllStudents();
                 validation.waitZeroToExit();
                 break;
@@ -349,14 +350,14 @@ public class StudentMenu extends BaseMenu {
     }
     @RoleAnotation(requireRole = {Role.ADMIN, Role.MANAGER})
     private void transferStudentToNextCourse() {
-        System.out.println("--- ПЕРЕВЕДЕННЯ СТУДЕНТА НА НАСТУПНИЙ КУРС ---");
-        String studentId = validID.idMustExist("Введіть ID студента для переведення на наступний курс: ", new UniqueData() {
+        System.out.println("--- ПЕРЕВЕДЕННЯ СТУДЕНТА НА ІНШИЙ КУРС ---");
+        String studentId = validID.idMustExist("Введіть ID студента для переведення на інший курс: ", new UniqueData() {
             @Override
             public boolean dubl(String input) {
                 return studentService.search().existsById(input);
             }
         });
-        int currentCourse = validation.readInt("Введіть новий курс студента: ", 1, 5);
+        int currentCourse = validation.readInt("Введіть новий курс студента: ", 1, 6);
         try {
             studentService.crud().transferToNewCourse(studentId, currentCourse);
             System.out.println("Студента успішно переведено на інший курс.");

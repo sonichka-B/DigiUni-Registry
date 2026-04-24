@@ -182,8 +182,8 @@ public class DepartmentMenu extends BaseMenu {
             }
         });
             try{
-
                 departmentService.crud().deleteDepartment(id);
+                System.out.println("Кафедру успішно видалено.");
         }catch (Exception e){
             System.out.println(" Помилка: " + e.getMessage());}
         }
